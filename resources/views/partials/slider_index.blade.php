@@ -1,4 +1,4 @@
-
+@if (isset($allSliderData))
     <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
         <ol class="carousel-indicators">
             @foreach($allSliderData as $key=>$slider_data)
@@ -31,3 +31,4 @@
         <a class="carousel-control left" href="#carousel" data-slide="prev"></a>
         <a class="carousel-control right" href="#carousel" data-slide="next"></a>
     </div>
+@endif

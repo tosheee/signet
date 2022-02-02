@@ -24,7 +24,7 @@
             @endif
         @endif
 
-        <base href="https://thebag.bg/" />
+        <base href="{{Request::getHost()}}" />
         <meta name="description" content="Дамски и мъжки чанти, куфари, портмонета, сакове. Пазарувай онлайн!" />
         <meta name="keywords" content="чанти, 4анти, chanti, дамски, мъжки, портмонета, раници, куфари, сакове, цени,  damski, оферти отстъпки, намеления, евтини." />
         <meta charset="utf-8">

@@ -13,51 +13,55 @@ class CategoryTableSeeder extends Seeder
     public function run()
     {
         $category = new Category();
-        $category->name = "Стайни растения";
+        $category->name = "Фланелки";
         $category->save();
 
         $category = new Category();
-        $category->name = "Градински растения";
+        $category->name = "Калъфи за телефони";
         $category->save();
 
         $category = new Category();
-        $category->name = "Балконски растения";
+        $category->name = "Падове за мишки";
         $category->save();
 
         $category = new Category();
-        $category->name = "Дървета и храсти";
+        $category->name = "Чаши";
         $category->save();
 
         $category = new Category();
-        $category->name = "Орхидеи";
+        $category->name = "Чиний";
         $category->save();
 
         $category = new Category();
-        $category->name = "Рози";
+        $category->name = "Магнити";
         $category->save();
 
         $category = new Category();
-        $category->name = "Семена";
+        $category->name = "Пъзели";
         $category->save();
 
         $category = new Category();
-        $category->name = "Саксии и Кашпи";
+        $category->name = "Рамки";
         $category->save();
 
         $category = new Category();
-        $category->name = "Торове";
+        $category->name = "Възглавници";
         $category->save();
 
         $category = new Category();
-        $category->name = "Почви";
+        $category->name = "Фоторамки";
         $category->save();
 
         $category = new Category();
-        $category->name = "Луковици";
+        $category->name = "Часовници";
         $category->save();
 
         $category = new Category();
-        $category->name = "Разпродажба-";
+        $category->name = "Ключодържатели";
+        $category->save();
+
+        $category = new Category();
+        $category->name = "Портфейли";
         $category->save();
 
     }

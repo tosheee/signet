@@ -2,7 +2,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-3">
-                    <h4 class="title">The Bag</h4>
+                    <h4 class="title"></h4>
                     <p>
                         {!! isset($siteViewInformation->description_com) ? $siteViewInformation->description_com : 'Description company'!!}
                     </p>
