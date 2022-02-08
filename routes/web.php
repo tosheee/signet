@@ -8,10 +8,13 @@
 
     Auth::routes();
 
-    //emails
+    // emails
     Route::get('/', 'WelcomeController@welcome');
 
-    //store
+    // design
+    Route::get('/designer', ['uses' => 'DesignerController@index', 'as'   => 'designer.index']);
+
+    // store
     Route::get('/store',                       ['uses' => 'StoreController@index',          'as'   => 'store.index']);
     Route::get('/store/view_user_orders/{id}', ['uses' => 'StoreController@viewUserOrders', 'as'   => 'store.index']);
     Route::get('/store/search',                ['uses' => 'SearchController@search',        'as'   => 'store.search']);
