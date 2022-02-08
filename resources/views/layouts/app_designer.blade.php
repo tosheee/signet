@@ -12,16 +12,14 @@
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
-
     <!--[if IE]>
     <script type="text/javascript" src="{{ asset('js/designer_js/excanvas.js')}}"></script><![endif]-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="{{ asset('js/designer_js/fabric.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/designer_js/tshirtEditor.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/designer_js/jquery.miniColors.min.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/designer_js/html5.js')}}"></script>
     <script type="text/javascript" src="{{ asset('js/designer_js/loading.js')}}"></script>
-
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/eligrey/FileSaver.js/5733e40e5af936eb3f48554cf6a8a7075d71d18a/FileSaver.js"></script>
 
     <!-- Le styles -->
