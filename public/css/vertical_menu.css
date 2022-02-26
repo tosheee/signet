@@ -11,7 +11,7 @@
     text-transform:uppercase;
     font-size:14px;
     font-weight:700;
-    padding:35px 0 10px 0;
+    padding:5px 0 10px 0;
     letter-spacing:1px;
     clear:both;
 }
@@ -87,7 +87,7 @@
     display:block;
     width:0;
     height:2px;
-    background:#5ff7d2;
+    background: #0c0505;
     top:6px;
     left:2px;
     -ms-transform: rotate(45deg);
@@ -109,7 +109,7 @@
     display:block;
     width:0px;
     height:2px;
-    background:#5ff7d2;
+    background: #0c0505;
     top:4px;
     left:3px;
     -ms-transform: rotate(13deg);

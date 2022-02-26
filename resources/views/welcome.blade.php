@@ -204,6 +204,13 @@
     @endif
 
 
+
+
+
+
+
+
+
     @include('partials.items_slider')
 
     <script type="text/javascript">

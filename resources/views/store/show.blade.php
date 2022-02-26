@@ -72,11 +72,7 @@
                                         <div class="carousel-inner">
                                             <div class="item active">
                                                 <div data-target="#carousel" data-slide-to="0" class="thumb">
-                                                    @if (isset($descriptions['main_picture_url']))
-                                                        <img width="40" height="40" src="{{ $descriptions['main_picture_url'] }}" alt="pic" />
-                                                    @else
-                                                        <img width="40" height="40" src="/storage/upload_pictures/{{ $product->id }}/{{ $descriptions['upload_main_picture'] }}" alt="pic" />
-                                                    @endif
+
                                                 </div>
 
                                                 @if (isset($descriptions['gallery']))

@@ -30,8 +30,6 @@
                        </a>
                    </span>
                 </div>
-
-
             </div>
 
             <!-- end col -->

@@ -12,7 +12,7 @@
     padding: 10px 10px 10px 20px;
     display: block;
      color: white;
-    background:linear-gradient(45deg, #fcdcd2, #fcdcd2);
+    background:linear-gradient(45deg, #11fa4f, #11fa4f);
     border-bottom: 1px solid #8a949d;
     margin: -20px -20px 15px;
 }
@@ -56,16 +56,16 @@
 }
 
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-  color: pink;
+  color: #0c0505;
 }
 ::-moz-placeholder { /* Firefox 19+ */
-  color: pink;
+  color: #0c0505;
 }
 :-ms-input-placeholder { /* IE 10+ */
-  color: pink;
+  color: #0c0505;
 }
 :-moz-placeholder { /* Firefox 18- */
-  color: pink;
+  color: #0c0505;
 }
 
 .elegant-aero textarea{
@@ -786,13 +786,13 @@ span.select2-search.select2-search--dropdown{
 }
 
 .select2-selection__rendered{ 
-    color: pink;
+    color: #0c0505;
     font-weight: normal;
     text-align: left;
     
 }
 .select2-container--default .select2-selection--single .select2-selection__placeholder{
-    color: pink;
+    color: #0c0505;
 }
 
 

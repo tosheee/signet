@@ -19,8 +19,8 @@
 }
 
 .topBar {
-    background-color: #717980;
-    color: #f2f7ff;
+    background-color: #eef1f3;
+    color: #0c0505;
     border-bottom: 1px solid rgba(0, 0, 0, 0.08);
     font-size: 13px;
     font-family: "Courier New", Times, serif;
@@ -63,7 +63,7 @@ select.input-lg {
     position: relative;
     display: inline-block;
     margin-right: -4px;
-    border-right: 1px solid rgba(0, 0, 0, 0.08);
+    border-right: 1px solid rgba(12, 5, 5, 0.08);
 }
 
 .topBar ul.topBarNav li:last-child {
@@ -108,7 +108,7 @@ select.input-lg {
 }
 
 .topBar ul.topBarNav li a.h-top-nav-dropdown {
-    color: #f2f7ff;
+    color: #0c0505;
 }
 
 .topBar ul.topBarNav li a.h-top-nav-dropdown:hover {
@@ -141,7 +141,7 @@ select.input-lg {
 }
 
 .topBar .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-    color: #dde2eb;
+    color: #0c0505;
     text-decoration: none;
     background-color: rgba(0, 0, 0, 0.02);
 }

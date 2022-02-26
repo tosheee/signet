@@ -11,7 +11,7 @@
                     @if ($subCategoryButtonsName->category_id == $categoryButton->id)
 
                         @if(isset($paramOfUrl[1]) && urldecode($paramOfUrl[1]) == $subCategoryButtonsName->identifier)
-                            <li class="" ><span></span><a style="color: #5ff7d2;" class="" href="/store/search?sub_category={{ $subCategoryButtonsName->identifier }}" title="{{ $subCategoryButtonsName->name }}">{{ $subCategoryButtonsName->name }}</a></li>
+                            <li class="" ><span></span><a style="" class="" href="/store/search?sub_category={{ $subCategoryButtonsName->identifier }}" title="{{ $subCategoryButtonsName->name }}">{{ $subCategoryButtonsName->name }}</a></li>
                         @else
                             <li class=""><a class="" href="/store/search?sub_category={{ $subCategoryButtonsName->identifier }}" title="{{ $subCategoryButtonsName->name }}">{{ $subCategoryButtonsName->name }}</a></li>
                         @endif

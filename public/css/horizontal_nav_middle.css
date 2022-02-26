@@ -28,8 +28,8 @@
 
 .middleBar .btn.btn-default {
     color: #ffffff;
-    background-color: #fa5a7f;
-    border: 1px solid #fa5a7f;
+    background-color: #0c0505;
+    border: 1px solid rgba(21, 8, 8, 0.91);
     border-radius: 0px;
 }
 .middleBar .header-items .header-item {
@@ -58,7 +58,7 @@
     height: 20px;
     line-height: 20px;
     text-align: center;
-    background-color: #fa5a7f;
+    background-color: #10fa79;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     -ms-border-radius: 100%;
@@ -72,8 +72,8 @@
     transition: all 0.2s ease-in;
 }
 .middleBar .header-items .header-item a:hover {
-    background-color: #fa5a7f;
-    color: #ffffff;
+    background-color: #11fa4f;
+    color: #0c0505;
 }
 /*search*/
 
@@ -123,25 +123,25 @@
 
 #search-text::-webkit-input-placeholder {
     opacity: 0.5;
-    color: #fa5a7f;
+    color: #0c0505;
     font-family: 'Marck Script', cursive;
 }
 
 #search-text:-ms-input-placeholder {
     opacity: 0.5;
-    color: #fa5a7f;
+    color: #0c0505;
     font-family: 'Marck Script', cursive;
 }
 
 #search-text:-moz-placeholder {
     opacity: 0.5;
-    color: #fa5a7f;
+    color: #0c0505;
     font-family: 'Marck Script', cursive;
 }
 
 #search-text::-moz-placeholder {
     opacity: 0.5;
-    color: #fa5a7f;
+    color: #0c0505;
     opacity: 0.5;
     font-family: 'Marck Script', cursive;
 }
