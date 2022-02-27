@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin\PrintTemplate;
+use App\Admin\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use File;
+
 
 class PrintTemplatesController extends Controller
 {
@@ -21,7 +24,6 @@ class PrintTemplatesController extends Controller
         return view('admin.print_templates.index')->with('print_templates', $print_templates)->with('title', 'Щампи');
     }
 
-
     public function create()
     {
         return view('admin.print_templates.create')->with('title', 'Нова Щампа');
@@ -35,6 +37,11 @@ class PrintTemplatesController extends Controller
         ]);
 
         $name = $request->input('name');
+
+        SubCategory::find($request->input('sub_category_id'));
+
+
+        // File::ensureDirectoryExists(public_path('img/templates').);
 
         $printTemplate = new PrintTemplate;
 
@@ -50,9 +57,7 @@ class PrintTemplatesController extends Controller
         $printTemplate->active = $request->input('active');
         $printTemplate->save();
 
-        return redirect('admin/print_templates')
-            ->with('title', 'Нова категория')
-            ->with('message', 'Категорията е създадена');
+        return redirect('admin/print_templates')->with('title', 'Нова категория')->with('message', 'Категорията е създадена');
     }
 
     public function show($id)
