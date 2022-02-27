@@ -59,9 +59,9 @@
                                 </h4>
 
                                 <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
-                                    @if(isset($prints))
-                                        @foreach($prints as $image)
-                                            <img class="img-polaroid tt" src="{{ asset('img/templates/') }}/{{$image->image}}">
+                                    @if(isset($printTemplates))
+                                        @foreach($printTemplates as $image)
+                                            <img class="img-polaroid tt" src="{{ asset('img/templates/') }}/{{$image->image_path}}">
                                         @endforeach
                                     @endif
                                 </div>

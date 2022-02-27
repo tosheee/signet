@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePrintTempatesTable extends Migration
+class CreatePrintTemplatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreatePrintTempatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('print_tempates', function (Blueprint $table) {
+        Schema::create('print_templates', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('print_category');
+            $table->string('category_id');
+            $table->string('sub_category_id');
             $table->string('name');
-            $table->string('image');
+            $table->string('image_path');
+            $table->boolean('active')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +32,6 @@ class CreatePrintTempatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('print_tempates');
+        Schema::dropIfExists('print_templates');
     }
 }

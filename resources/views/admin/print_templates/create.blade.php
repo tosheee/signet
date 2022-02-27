@@ -6,13 +6,42 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Създаване на категория</div>
+                    <div class="panel-heading">Създаване на нов щампа</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" method="POST" action="{{ route('categories.store') }}">
+
+                        <form class="form-horizontal" method="POST" action="{{ route('print_templates.store') }}" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
+                            <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
+                                <label>
+                                    <span>Категории:<sup style="color: red;">*</sup></span>
+                                    <select class="form-control" name="category_id" id="select-category" required="required"  oninvalid="this.setCustomValidity('Моля, въведете категория!')" oninput="setCustomValidity('')">
+                                        <option value="">Избери категория</option>
+                                        @foreach($categories as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </label>
+                            </div>
+
+                            <div class="form-group{{ $errors->has('sub_category_id') ? ' has-error' : '' }}">
+                                <label>
+                                    <span>Подкатегория:<sup style="color: red;">*</sup></span>
+                                    <select class="form-control" name="sub_category_id" id="select-sub-category" required="required"  oninvalid="this.setCustomValidity('Моля, въведете подкатегория!')" oninput="setCustomValidity('')">
+                                        <option value="">Избери подкатегория</option>
+
+                                        @if(isset($subCategories))
+                                            @foreach($subCategories as $sub_category)
+                                                <option value="{{ $sub_category->id }}">{{ $sub_category->name }}</option>
+                                            @endforeach
+                                        @endif
+
+                                    </select>
+                                </label>
+                            </div>
+
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                <label for="name" class="col-md-4 control-label">Име на категория</label>
+                                <label for="name" class="col-md-4 control-label">Име</label>
 
                                 <div class="col-md-6">
                                     <input id="name" type="text" class="form-control" name="name" required autofocus>
@@ -26,6 +55,18 @@
                             </div>
 
 
+                            <div class="custom-file">
+                                <input type="file" name="image" class="custom-file-input" id="chooseImage"  multiple />
+                                <label class="custom-file-label" for="chooseFile">Select image</label>
+                            </div>
+
+                            <label>
+                                <span style="margin: 0;">Активен продукт в магазина: </span>
+                                <input type="radio" name="active" value="1" checked> ДА
+                                <input type="radio" name="active" value="0"> НЕ
+                            </label>
+                            <br>
+
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">
@@ -33,7 +74,15 @@
                                     </button>
                                 </div>
                             </div>
+
                         </form>
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>

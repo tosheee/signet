@@ -11,7 +11,7 @@
 /public/symlink.php
 /public/css/old_files/*
 /public/.htaccess
-
+/public/templates/*
 symlink.php
 
 /.idea

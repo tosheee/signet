@@ -3,22 +3,22 @@
 @section('content')
     @include('admin.admin_partials.admin_menu')
 
-        <a class="btn btn-primary" href="/admin/categories/create">Нова категория</a>
+        <a class="btn btn-primary" href="/admin/print_templates/create">Нова Щампа</a>
         <br>
         <br>
-        @if(count($categories) > 0)
+        @if(isset($print_templates))
             <table class="table table-striped">
                 <tr>
-                    <th>Име на категорията</th>
+                    <th>Име на Щампата</th>
                     <th></th>
                     <th></th>
                 </tr>
-                @foreach($categories as $category)
+                @foreach($print_templates as $template)
                     <tr>
-                        <td><a href="/admin/categories/{{ $category->id }}">{{ $category->name }}</a></td>
-                        <td><a class="btn btn-default" href="/admin/categories/{{ $category->id }}/edit">Промяна</a></td>
+                        <td><a href="/admin/print_templates/{{ $template->id }}">{{ $template->name }}</a></td>
+                        <td><a class="btn btn-default" href="/admin/print_templates/{{ $template->id }}/edit">Промяна</a></td>
                         <td>
-                            <form method="POST" action="/admin/categories/{{ $category->id }}" accept-charset="UTF-8" class="pull-right">
+                            <form method="POST" action="/admin/print_templates/{{ $template->id }}" accept-charset="UTF-8" class="pull-right">
                                 {{ csrf_field() }}
                                 <input name="_method" type="hidden" value="DELETE">
                                 <input class="btn btn-danger" type="submit" value="Изтриване">

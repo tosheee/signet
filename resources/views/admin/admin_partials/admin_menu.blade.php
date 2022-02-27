@@ -168,9 +168,22 @@
                     </li>
 
                     <li class="panel">
-                        <a id="panel9" href="javascript:;" data-toggle="collapse" data-target="#btc">
-                            <i class="fa fa-globe"></i> Информация за сайта
+                        <a id="panel9" href="javascript:;" data-toggle="collapse" data-target="#print_templates"> <i class="fa fa-cogs"></i> Щампи
+
+                            <?php  $printTemplates = count(App\Admin\PrintTemplate::all()) ?>
+                            <span class="label label-success">{{ isset($printTemplates) ? $printTemplates : '0' }}</span>
                             <i class="fa fa fa-chevron-left pull-right" id="arow9"></i>
+                        </a>
+                        <ul class="collapse nav" id="print_templates">
+                            <li> <a href="/admin/print_templates/"><i class="fa fa-angle-double-right"></i> Всички Щампи</a> </li>
+                            <li> <a href="/admin/print_templates/create"><i class="fa fa-angle-double-right"></i> Нова Щампа</a> </li>
+                        </ul>
+                    </li>
+
+                    <li class="panel">
+                        <a id="panel10" href="javascript:;" data-toggle="collapse" data-target="#btc">
+                            <i class="fa fa-globe"></i> Информация за сайта
+                            <i class="fa fa fa-chevron-left pull-right" id="arow10"></i>
                         </a>
                         <ul class="collapse nav" id="btc">
                             <li> <a href="/admin/info_company/"><i class="fa fa-angle-double-right"></i> Информация за сайта</a> </li>
@@ -178,9 +191,9 @@
                     </li>
                     
                      <li class="panel">
-                        <a id="panel10" href="javascript:;" data-toggle="collapse" data-target="#pie-Chart">
+                        <a id="panel11" href="javascript:;" data-toggle="collapse" data-target="#pie-Chart">
                             <i class="fa fa-bar-chart"></i> Слидер
-                            <i class="fa fa fa-chevron-left pull-right" id="arow10"></i> </a>
+                            <i class="fa fa fa-chevron-left pull-right" id="arow11"></i> </a>
                         <ul class="collapse nav" id="pie-Chart">
                             <li> <a href="/admin/slider/"><i class="fa fa-angle-double-right"></i>Всички снимки в слайдер </a> </li>
                             <li> <a href="/admin/slider/create"><i class="fa fa-angle-double-right"></i> Добавяне на снимка</a> </li>
@@ -188,9 +201,9 @@
                     </li>
 
                     <li class="panel">
-                        <a id="panel11" href="javascript:;" data-toggle="collapse" data-target="#support_message">
+                        <a id="panel12" href="javascript:;" data-toggle="collapse" data-target="#support_message">
                             <i class="fa fa-bar-chart"></i> Support Messages
-                            <i class="fa fa fa-chevron-left pull-right" id="arow11"></i> </a>
+                            <i class="fa fa fa-chevron-left pull-right" id="arow12"></i> </a>
                         <ul class="collapse nav" id="support_message">
                             <li> <a href="/admin/support_messages/"><i class="fa fa-angle-double-right"></i> Съобщения от подръжката</a></li>
                             <li> <a href="/admin/support_messages/create"><i class="fa fa-angle-double-right"></i> Добавяне на съобщение</a> </li>
@@ -198,8 +211,8 @@
                     </li>
 
                     <li class="panel" style="background-color: #084951;">
-                        <a id="panel12" href="javascript:;" data-toggle="collapse" data-target="#space_bottom_menu">
-                            <i id="arow12"></i>
+                        <a id="panel13" href="javascript:;" data-toggle="collapse" data-target="#space_bottom_menu">
+                            <i id="arow13"></i>
                         </a>
                         <ul class="collapse nav" id="space_bottom_menu">
                             <li>     </li>
@@ -208,8 +221,8 @@
                     </li>
 
                     <li class="panel" style="background-color: #084951;">
-                        <a id="panel13" href="javascript:;" data-toggle="collapse" data-target="#space_bottom_menu_2">
-                            <i id="arow13"></i>
+                        <a id="panel14" href="javascript:;" data-toggle="collapse" data-target="#space_bottom_menu_2">
+                            <i id="arow14"></i>
                         </a>
                         <ul class="collapse nav" id="space_bottom_menu_2">
                             <li>     </li>

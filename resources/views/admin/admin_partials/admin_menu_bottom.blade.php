@@ -61,6 +61,11 @@
             $("#arow11").toggleClass("fa-chevron-down");
         });
 
+        $("#panel12").click(function() {
+            $("#arow12").toggleClass("fa-chevron-left");
+            $("#arow12").toggleClass("fa-chevron-down");
+        });
+
         $("#menu-icon").click(function() {
             $("#chang-menu-icon").toggleClass("fa-bars");
             $("#chang-menu-icon").toggleClass("fa-times");
