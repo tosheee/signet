@@ -2,6 +2,7 @@
     View::composer('*', function($view) { $view->with('siteViewInformation', App\Admin\InfoCompany::orderBy('created_at', 'desc')->first()); });
     View::composer('*', function($view) { $view->with('categoriesButtonsName', App\Admin\Category::all()); });
     View::composer('*', function($view) { $view->with('subCategoriesButtonsName', App\Admin\SubCategory::all()); });
+    View::composer('*', function($view) { $view->with('typePrintTemplates', App\Admin\TypePrintTemplate::all()); });
     View::composer('*', function($view) {$view->with('categories', App\Admin\Category::all());});
     View::composer('*', function($view) {$view->with('subCategories', App\Admin\SubCategory::all());});
     View::composer('*', function($view) {$view->with('allSliderData', App\Admin\Slider::all());});
@@ -49,13 +50,14 @@
         Route::get ('/answer/{id}',    ['uses' => 'UserMessagesController@markAnswer']);
 
 
-        Route::resource('/categories',       'CategoriesController');
-        Route::resource('/sub_categories',   'SubCategoriesController');
-        Route::resource('/print_templates',  'PrintTemplatesController');
-        Route::resource('/products',         'ProductsController');
-        Route::resource('/users',            'UserController');
-        Route::resource('info_company',      'InfoCompanyController');
-        Route::resource('admins',            'AdminController');
+        Route::resource('/categories',           'CategoriesController');
+        Route::resource('/sub_categories',       'SubCategoriesController');
+        Route::resource('/print_templates',      'PrintTemplatesController');
+        Route::resource('/type_print_templates', 'TypePrintTemplatesController');
+        Route::resource('/products',             'ProductsController');
+        Route::resource('/users',                'UserController');
+        Route::resource('info_company',          'InfoCompanyController');
+        Route::resource('admins',                'AdminController');
         Route::resource('/pages',            'PagesController');
         Route::resource('/slider',           'SliderController');
         Route::resource('/user_messages',    'UserMessagesController');

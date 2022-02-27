@@ -168,6 +168,19 @@
                     </li>
 
                     <li class="panel">
+                        <a id="panel9" href="javascript:;" data-toggle="collapse" data-target="#type_print_templates"> <i class="fa fa-cogs"></i> Type Templates
+
+                            <?php  $typePrintTemplates = count(App\Admin\TypePrintTemplate::all()) ?>
+                            <span class="label label-success">{{ $typePrintTemplates or '0' }}</span>
+                            <i class="fa fa fa-chevron-left pull-right" id="arow9"></i>
+                        </a>
+                        <ul class="collapse nav" id="type_print_templates">
+                            <li> <a href="/admin/type_print_templates/"><i class="fa fa-angle-double-right"></i> Type Templates</a> </li>
+                            <li> <a href="/admin/type_print_templates/create"><i class="fa fa-angle-double-right"></i> New Type</a> </li>
+                        </ul>
+                    </li>
+
+                    <li class="panel">
                         <a id="panel9" href="javascript:;" data-toggle="collapse" data-target="#print_templates"> <i class="fa fa-cogs"></i> Щампи
 
                             <?php  $printTemplates = count(App\Admin\PrintTemplate::all()) ?>
@@ -179,6 +192,9 @@
                             <li> <a href="/admin/print_templates/create"><i class="fa fa-angle-double-right"></i> Нова Щампа</a> </li>
                         </ul>
                     </li>
+
+
+
 
                     <li class="panel">
                         <a id="panel10" href="javascript:;" data-toggle="collapse" data-target="#btc">
@@ -240,7 +256,7 @@
                     <div class="col-md-4">
                         <ul class="breadcrumb">
                             <li><i class="fa fa-home"></i><a href="#"> Home</a></li>
-                            <li class="active">{{ $title }}</li>
+                            <li class="active">{{ $title or '' }}</li>
                         </ul>
                     </div>
                     <div class="col-md-8">
@@ -266,7 +282,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="main-header">
-                            <h2>{{ $title }}</h2>
+                            <h2>{{ $title or '' }}</h2>
 
                             @if(session()->has('notif'))
                                 <em style="color: #00d64b">{{ session()->get('notif') }}</em>

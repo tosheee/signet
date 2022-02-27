@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin\PrintTemplate;
+use App\Admin\TypePrintTemplate;
 use App\Admin\SubCategory;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,8 +21,11 @@ class PrintTemplatesController extends Controller
     public function index()
     {
         $print_templates = PrintTemplate::all();
-
-        return view('admin.print_templates.index')->with('print_templates', $print_templates)->with('title', 'Щампи');
+        $typePrintTemplates = TypePrintTemplate::all();
+        return view('admin.print_templates.index')->
+        with('print_templates', $print_templates)->
+        with('typePrintTemplates', $typePrintTemplates)->
+        with('title', 'Щампи');
     }
 
     public function create()
@@ -47,6 +51,7 @@ class PrintTemplatesController extends Controller
 
         $printTemplate->category_id = $request->input('category_id');
         $printTemplate->sub_category_id = $request->input('sub_category_id');
+        $printTemplate->type_print_template_id = $request->input('type_print_template_id');
         $printTemplate->name = $name;
 
         $imageName = time().'_'.strtolower($name).''.$request->image->extension();
