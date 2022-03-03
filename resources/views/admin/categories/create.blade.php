@@ -25,6 +25,17 @@
                                 </div>
                             </div>
 
+                            <div class="form-group{{ $errors->has('filters') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Filters</label>
+                                <div class="col-md-6">
+                                    <textarea  class="form-control" id="exampleFormControlTextarea1" name="filters" rows="4" cols="50"></textarea>
+
+                                    @if ($errors->has('name'))
+                                        <span class="help-block"><strong>{{ $errors->first('name') }}</strong></span>
+                                    @endif
+                                </div>
+                            </div>
+
 
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">

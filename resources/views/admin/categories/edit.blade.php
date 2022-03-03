@@ -14,6 +14,17 @@
                 <input class="form-control" placeholder="Name" name="name" type="text" value="{{ $category->name }}" id="name">
             </div>
 
+            <div class="form-group{{ $errors->has('filters') ? ' has-error' : '' }}">
+                <label for="name" class="col-md-4 control-label">Filters</label>
+                <div class="col-md-6">
+                    <textarea  class="form-control" id="exampleFormControlTextarea1" name="filters" rows="4" cols="50">{{ $category->filters or '' }}</textarea>
+
+                    @if ($errors->has('filters'))
+                        <span class="help-block"><strong>{{ $errors->first('filters') }}</strong></span>
+                    @endif
+                </div>
+            </div>
+
             <input name="_method" type="hidden" value="PUT">
             <input class="btn btn-primary" type="submit" value="Промяна">
         </form>

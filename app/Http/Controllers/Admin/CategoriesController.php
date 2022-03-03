@@ -35,6 +35,7 @@ class CategoriesController extends Controller
 
         $category = new Category;
         $category->name = $request->input('name');
+        $category->filters = $request->input('filters');
         $category->save();
 
         return redirect('admin/categories')->with('title', 'Нова категория')->with('message', 'Категорията е създадена');
@@ -62,6 +63,7 @@ class CategoriesController extends Controller
 
         $category = Category::find($id);
         $category->name = $request->input('name');
+        $category->filters = $request->input('filters');
         $category->save();
 
         return redirect('/admin/categories')->with('message', 'Категорията е променена');

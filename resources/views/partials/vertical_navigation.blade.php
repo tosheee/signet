@@ -1,6 +1,29 @@
 <div id="sidebar">
     <?php $paramOfUrl = explode('=', Request::fullUrl()) ?>
-    @foreach($categoriesButtonsName as $categoryButton)
+    @if(isset($categories))
+        @foreach($categories as $category)
+            <h3>{{ $category->name }}</h3>
+
+            @if(isset($category->filters))
+                <?php $jsonFilters = json_decode($category->filters, true)?>
+
+                @foreach($jsonFilters as $key => $filters)
+                    <h4>{{$key}}</h4>
+                    @foreach($filters as $filter)
+                        @foreach($filter as $iKey => $fill)
+                            <h5>{{ $fill }}</h5>
+                        @endforeach
+
+                    @endforeach
+                @endforeach
+
+            @endif
+
+        @endforeach
+    @endif
+
+
+        @foreach($categoriesButtonsName as $categoryButton)
         <h3>
             <a class="v-nav-a" href="/store/search?category={{ $categoryButton->id }}" title="Вижте продуктите в {{ $categoryButton->name }}"> {{ $categoryButton->name }}</a>
         </h3>
@@ -11,7 +34,12 @@
                     @if ($subCategoryButtonsName->category_id == $categoryButton->id)
 
                         @if(isset($paramOfUrl[1]) && urldecode($paramOfUrl[1]) == $subCategoryButtonsName->identifier)
-                            <li class="" ><span></span><a style="" class="" href="/store/search?sub_category={{ $subCategoryButtonsName->identifier }}" title="{{ $subCategoryButtonsName->name }}">{{ $subCategoryButtonsName->name }}</a></li>
+                            <li class="" >
+                                <span></span>
+                                <a style="" class="" href="/store/search?sub_category={{ $subCategoryButtonsName->identifier }}"
+                                   title="{{ $subCategoryButtonsName->name }}">
+                                    {{ $subCategoryButtonsName->name }}</a>
+                            </li>
                         @else
                             <li class=""><a class="" href="/store/search?sub_category={{ $subCategoryButtonsName->identifier }}" title="{{ $subCategoryButtonsName->name }}">{{ $subCategoryButtonsName->name }}</a></li>
                         @endif
@@ -21,6 +49,8 @@
             </ul>
         </div>
     @endforeach
+
+
     <h3>Цветове</h3>
     <div class="checklist colors">
         <ul>

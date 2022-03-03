@@ -17,6 +17,7 @@
                     <tr>
                         <td><a href="/admin/categories/{{ $category->id }}">{{ $category->name }}</a></td>
                         <td><a class="btn btn-default" href="/admin/categories/{{ $category->id }}/edit">Промяна</a></td>
+                        <td><b>Filters:</b> {{ $category->filters or 'There is not' }}</td>
                         <td>
                             <form method="POST" action="/admin/categories/{{ $category->id }}" accept-charset="UTF-8" class="pull-right">
                                 {{ csrf_field() }}

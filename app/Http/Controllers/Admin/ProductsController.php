@@ -37,7 +37,10 @@ class ProductsController extends Controller
         $categories = Category::all();
         $subCategories = SubCategory::all();
 
-        return view('admin.products.show')->with('categories', $categories)->with('subCategories', $subCategories)->with('product', $product)->with('title', 'Преглед на продукта');
+        return view('admin.products.show')->
+        with('categories', $categories)->
+        with('subCategories', $subCategories)->
+        with('product', $product)->with('title', 'Преглед на продукта');
     }
 
     public function create()
@@ -45,7 +48,10 @@ class ProductsController extends Controller
         $categories = Category::all();
         $subCategories = SubCategory::all();
 
-        return view('admin.products.create')->with('categories', $categories)->with('subCategories', $subCategories)->with('title', 'Създаване на продукт');
+        return view('admin.products.create')->
+        with('categories', $categories)->
+        with('subCategories', $subCategories)->
+        with('title', 'Създаване на продукт');
     }
 
     public function store(Request $request)
