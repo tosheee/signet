@@ -10,6 +10,32 @@ use Illuminate\Http\Request;
 class SearchController extends Controller
 {
 
+    public function searchCategory(Request $request)
+    {
+        $query = $request->query;
+        $currentCategory = Category::select('*')->where('name', '=', $request->category);
+        $categories = Category::all();
+
+        if (count($query) > 0){
+            $products = Product::select('*')->
+            where('category_id', '=', $currentCategory->first()->id)->
+            where('active', '=', 1)->get();
+
+        }
+        else
+        {
+            $products = Product::select('*')->
+                where('category_id', '=', $currentCategory->first()->id)->
+                where('active', '=', 1)->get();
+        }
+
+        return view('store.index')->
+            with('categories', $categories)->
+            with('products', $products)->
+            with('category_id', $currentCategory->first()->id);
+    }
+
+
     public function search(Request $request)
     {
         $categories = Category::all();
@@ -79,6 +105,7 @@ class SearchController extends Controller
 
         return view('store.index')->with('categories', $categories)->with('subCategories', $subCategories)->with('products', $products)->with('lowerPrice', $lowerPrice)->with('upperPrice', $upperPrice);
     }
+
 
     public function get_filter_product($get_products, $inputKeyword)
     {

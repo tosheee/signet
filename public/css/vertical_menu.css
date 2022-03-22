@@ -11,7 +11,7 @@
     text-transform:uppercase;
     font-size:14px;
     font-weight:700;
-    padding:5px 0 10px 0;
+    padding:0 0 0 0;
     letter-spacing:1px;
     clear:both;
 }
@@ -32,7 +32,7 @@
     font-size:14px;
     font-weight:400;
     list-style:none;
-    padding: 7px 0 7px 23px;
+    //padding: 7px 0 7px 23px;
 }
 .checklist li span{
     float:left;

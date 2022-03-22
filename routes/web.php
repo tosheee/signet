@@ -19,7 +19,9 @@
     // store
     Route::get('/store',                       ['uses' => 'StoreController@index',          'as'   => 'store.index']);
     Route::get('/store/view_user_orders/{id}', ['uses' => 'StoreController@viewUserOrders', 'as'   => 'store.index']);
+    Route::get('/store/search/{category}',     ['uses' => 'SearchController@searchCategory',        'as'   => 'store.searchCategory']);
     Route::get('/store/search',                ['uses' => 'SearchController@search',        'as'   => 'store.search']);
+
     Route::get('/store/{id}',                  ['uses' => 'StoreController@show',           'as'   => 'store.show']);
     Route::post('/store/like_product/{id}',    'StoreController@getLikeProduct');
 

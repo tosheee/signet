@@ -1,74 +1,114 @@
-<div id="sidebar">
-    <?php $paramOfUrl = explode('=', Request::fullUrl()) ?>
-    @if(isset($categories))
-        @foreach($categories as $category)
-            <h3>{{ $category->name }}</h3>
+<style>
+.classes-filters {
+  padding: 0.0rem 0.0rem 0.0rem 0.0rem;
+  background-color: #fefefe;
+  margin-top: 2rem;
+}
 
-            @if(isset($category->filters))
-                <?php $jsonFilters = json_decode($category->filters, true)?>
+.classes-filters ul li{
+  list-style:none;
+}
+.classes-filters label {
+  color: #8a8a8a;
+}
 
-                @foreach($jsonFilters as $key => $filters)
-                    <h4>{{$key}}</h4>
-                    @foreach($filters as $filter)
-                        @foreach($filter as $iKey => $fill)
-                            <h5>{{ $fill }}</h5>
+.classes-filters .menu.nested {
+  margin-left: 0rem;
+  margin-bottom: 0.9rem;
+}
+
+.classes-filters .menu > li > a {
+  padding-left: 0;
+  color: #4a4a4a;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.classes-filters .is-accordion-submenu-parent > a::after {
+  border-color: #cacaca transparent transparent;
+}
+
+.classes-filters .clear-all {
+  font-size: 0.9rem;
+  color: #cacaca;
+}
+
+.classes-filters .more {
+  color: #1779ba;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.classes-filters-header {
+  font-size: 1.25rem;
+  padding-top: 0.5rem;
+}
+
+.classes-filters-tab {
+  border-top: 1px solid #e6e6e6;
+}
+
+.classes-filters-tab:last-child() {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.mobile-classes-filters {
+  border-bottom: 1px solid #e6e6e6;
+}
+
+
+
+</style>
+
+    <div id="sidebar">
+        <div class="classes-filters">
+            <?php $paramOfUrl = explode('=', Request::fullUrl()) ?>
+            @if(isset($categories))
+                <ul class="mobile-classes-filters vertical menu show-for-small-only" data-accordion-menu>
+                    <?php $idxCss = 0; ?>
+                    @foreach($categories as $category)
+                        @if($category_id == $category->id && isset($category->filters))
+                            <li class="">
+                                <form action="/store/search/{{$category->name}}" method="get">
+                                    <input type="submit" class="btn btn-block col-8"  value="Филтрирай: {{$category->name or ''}}">
+                                    <?php $jsonFilters = json_decode($category->filters, true)?>
+                                    <ul class="vertical menu" data-accordion-menu>
+                                        @foreach($jsonFilters as $key => $filters)
+                                            <li class="classes-filters-tab">
+                                                <h5>{{$filters['key']}}</h5>
+                                                <ul class="categories-menu menu vertical nested is-active">
+                                                    <a href="#" class="clear-all" id="grades-clear-all">Clear All</a>
+                                                    @foreach($filters['values'] as $iKey1 =>$filter)
+                                                        <?php //dd($f)?>
+                                                        @foreach($filter as $iKey2 => $fill)
+                                                            <?php $idxCss++;?>
+                                                            <li>
+                                                                <input name="{{$iKey2}}", class="grades-clear-selection" id="grades-checkbox{{$idxCss}}" type="checkbox">
+                                                                <label for="grades-checkbox{{$idxCss}}">{{ $fill }}</label>
+                                                            </li>
+                                                        @endforeach
+                                                    @endforeach
+                                                </ul>
+                                            </li>
+                                        @endforeach
+                                    </li>
+                                <input type="submit" class="btn btn-block col-8"  value="Филтрирай: {{$category->name}}">
+                            @endif
                         @endforeach
-
-                    @endforeach
-                @endforeach
-
+                    </ul>
+                </form>
             @endif
-
-        @endforeach
-    @endif
-
-
-        @foreach($categoriesButtonsName as $categoryButton)
-        <h3>
-            <a class="v-nav-a" href="/store/search?category={{ $categoryButton->id }}" title="Вижте продуктите в {{ $categoryButton->name }}"> {{ $categoryButton->name }}</a>
-        </h3>
-        <div class="checklist categories">
-            <ul class="">
-
-                @foreach($subCategoriesButtonsName as $subCategoryButtonsName)
-                    @if ($subCategoryButtonsName->category_id == $categoryButton->id)
-
-                        @if(isset($paramOfUrl[1]) && urldecode($paramOfUrl[1]) == $subCategoryButtonsName->identifier)
-                            <li class="" >
-                                <span></span>
-                                <a style="" class="" href="/store/search?sub_category={{ $subCategoryButtonsName->identifier }}"
-                                   title="{{ $subCategoryButtonsName->name }}">
-                                    {{ $subCategoryButtonsName->name }}</a>
-                            </li>
-                        @else
-                            <li class=""><a class="" href="/store/search?sub_category={{ $subCategoryButtonsName->identifier }}" title="{{ $subCategoryButtonsName->name }}">{{ $subCategoryButtonsName->name }}</a></li>
-                        @endif
-
-                    @endif
-                @endforeach
-            </ul>
         </div>
-    @endforeach
 
-
-    <h3>Цветове</h3>
-    <div class="checklist colors">
-        <ul>
-
-            <li><a href="/store/search?product_color=green"><span style="background: #44c28d"></span>Зелен</a></li>
-            <li><a href="/store/search?product_color=blue"><span style="background: #6e8cd5"></span>Син</a></li>
-            <li><a href="/store/search?product_color=yellow"><span style="background: #f1c40f"></span>Жълт</a></li>
-            <li><a href="/store/search?product_color=red"><span style="background: #e74c3c;"></span>Червен</a></li>
-            <li><a href="/store/search?product_color=white"><span style="background: #fff;border: 1px solid #e8e9eb;width:13px;height:13px;"></span>Бял</a></li>
-            <li><a href="/store/search?product_color=pink"><span style="background: #ffa4bb"></span>Розов</a></li>
-        </ul>
-
-        <ul>
-            <li><a href="/store/search?product_color=orange"><span style="background: #f79858"></span>Оранж</a></li>
-            <li><a href="/store/search?product_color=purple"><span style="background: #b27ef8"></span>Лилав</a></li>
-            <li><a href="/store/search?product_color=grey"><span style="background: #999"></span>Сиж</a></li>
-            <li><a href="/store/search?product_color=brown"><span style="background: #6a1c08"></span>Кафяв</a></li>
-            <li><a href="/store/search?product_color=black"><span style="background: #222"></span>Черен</a></li>
-        </ul>
+        <script>
+            $('#btn').click(function(e) {
+                e.preventDefault();
+                $('input[type=checkbox]:checked').each(function () {
+                    var status = (this.checked ? $(this).val() : "");
+                    console.log(status);
+                    var id = $(this).attr("id");
+                    $('#output').append("<h3>" + id + " : " + status + "</h3>");
+                });
+            });
+        </script>
     </div>
-</div>
