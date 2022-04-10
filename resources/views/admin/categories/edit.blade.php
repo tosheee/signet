@@ -10,8 +10,13 @@
             {{ csrf_field() }}
 
             <div class="form-group">
-                <label for="name">Име на категорията</label>
+                <label for="name">Category</label>
                 <input class="form-control" placeholder="Name" name="name" type="text" value="{{ $category->name }}" id="name">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Identifier</label>
+                <input class="form-control" placeholder="Identifier" name="identifier" type="text" value="{{ $category->identifier }}" id="identifier">
             </div>
 
             <div class="form-group{{ $errors->has('filters') ? ' has-error' : '' }}">

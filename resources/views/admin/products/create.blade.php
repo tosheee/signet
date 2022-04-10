@@ -22,7 +22,7 @@
 
 
     <div class="basic-grey">
-        <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data" id="new_form">
+        <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" id="new_form">
             {{ csrf_field() }}
             <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
                 <label>
@@ -111,9 +111,9 @@
             </label>
             <br>
             <label>
-                <input id="file-input" type="file" name="upload_gallery_pictures[]" multiple />
+                <input type="file" name="upload_gallery_pictures[]" id="file-input" multiple />
                 <br>
-                <div id="preview"></div>
+                <!--<div id="preview"></div>-->
             </label>
 
             <br>
@@ -312,5 +312,8 @@
         <script>
             CKEDITOR.replace( 'editor-create' );
         </script>
+
+
+
     @include('admin.admin_partials.admin_menu_bottom')
 @endsection

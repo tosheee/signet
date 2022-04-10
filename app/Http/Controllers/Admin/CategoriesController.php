@@ -30,7 +30,7 @@ class CategoriesController extends Controller
     public function store(Request $request)
     {
 
-        dd($request->input('filters'));
+        //dd($request->input('filters'));
 
         $this->validate($request, [
             'name' => 'required',
@@ -38,10 +38,13 @@ class CategoriesController extends Controller
 
         $category = new Category;
         $category->name = $request->input('name');
+        $category->identifier = $request->input('identifier');
         $category->filters = $request->input('filters');
         $category->save();
 
-        return redirect('admin/categories')->with('title', 'Нова категория')->with('message', 'Категорията е създадена');
+        return redirect('admin/categories')->
+                        with('title', 'Нова категория')->
+                        with('message', 'Категорията е създадена');
     }
 
     public function show($id)
@@ -66,7 +69,9 @@ class CategoriesController extends Controller
 
         $category = Category::find($id);
         $category->name = $request->input('name');
+        $category->identifier = $request->input('identifier');
         $category->filters = $request->input('filters');
+
         $category->save();
 
         return redirect('/admin/categories')->with('message', 'Категорията е променена');

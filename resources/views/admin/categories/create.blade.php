@@ -24,6 +24,24 @@
                                     </span>
                                     @endif
                                 </div>
+
+
+                            </div>
+
+                            <div class="form-group{{ $errors->has('identifier') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Identifier</label>
+
+                                <div class="col-md-6">
+                                    <input id="identifier" type="text" class="form-control" name="identifier" required autofocus>
+
+                                    @if ($errors->has('identifier'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('identifier') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
+
                             </div>
 
                             <div class="specification_fields_wrap">

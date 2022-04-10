@@ -5,7 +5,7 @@
 
         <a href="/admin/product" class="btn btn-default">Обратно</a>
         <h1>{{ $category->name }}</h1>
-
+        <h2>{{ $category->identifier }}</h2>
         <div class="well">
             <a href="/admin/categories/{{ $category->id }}/edit" class="btn btn-default"> Промяна </a>
             <form method="POST" action="/admin/categories/{{ $category->id }}" accept-charset="UTF-8" class="pull-right">
