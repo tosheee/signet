@@ -54,7 +54,7 @@ class PrintTemplatesController extends Controller
         $printTemplate->type_print_template_id = $request->input('type_print_template_id');
         $printTemplate->name = $name;
 
-        $imageName = time().'_'.strtolower($name).''.$request->image->extension();
+        $imageName = time().'_'.strtolower($name).'.'.$request->image->extension();
 
         $request->image->move(public_path('img/templates'), $imageName);
 
