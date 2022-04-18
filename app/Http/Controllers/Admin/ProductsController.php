@@ -89,6 +89,7 @@ class ProductsController extends Controller
 
             for($i = 0; $i < count($files_gallery_pic); $i++)
             {
+                dd($files_gallery_pic);
                 if ($i == 0)
                 {
                     $descriptionRequest['upload_main_picture'] = $this->manImages($files_gallery_pic[$i], $productId, $i, 'basic');

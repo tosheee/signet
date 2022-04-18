@@ -9,9 +9,9 @@
 
     ::-webkit-file-upload-button {
      background: #2acb77;
-     width: 200px;
+     width: 20px;
      color: #ffffff;
-     font-size: 16px;
+     font-size: 10px;
      border-radius: 5px;
      padding: 1em;
      }
@@ -106,15 +106,147 @@
             </label>
 
             <span>Описание на продукта:</span>
+
             <label>
                 <textarea name="description[general_description]" id="editor-create" ></textarea>
             </label>
             <br>
-            <label>
-                <input type="file" name="upload_gallery_pictures[]" id="file-input" multiple />
-                <br>
-                <!--<div id="preview"></div>-->
+
+
+
+            <!--
+           <label>
+               <input type="file" name="upload_gallery_picturesssssss[]" id="file-input" onchange="loadImageFile();" multiple />
+               <br>
+              <div id="preview"></div>
             </label>
+            <!--
+            <table>
+                <tbody>
+                <tr>
+                    <td>Select Image -
+                        <input id="upload-Image" type="file" onchange="loadImageFile();"
+                                name="upload_gallery_pictures[]" multiple/></td>
+                </tr>
+                <tr>
+                    <td>Origal Img - <img id="original-Img"/></td>
+                </tr>
+                <tr>
+                    <td>Compress Img - <img id="upload-Preview"/></td>
+                </tr>
+
+                </tbody>
+            </table>
+            -->
+
+
+            <div class="gallery_wrapper">
+                <button class="add_img_button btn-primary btn-xs">Add image</button>
+                <div id="view_images_wrapper">
+
+
+
+                </div>
+            </div>
+
+
+            <script>
+                // gallery images
+                $(document).ready(function() {
+                    var max_fields = 6;
+                    var wrapper    = $("#view_images_wrapper");
+                    var upload_img_gallery_button = $(".upload-img-gallery-button");
+                    var field_img_gallery_button  = $(".add_img_button");
+                    var x = 1;
+
+
+                    $(field_img_gallery_button).click(function(e){
+                        e.preventDefault();
+                        if(x < max_fields){
+                            x++;
+                            $(wrapper).append(
+                                    '<div class="fields" ><label><span>Img:</span>' +
+                                    '<input class="btn-upload-img" id="upload-Image'+ x +'" type="file" name="upload_gallery_pictures[]" onchange="loadImageFile();" multiple"/>' +
+                                    '<img id="original-Img"/>'+
+                                    '<img id="upload-Preview"/>'+
+                                    '<a href="#" class="remove_field">'+
+                                    '<i style="color: red;" aria-hidden="true" id="chang-menu-icon" class="fa fa-times"></i></a>' +
+                                    '</label></div>');
+                        }
+                    });
+
+
+                    $(wrapper).on("click",".remove_field", function(e){
+                        e.preventDefault(); $(this).parent('div.fields label').remove(); x--;
+                    });
+                });
+            </script>
+
+
+            <script type="text/javascript">
+                var fileReader = new FileReader();
+                var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+                fileReader.onload = function (event) {
+                    var image = new Image();
+
+                    image.onload=function(){
+                        document.getElementById("original-Img").src=image.src;
+                        var canvas=document.createElement("canvas");
+                        var context=canvas.getContext("2d");
+                        canvas.width=image.width/4;
+                        canvas.height=image.height/4;
+                        context.drawImage(image,
+                                0,
+                                0,
+                                image.width,
+                                image.height,
+                                0,
+                                0,
+                                canvas.width,
+                                canvas.height
+                        );
+
+                        document.getElementById("upload-Preview").src = canvas.toDataURL();
+                    }
+                    image.src=event.target.result;
+                };
+
+                var loadImageFile = function () {
+
+
+
+                    $('input.btn-upload-img').change(function() {
+                        console.log(this)
+                        varthis.id
+                    });
+
+
+
+
+
+
+                    var uploadImage = document.getElementById(input.id);
+                    //check and retuns the length of uploded file.
+
+                    if (uploadImage.files.length === 0) {
+                        return;
+                    }
+
+                    //Is Used for validate a valid file.
+
+                    var uploadFile = document.getElementById(input.id).files[0];
+
+                    if (!filterType.test(uploadFile.type)) {
+                        alert("Please select a valid image.");
+                        return;
+                    }
+
+                    fileReader.readAsDataURL(uploadFile);
+                }
+
+            </script>
+
 
             <br>
             <div class="specification_fields_wrap">
@@ -127,6 +259,10 @@
     </div>
 
     <br><br><br>
+
+
+
+
 
     <script>
         function previewImages() {
@@ -219,6 +355,8 @@
                 var upload_img_gallery_button = $(".upload-img-gallery-button");
                 var field_img_gallery_button  = $(".field-img-gallery-button");
                 var x = 1;
+
+
                 $(field_img_gallery_button).click(function(e){
                     e.preventDefault();
                     if(x < max_fields){
@@ -233,6 +371,9 @@
                 $(wrapper).on("click",".remove_field", function(e){
                     e.preventDefault(); $(this).parent('div.fields label').remove(); x--;
                 });
+
+
+
                 $(upload_img_gallery_button).click(function(e){
                     e.preventDefault();
                     if(x < max_fields){
@@ -244,10 +385,18 @@
                         '</div>');
                     }
                 });
+
+
+
                 $(wrapper).on("click",".remove-img-gallery-button", function(e){
                     e.preventDefault(); $(this).parent('div.upload-img-gallery-button').remove(); x--;
                 });
             });
+
+
+
+
+
 
             // specification
             $(document).ready(function() {

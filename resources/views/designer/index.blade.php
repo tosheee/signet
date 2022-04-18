@@ -58,6 +58,59 @@
                                     <button id="addimg" class="btn btn-primary"><i style="font-size: 15px;" class="fa fa-plus" aria-hidden="true"></i></button>
                                 </h4>
 
+
+                                <script type="text/javascript">
+                                    var fileReader = new FileReader();
+                                    var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+
+                                    fileReader.onload = function (event) {
+                                        var image = new Image();
+
+                                        image.onload=function(){
+                                            document.getElementById("original-Img").src=image.src;
+                                            var canvas=document.createElement("canvas");
+                                            var context=canvas.getContext("2d");
+                                            canvas.width=image.width/4;
+                                            canvas.height=image.height/4;
+                                            context.drawImage(image,
+                                                    0,
+                                                    0,
+                                                    image.width,
+                                                    image.height,
+                                                    0,
+                                                    0,
+                                                    canvas.width,
+                                                    canvas.height
+                                            );
+
+                                            document.getElementById("upload-Preview").src = canvas.toDataURL();
+                                        }
+                                        image.src=event.target.result;
+                                    };
+
+                                    var loadImageFile = function () {
+                                        var uploadImage = document.getElementById("upload-Image");
+
+                                        //check and retuns the length of uploded file.
+                                        if (uploadImage.files.length === 0) {
+                                            return;
+                                        }
+
+                                        //Is Used for validate a valid file.
+                                        var uploadFile = document.getElementById("upload-Image").files[0];
+                                        if (!filterType.test(uploadFile.type)) {
+                                            alert("Please select a valid image.");
+                                            return;
+                                        }
+
+                                        fileReader.readAsDataURL(uploadFile);
+                                    }
+
+                                </script>
+
+
+
+
                                 <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
                                     @if(isset($printTemplates))
                                         @foreach($printTemplates as $image)
@@ -120,12 +173,15 @@
 
                 <!--	EDITOR      -->
                 <div id="shirtDiv" class="page" style="width: 530px; height: 630px; position: relative; background-color: rgb(255, 255, 255);">
+
                     <!--img id="tshirtFacing" src="img/crew_front.png"></img-->
                     <img id="tshirtFacing" src="{{ asset('img/t-shirts/crew_front.png') }}"></img>
 
                     <div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="tcanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
+
+
                 </div>
 
             </div>
