@@ -18,6 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('name')->unique();
             $table->string('identifier')->unique();
             $table->text('filters');
+            $table->text('desing_conf');
             $table->timestamps();
         });
     }

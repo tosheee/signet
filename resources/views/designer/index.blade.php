@@ -18,37 +18,21 @@
 
                 <div class="tabbable"> <!-- Only required for left/right tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1" data-toggle="tab">Text</a></li>
-                        <li><a href="#tab2" data-toggle="tab">Text</a></li>
+                        <li class="active"><a href="#tab1" data-toggle="tab">Add desing</a></li>
+                        <!--<li><a href="#tab2" data-toggle="tab">Text</a></li>-->
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab1">
-                            <div class="well">
-                                <p style="font-family: 'Telex',sans-serif;font-weight: bold;line-height: 1;color: #317eac;text-rendering: optimizelegibility;">Text</p>
-                                <select id="shirtstyle" class="form-control">
-                                    @if(isset($shirts))
-                                        @foreach($shirts as $shirt)
-                                            <option value="{{ $shirt->image }}">{{ $shirt->name }}</option>
-                                        @endforeach
-                                    @endif
-                                </select>
-                                <!--</p>-->
-                            </div>
-                            <div class="well">
-                                <p style="font-family: 'Telex',sans-serif;font-weight: bold;line-height: 1;color: #317eac;text-rendering: optimizelegibility;">Text</p>
-                                <button id="imgsavejpg" class="btn btn-primary" title="Text">    <i style="font-size: 25px;" class="fa fa-camera" aria-hidden="true"></i></button>
-                                <button id="imgsavepdf" class="btn btn-primary" title="Text PDF"><i style="font-size: 25px;" class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
-                                <button id="rotate"     class="btn btn-primary" title="Text">    <i style="font-size: 25px;" class="fa fa-repeat" aria-hidden="true"></i></button>
-                                <button class="btn btn-primary" onclick="location.reload();" title="Text"><i style="font-size: 25px;" class="fa fa-trash" aria-hidden="true"></i></button>
-                            </div>
-                        </div>
 
-                        <div class="tab-pane" id="tab2">
                             <div class="well">
-                                <h4>Текст</h4>
+
                                 <div class="input-append">
-                                    <input class="span2" id="text-string" type="text" placeholder="Text ...">
-                                    <button id="add-text" class="btn" title="text"><i class="icon-share-alt"></i></button>
+                                    <input class="span2" id="text-string" type="text" placeholder="Add text ...">
+                                    <button id="add-text" class="btn" title="text">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="10" fill="currentColor" class="bi bi-badge-ad-fill" viewBox="0 0 16 16">
+                                            <path d="M11.35 8.337c0-.699-.42-1.138-1.001-1.138-.584 0-.954.444-.954 1.239v.453c0 .8.374 1.248.972 1.248.588 0 .984-.44.984-1.2v-.602zm-5.413.237-.734-2.426H5.15l-.734 2.426h1.52z"/>
+                                            <path d="M2 2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H2zm6.209 6.32c0-1.28.694-2.044 1.753-2.044.655 0 1.156.294 1.336.769h.053v-2.36h1.16V11h-1.138v-.747h-.057c-.145.474-.69.804-1.367.804-1.055 0-1.74-.764-1.74-2.043v-.695zm-4.04 1.138L3.7 11H2.5l2.013-5.999H5.9L7.905 11H6.644l-.47-1.542H4.17z"/>
+                                        </svg></button>
                                     <hr>
                                 </div>
                                 <h4>Text
@@ -118,8 +102,31 @@
                                         @endforeach
                                     @endif
                                 </div>
+                            </div>
 
+                            <div class="well">
+                                <p style="font-family: 'Telex',sans-serif;font-weight: bold;line-height: 1;color: #317eac;text-rendering: optimizelegibility;">Text</p>
+                                <button id="imgsavejpg" class="btn btn-primary" title="Text">    <i style="font-size: 25px;" class="fa fa-camera" aria-hidden="true"></i></button>
+                                <button id="imgsavepdf" class="btn btn-primary" title="Text PDF"><i style="font-size: 25px;" class="fa fa-file-pdf-o" aria-hidden="true"></i></button>
+                                <button id="rotate"     class="btn btn-primary" title="Text">    <i style="font-size: 25px;" class="fa fa-repeat" aria-hidden="true"></i></button>
+                                <button class="btn btn-primary" onclick="location.reload();" title="Text"><i style="font-size: 25px;" class="fa fa-trash" aria-hidden="true"></i></button>
+                            </div>
+                        </div>
 
+                        <div class="tab-pane" id="tab2">
+                            <div class="well">
+                                <h4>Текст</h4>
+                                <div class="well">
+                                    <p style="font-family: 'Telex',sans-serif;font-weight: bold;line-height: 1;color: #317eac;text-rendering: optimizelegibility;">Text</p>
+                                    <select id="shirtstyle" class="form-control">
+                                        @if(isset($shirts))
+                                            @foreach($shirts as $shirt)
+                                                <option value="{{ $shirt->image }}">{{ $shirt->name }}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
+                                    <!--</p>-->
+                                </div>
 
                             </div>
                         </div>
@@ -129,7 +136,7 @@
             <div class="span6">
                 <div align="center" style="min-height: 32px;">
                     <div class="clearfix">
-                        <div class="btn-group inline pull-left" id="texteditor" style="display:none">
+                        <div class="btn-group inline pull-left" id="texteditor" style="">
                             <button id="font-family" class="btn dropdown-toggle" data-toggle="dropdown" title="Font Style"><i class="icon-font" style="width:19px;height:19px;"></i></button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="font-family-X">
                                 <li><a tabindex="-1" href="#" onclick="setFont('Arial');" class="Arial">Arial</a></li>
@@ -148,7 +155,9 @@
                                 <li><a tabindex="-1" href="#" onclick="setFont('Engagement');" class="Engagement">Engagement</a></li>
                             </ul>
 
-                            <button id="text-bold" class="btn" data-original-title="Bold"><img src="img/font_bold.png" height="" width=""></button>
+                            <button id="text-bold" class="btn" data-original-title="Bold">
+                                <img src="img/font_bold.png" height="" width="">
+                            </button>
                             <button id="text-italic" class="btn" data-original-title="Italic"><img src="img/font_italic.png" height="" width=""></button>
                             <button id="text-strike" class="btn" title="Strike" style=""><img src="img/font_strikethrough.png" height="" width=""></button>
                             <button id="text-underline" class="btn" title="Underline" style=""><img src="img/font_underline.png"></button>
@@ -161,7 +170,7 @@
                         </div>
 
 
-                        <div class="pull-right" align="" id="imageeditor" style="display:none">
+                        <div class="pull-right" align="" id="imageeditor" style="">
                             <div class="btn-group">
                                 <button class="btn" id="bring-to-front" title="Bring to Front"><i class="icon-fast-backward rotate" style="height:19px;"></i></button>
                                 <button class="btn" id="send-to-back" title="Send to Back"><i class="icon-fast-forward rotate" style="height:19px;"></i></button>
@@ -191,7 +200,7 @@
             <div class="span3">
                 <div class="well">
                     <ul class="nav">
-                        <h3>Colors</h3>
+                        <h3>Налични цветове:</h3>
                         @if(isset($colors))
                             @foreach($colors as $color)
                                 <li class="color-preview" title="{{$color->name}}" style="background-color:{{$color->color}};"></li>
@@ -200,6 +209,8 @@
                     </ul>
                 </div>
             </div>
+
+
         </div>
         <div id="editor"></div>
     </section>

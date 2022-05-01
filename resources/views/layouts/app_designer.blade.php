@@ -29,6 +29,9 @@
     <link href="{{ asset('css/designer_css/bootstrap-responsive.min.css')}}" rel="stylesheet">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 
+
+    <link rel="stylesheet" href="https://fonts.sandbox.google.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
     <script type="text/javascript"></script>
     <style type="text/css">
         .footer {
