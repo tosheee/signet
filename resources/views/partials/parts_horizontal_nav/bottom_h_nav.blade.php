@@ -13,9 +13,10 @@
         <!-- Collect the nav links,  -->
         <div class="collapse navbar-collapse navbar-1" style="margin-top: 0px;">
             <ul class="nav navbar-nav">
+                <li><a href="/designer">Направи си дизайн</a></li>
                 @foreach($categories as $category)
                     <li >
-                        <a href="/store/search/{{$category->name}}" title="{{ $category->name }}">
+                        <a href="/store/search/{{$category->identifier}}" title="{{ $category->name }}">
                             {{ $category->name }}
                         </a>
                     </li>

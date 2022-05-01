@@ -7,7 +7,7 @@
            <div class="modal-content-search-office">
              <span class="close">&times;</span>
             <span>Моля, попълнете полето за населеното място и натиснете бутона "Търсене", след това изберете най - удобния офис на Еконт за Вас.</span>
-            <iframe frameborder="0" id="officeLocator" scrolling="no" frameborder="0" style="border: medium none; width: 800px; height: 450px;" src="https://www.bgmaps.com/templates/econt?office_type=to_office_courier&shop_url={{ Request::fullUrl() }}&address= --- Изберете ---" class="cboxIframe"></iframe>
+            <iframe frameborder="0" id="officeLocator" scrolling="no" frameborder="0" style="border: medium none; width: 90%; height: 90%;" src="https://www.bgmaps.com/templates/econt?office_type=to_office_courier&shop_url={{ Request::fullUrl() }}&address= --- Изберете ---" class="cboxIframe"></iframe>
         </div>
         </div>
 
@@ -441,7 +441,7 @@
 	                                </a>
 	                            @elseif(isset($description['upload_main_picture']))
 	                                <a class="thumbnail pull-left" href="/store/{{ $item['item']->id }}" target="_blank" >  
-	                                <img  style="margin: 0 auto; width: 50px;height: 50px;" src="/storage/upload_pictures/{{ $item['item']->id }}/{{ $description['upload_main_picture'] }}" alt="pic" />
+	                                <img  style="margin: 0 auto; width: 50px;height: 50px;" src="{{ asset('product_images/')}}/{{ $item['item']->id }}/{{ $description['upload_main_picture'] }}" alt="pic" />
 	                                </a>
 	                            @else
 	                                <a class="thumbnail pull-left" href="/store/{{ $item['item']->id }}" target="_blank" >  

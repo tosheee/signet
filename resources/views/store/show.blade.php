@@ -10,9 +10,14 @@
             margin-bottom: 5%;
         }
     </style>
+
+
+
     <div class="col-md-2" id="vertical-nav-bar">
         @include('partials.vertical_navigation')
     </div>
+
+
     <?php $descriptions = json_decode($product->description, true); ?>
     <div class="col-md-10">
         <div class="row">
@@ -45,7 +50,7 @@
                                             @if (isset($descriptions['main_picture_url']))
                                                 <img width="40" height="40" src="{{ $descriptions['main_picture_url'] }}" alt="pic" />
                                             @elseif(isset($descriptions['upload_main_picture']))
-                                                <img width="40" height="40" src="/storage/upload_pictures/{{ $product->id }}/{{ $descriptions['upload_main_picture'] }}" alt="pic" />
+                                                <img width="40" height="40" src="{{ asset('product_images/')}}/{{ $product->id }}/{{ $descriptions['upload_main_picture'] }}" alt="pic" />
                                             @else
                                                 <img width="40" height="40" src="/storage/common_pictures/noimage.jpg" alt="pic" />
                                             @endif
@@ -56,7 +61,7 @@
                                                 @foreach($type_pictures as $key_picture => $picture)
                                                     <div class="item">
                                                         @if($key_picture == 'upload_picture')
-                                                            <img width="40" height="40" src="/storage/upload_pictures/{{ $product->id }}/{{ $type_pictures[$key_picture] }}" class="img-responsive">
+                                                            <img width="40" height="40" src="{{ asset('product_images/')}}/{{ $product->id }}/{{ $type_pictures[$key_picture] }}" class="img-responsive">
                                                         @else
                                                             <img width="40" height="40" src="{{ $type_pictures[$key_picture] }}" class="img-responsive">
                                                         @endif
@@ -80,7 +85,7 @@
                                                         @foreach($type_pictures as $key_picture => $picture)
                                                             <div data-target="#carousel" data-slide-to="{{ $key+1 }}" class="thumb">
                                                                 @if($key_picture == 'upload_picture')
-                                                                    <img width="40" height="40" src="/storage/upload_pictures/{{ $product->id }}/{{ $type_pictures[$key_picture] }}" class="img-responsive">
+                                                                    <img width="40" height="40" src="{{ asset('product_images/')}}/{{ $product->id }}/{{ $type_pictures[$key_picture] }}" class="img-responsive">
                                                                 @else
                                                                     <img width="40" height="40" src="{{ $type_pictures[$key_picture] }}" class="img-responsive">
                                                                 @endif

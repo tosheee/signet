@@ -11,8 +11,8 @@
     font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
     padding: 10px 10px 10px 20px;
     display: block;
-     color: white;
-    background:linear-gradient(45deg, #11fa4f, #11fa4f);
+    color: white;
+    //background:linear-gradient(45deg, #11fa4f, #11fa4f);
     border-bottom: 1px solid #8a949d;
     margin: -20px -20px 15px;
 }
@@ -115,7 +115,8 @@
 }
 
 #modalOfficeLocate .modal-content-search-office {
-    width: 65%;
+    width: 90%;
+    height: 90%;
     background-color: #dbe1de;
     margin: auto;
     padding: 0 3% 0 3%;

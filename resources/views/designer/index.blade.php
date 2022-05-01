@@ -119,6 +119,8 @@
                                     @endif
                                 </div>
 
+
+
                             </div>
                         </div>
                     </div>
@@ -189,7 +191,7 @@
             <div class="span3">
                 <div class="well">
                     <ul class="nav">
-                        <h3>Text</h3>
+                        <h3>Colors</h3>
                         @if(isset($colors))
                             @foreach($colors as $color)
                                 <li class="color-preview" title="{{$color->name}}" style="background-color:{{$color->color}};"></li>

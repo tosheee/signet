@@ -21,13 +21,33 @@ class DesignerController extends Controller
     public function index()
     {
 
-        //$productsSale =        Product::where('active', true)->where('sale',         true)->orderBy('created_at', 'desc')->take(10)->get();
-        //$productsRecommended = Product::where('active', true)->where('recommended',  true)->orderBy('created_at', 'desc')->take(10)->get();
-        //$productsBestSeller =  Product::where('active', true)->where('best_sellers', true)->orderBy('created_at', 'desc')->take(10)->get();
-
-
-
         $printTemplates = PrintTemplate::all();
-        return view('designer.index')->with('printTemplates', $printTemplates);//->with('productsRecommended', $productsRecommended)->with('productsBestSeller', $productsBestSeller);
+        return view('designer.index')->
+        with('printTemplates', $printTemplates);
+    }
+
+    public function searchCategory(Request $request)
+    {
+        $query = $request->query;
+        $currentCategory = Category::select('*')->where('identifier', '=', $request->category);
+        $categories = Category::all();
+
+        if (count($query) > 0){
+            $products = Product::select('*')->
+            where('category_id', '=', $currentCategory->first()->id)->
+            where('active', '=', 1)->get();
+
+        }
+        else
+        {
+            $products = Product::select('*')->
+            where('category_id', '=', $currentCategory->first()->id)->
+            where('active', '=', 1)->get();
+        }
+
+        return view('store.index')->
+        with('categories', $categories)->
+        with('products', $products)->
+        with('category_id', $currentCategory->first()->id);
     }
 }

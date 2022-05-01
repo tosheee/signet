@@ -63,7 +63,7 @@
     <div id="sidebar">
         <div class="classes-filters">
             <?php $paramOfUrl = explode('=', Request::fullUrl()) ?>
-            @if(isset($categories))
+            @if(isset($categories) && isset($categories_id))
                 <ul class="mobile-classes-filters vertical menu show-for-small-only" data-accordion-menu>
                     <?php $idxCss = 0; ?>
                     @foreach($categories as $category)
@@ -79,7 +79,7 @@
                                                 <ul class="categories-menu menu vertical nested is-active">
                                                     <a href="#" class="clear-all" id="grades-clear-all">Clear All</a>
                                                     @foreach($filters['values'] as $iKey1 =>$filter)
-                                                        <?php //dd($f)?>
+
                                                         @foreach($filter as $iKey2 => $fill)
                                                             <?php $idxCss++;?>
                                                             <li>
@@ -93,8 +93,8 @@
                                         @endforeach
                                     </li>
                                 <input type="submit" class="btn btn-block col-8"  value="Филтрирай: {{$category->name}}">
-                            @endif
-                        @endforeach
+                        @endif
+                    @endforeach
                     </ul>
                 </form>
             @endif

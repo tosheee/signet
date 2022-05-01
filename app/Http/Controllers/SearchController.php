@@ -13,7 +13,7 @@ class SearchController extends Controller
     public function searchCategory(Request $request)
     {
         $query = $request->query;
-        $currentCategory = Category::select('*')->where('name', '=', $request->category);
+        $currentCategory = Category::select('*')->where('identifier', '=', $request->category);
         $categories = Category::all();
 
         if (count($query) > 0){

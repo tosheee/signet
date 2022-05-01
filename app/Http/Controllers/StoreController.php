@@ -125,7 +125,10 @@ class StoreController extends Controller
         $oldCart = Session::get('cart');
         $cart = new Cart($oldCart);
 
-        return view('store.shopping-cart')->with('products', $cart->items)->with('totalPrice', $cart->totalPrice)->with('totalQuantity', $cart->totalQty);
+        return view('store.shopping-cart')
+            ->with('products', $cart->items)
+            ->with('totalPrice', $cart->totalPrice)
+            ->with('totalQuantity', $cart->totalQty);
     }
     
     // checkout
@@ -200,7 +203,10 @@ class StoreController extends Controller
         $subCategories = SubCategory::all();
         $products = Product::where('active', true)->paginate(18);
 
-        return view('store.index')->with('categories', $categories)->with('subCategories', $subCategories)->with('products', $products);
+        return view('store.index')
+            ->with('categories', $categories)
+            ->with('subCategories', $subCategories)
+            ->with('products', $products);
     }
 
     // show-pages

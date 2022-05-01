@@ -15,6 +15,7 @@
 
     // design
     Route::get('/designer', ['uses' => 'DesignerController@index', 'as'   => 'designer.index']);
+    Route::get('/designer/{identifier}', ['uses' => 'DesignerController@index', 'as'   => 'designer.index']);
 
     // store
     Route::get('/store',                       ['uses' => 'StoreController@index',          'as'   => 'store.index']);
