@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
-//use Intervention\Image\ImageManagerStatic as Image;
+use Intervention\Image\Facades\Image;
+#use Intervention\Image\ImageManagerStatic as Image;
 use ImagesHelper;
 
 class ProductsController extends Controller
@@ -61,11 +61,11 @@ class ProductsController extends Controller
         ]);
 
         $catIdentifier = Category::find($request->input('category_id'))->identifier;
-        // $productId = ImagesHelper::getLastProductId() + 1;
-        $productId = Product::all()->last()->id +1;
-        //dd($productId);
+        $productId = ImagesHelper::getLastProductId();
         $descriptionRequest =  $request->input('description');
         $picturesOfUrl = $request->input('description');
+
+        $resize_percent = $request->input('resize_percent');
 
         if(isset($descriptionRequest['delivery_price'])) {
             $descriptionRequest['delivery_price'] = $this->price_format($descriptionRequest['delivery_price']);
@@ -85,18 +85,18 @@ class ProductsController extends Controller
         if($request->hasFile('upload_gallery_pictures'))
         {
             $files_gallery_pic = $request->file('upload_gallery_pictures');
-            //dd($files_gallery_pic);
 
             for($i = 0; $i < count($files_gallery_pic); $i++)
             {
-                dd($files_gallery_pic);
                 if ($i == 0)
                 {
-                    $descriptionRequest['upload_main_picture'] = $this->manImages($files_gallery_pic[$i], $productId, $i, 'basic');
+                    $descriptionRequest['upload_main_picture'] =
+                        $this->resizeAndSaveImage($files_gallery_pic[$i], $productId, $i, 'basic', $resize_percent);
                 }
                 else
                 {
-                  $descriptionRequest['gallery'][$i]['upload_picture'] = $this->manImages($files_gallery_pic[$i], $productId, $i, 'gallery');
+                  $descriptionRequest['gallery'][$i]['upload_picture'] =
+                      $this->resizeAndSaveImage($files_gallery_pic[$i], $productId, $i, 'gallery', $resize_percent);
                 }
             }
 
@@ -131,20 +131,24 @@ class ProductsController extends Controller
         return redirect('admin/products/create');
     }
 
-    public function manImages($picture, $productId, $idx, $type_pic)
+    public function resizeAndSaveImage($picture, $productId, $idx, $type_pic, $resize_percent)
     {
         $extension = $picture->getClientOriginalExtension();
-
         $fileNameToStore = $type_pic.'_'.$idx.'.'.$extension;
 
         $productImagesPath = public_path().'/product_images/'.$productId.'/';
 
-        if(!File::exists($productImagesPath)) {
-            File::makeDirectory($productImagesPath, 0777, true, true);
-        }
+        if(!File::exists($productImagesPath)) { File::makeDirectory($productImagesPath, 0777, true, true);}
 
+        $image = Image::make($picture->getRealPath());
 
-        $picture->move($productImagesPath, $fileNameToStore);
+        list($width, $height) = getimagesize($picture->getRealPath());
+
+        $newWidth  = intval(($resize_percent / 100) * $width);
+        $newHeight = intval(($resize_percent / 100) * $height);
+
+        $image->resize($newWidth, $newHeight)->save($productImagesPath.'/'.$fileNameToStore);
+
 
         return $fileNameToStore;
     }

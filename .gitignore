@@ -12,6 +12,7 @@
 /public/css/old_files/*
 /public/.htaccess
 /public/img/*
+/public/product_images/*
 symlink.php
 
 /.idea

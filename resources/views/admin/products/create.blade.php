@@ -1,21 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <style>
 
-    #preview img{
-        padding: 5px;
-    }
-
-    ::-webkit-file-upload-button {
-     background: #2acb77;
-     width: 20px;
-     color: #ffffff;
-     font-size: 10px;
-     border-radius: 5px;
-     padding: 1em;
-     }
-    </style>
 
     @include('admin.admin_partials.admin_menu')
 
@@ -114,6 +100,11 @@
 
 
 
+            <label>
+                <span style="margin: 0;">Resize Images percent:</span>
+                <input type="number" name="resize_percent" min="0" max="100" step="10" value="50"/>
+            </label>
+            <br><br><br>
             <!--
            <label>
                <input type="file" name="upload_gallery_picturesssssss[]" id="file-input" onchange="loadImageFile();" multiple />
@@ -142,11 +133,7 @@
 
             <div class="gallery_wrapper">
                 <button class="add_img_button btn-primary btn-xs">Add image</button>
-                <div id="view_images_wrapper">
-
-
-
-                </div>
+                <div id="view_images_wrapper"></div>
             </div>
 
 
@@ -159,91 +146,98 @@
                     var field_img_gallery_button  = $(".add_img_button");
                     var x = 1;
 
-
                     $(field_img_gallery_button).click(function(e){
                         e.preventDefault();
                         if(x < max_fields){
                             x++;
                             $(wrapper).append(
-                                    '<div class="fields" ><label><span>Img:</span>' +
-                                    '<input class="btn-upload-img" id="upload-Image'+ x +'" type="file" name="upload_gallery_pictures[]" onchange="loadImageFile();" multiple"/>' +
-                                    '<img id="original-Img"/>'+
-                                    '<img id="upload-Preview"/>'+
+                                    '<div class="fields" ><label><span></span><br>' +
+                                    '<input id="id_upload_image'+ x +'" type="file" name="upload_gallery_pictures[]" onchange="loadImageFile(this);"  multiple"/>' +
+                                    //'<input id="id_upload_image_water_markt'+ x +'" type="file" name="upload_gallery_pictures[]" onchange="loadImageFile(this);"  multiple"/>' +
                                     '<a href="#" class="remove_field">'+
                                     '<i style="color: red;" aria-hidden="true" id="chang-menu-icon" class="fa fa-times"></i></a>' +
                                     '</label></div>');
                         }
                     });
 
-
-                    $(wrapper).on("click",".remove_field", function(e){
-                        e.preventDefault(); $(this).parent('div.fields label').remove(); x--;
+                    $(wrapper).on("click", ".remove_field", function(e){
+                        e.preventDefault();
+                        $(this).parent('div.fields label').parent('.fields').remove();
+                        x--;
                     });
+
+
+
                 });
-            </script>
 
+                var loadImageFile = function (selectObject) {
 
-            <script type="text/javascript">
-                var fileReader = new FileReader();
-                var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
+                    var fileReader = new FileReader();
+                    var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
 
-                fileReader.onload = function (event) {
-                    var image = new Image();
-
-                    image.onload=function(){
-                        document.getElementById("original-Img").src=image.src;
-                        var canvas=document.createElement("canvas");
-                        var context=canvas.getContext("2d");
-                        canvas.width=image.width/4;
-                        canvas.height=image.height/4;
-                        context.drawImage(image,
-                                0,
-                                0,
-                                image.width,
-                                image.height,
-                                0,
-                                0,
-                                canvas.width,
-                                canvas.height
-                        );
-
-                        document.getElementById("upload-Preview").src = canvas.toDataURL();
-                    }
-                    image.src=event.target.result;
-                };
-
-                var loadImageFile = function () {
-
-
-
-                    $('input.btn-upload-img').change(function() {
-                        console.log(this)
-                        varthis.id
-                    });
-
-
-
-
-
-
-                    var uploadImage = document.getElementById(input.id);
+                    var uploadImage = document.getElementById(selectObject.id);
                     //check and retuns the length of uploded file.
 
                     if (uploadImage.files.length === 0) {
                         return;
                     }
 
-                    //Is Used for validate a valid file.
-
-                    var uploadFile = document.getElementById(input.id).files[0];
+                    var uploadFile = document.getElementById(selectObject.id).files[0];
 
                     if (!filterType.test(uploadFile.type)) {
                         alert("Please select a valid image.");
                         return;
                     }
 
+                    //console.log(selectObject.value);
+
                     fileReader.readAsDataURL(uploadFile);
-                }
+
+                    fileReader.onload = function (event) {
+                        var image = new Image();
+
+                        image.onload = function(){
+
+                            var label_wrapper = document.getElementById(selectObject.id).parentNode;
+                            var img_tag = document.createElement("img");
+                            label_wrapper.append(image.width + 'x' + image.height);
+                            var canvas = document.createElement("canvas");
+                            var context = canvas.getContext("2d");
+
+                            canvas.width = 150;
+                            canvas.height = 150;
+
+                            //canvas.width = image.width/4;
+                            //canvas.height = image.height/4;
+
+
+                            context.drawImage(image,
+                                    0,
+                                    0,
+                                    image.width,
+                                    image.height,
+                                    0,
+                                    0,
+                                    canvas.width,
+                                    canvas.height
+                            );
+
+                            img_tag.src = canvas.toDataURL();
+                            label_wrapper.append(img_tag);
+
+                            var input_tag = document.createElement("input");
+                            input_tag.type="file";
+                            input_tag.value=event.target.result;
+
+                            label_wrapper.append(input_tag);
+                            label_wrapper.append('<span>'+ image.width + ' : ' + image.height+'</span>');
+
+                        }
+
+                        image.src = event.target.result;
+                    };
+
+                    }
 
             </script>
 
@@ -259,10 +253,6 @@
     </div>
 
     <br><br><br>
-
-
-
-
 
     <script>
         function previewImages() {
@@ -392,10 +382,6 @@
                     e.preventDefault(); $(this).parent('div.upload-img-gallery-button').remove(); x--;
                 });
             });
-
-
-
-
 
 
             // specification
