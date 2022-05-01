@@ -7,6 +7,7 @@ use Session;
 use App\Cart;
 use App\Like;
 use App\Order;
+use App\Color;
 
 use App\Admin\Page;
 use App\Admin\Product;
@@ -22,8 +23,9 @@ class DesignerController extends Controller
     {
 
         $printTemplates = PrintTemplate::all();
+        $colors = Color::all();
         return view('designer.index')->
-        with('printTemplates', $printTemplates);
+        with('printTemplates', $printTemplates)->with('colors', $colors);
     }
 
     public function searchCategory(Request $request)
