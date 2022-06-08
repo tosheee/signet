@@ -165,7 +165,7 @@
             <ul class="nav navbar-nav">
                 @foreach($categories as $category)
                     <li >
-                        <a href="/designer/{{$category->identifier}}" title="{{ $category->name }}">
+                        <a href="/designer/{{$category->identifier}}?q={{$category->id}}" title="{{ $category->name }}">
                             {{ $category->name }}
                         </a>
                     </li>

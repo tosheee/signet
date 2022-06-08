@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 use File;
-use App\Admin\SubCategory;
+
+
 use App\Admin\Category;
+use App\Admin\SubCategory;
 use App\Admin\Product;
+use App\Admin\PrintTemplate;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -47,15 +50,19 @@ class ProductsController extends Controller
     {
         $categories = Category::all();
         $subCategories = SubCategory::all();
+        $printTemplates = PrintTemplate::all();
 
         return view('admin.products.create')->
         with('categories', $categories)->
         with('subCategories', $subCategories)->
+        with('printTemplates', $printTemplates)->
         with('title', 'Създаване на продукт');
     }
 
     public function store(Request $request)
     {
+        //dd($request);
+
         $this->validate($request, [
             'category_id'     => 'required',
         ]);
@@ -112,7 +119,10 @@ class ProductsController extends Controller
             $descriptionRequest['main_picture_url'] = array_values($picturesOfUrl['gallery'][0])[0];
         }
 
-        $description = json_encode( $descriptionRequest, JSON_UNESCAPED_UNICODE );
+        $descriptionRequest['canvas_content'] = $request->input('canvas_content');
+
+        $description = json_encode($descriptionRequest, JSON_UNESCAPED_UNICODE );
+
         $product = new Product;
         $product->category_id     = $request->input('category_id');
         $product->sub_category_id = $request->input('sub_category_id');
@@ -122,7 +132,7 @@ class ProductsController extends Controller
         $product->recommended     = $request->input('recommended');
         $product->best_sellers    = $request->input('best_sellers');
         // $product->product_color   = $request->input('product_color');
-        $product->description     = $description;
+        $product->description = $description;
 
         $product->save();
 

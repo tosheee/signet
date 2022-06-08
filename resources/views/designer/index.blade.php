@@ -11,21 +11,20 @@
         <div class="page-header">
             <h1>Text</h1>
         </div>
-
         <!-- Headings & Paragraph Copy -->
         <div class="row">
             <div class="span3">
 
                 <div class="tabbable"> <!-- Only required for left/right tabs -->
                     <ul class="nav nav-tabs">
-                        <li class="active"><a href="#tab1" data-toggle="tab">Add desing</a></li>
+                        <li class="active">
+                            <a href="#tab1" data-toggle="tab">Add desing</a>
+                        </li>
                         <!--<li><a href="#tab2" data-toggle="tab">Text</a></li>-->
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tab1">
-
                             <div class="well">
-
                                 <div class="input-append">
                                     <input class="span2" id="text-string" type="text" placeholder="Add text ...">
                                     <button id="add-text" class="btn" title="text">
@@ -39,7 +38,10 @@
                                     <form hidden id="form1" runat="server">
                                         <input hidden type='file' id="imgInp"/>
                                     </form>
-                                    <button id="addimg" class="btn btn-primary"><i style="font-size: 15px;" class="fa fa-plus" aria-hidden="true"></i></button>
+
+                                    <button id="addimg" class="btn btn-primary">
+                                        <i style="font-size: 15px;" class="fa fa-plus" aria-hidden="true"></i>
+                                    </button>
                                 </h4>
 
 
@@ -92,9 +94,6 @@
 
                                 </script>
 
-
-
-
                                 <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
                                     @if(isset($printTemplates))
                                         @foreach($printTemplates as $image)
@@ -117,7 +116,7 @@
                             <div class="well">
                                 <h4>Текст</h4>
                                 <div class="well">
-                                    <p style="font-family: 'Telex',sans-serif;font-weight: bold;line-height: 1;color: #317eac;text-rendering: optimizelegibility;">Text</p>
+                                    <p style="font-family: 'Telex',sans-serif;font-weight: bold;line-height: 1;color: #317eac;text-rendering: optimizelegibility;">Add image</p>
                                     <select id="shirtstyle" class="form-control">
                                         @if(isset($shirts))
                                             @foreach($shirts as $shirt)
@@ -191,8 +190,6 @@
                     <div id="drawingArea" style="position: absolute;top: 100px;left: 160px;z-index: 10;width: 200px;height: 400px;">
                         <canvas id="tcanvas" width=200 height="400" class="hover" style="-webkit-user-select: none;"></canvas>
                     </div>
-
-
                 </div>
 
             </div>

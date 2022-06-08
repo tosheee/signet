@@ -7,7 +7,7 @@
 
 
 
-    <div class="basic-grey">
+<div class="basic-grey">
         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" id="new_form">
             {{ csrf_field() }}
             <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
@@ -105,142 +105,6 @@
                 <input type="number" name="resize_percent" min="0" max="100" step="10" value="50"/>
             </label>
             <br><br><br>
-            <!--
-           <label>
-               <input type="file" name="upload_gallery_picturesssssss[]" id="file-input" onchange="loadImageFile();" multiple />
-               <br>
-              <div id="preview"></div>
-            </label>
-            <!--
-            <table>
-                <tbody>
-                <tr>
-                    <td>Select Image -
-                        <input id="upload-Image" type="file" onchange="loadImageFile();"
-                                name="upload_gallery_pictures[]" multiple/></td>
-                </tr>
-                <tr>
-                    <td>Origal Img - <img id="original-Img"/></td>
-                </tr>
-                <tr>
-                    <td>Compress Img - <img id="upload-Preview"/></td>
-                </tr>
-
-                </tbody>
-            </table>
-            -->
-
-
-            <div class="gallery_wrapper">
-                <button class="add_img_button btn-primary btn-xs">Add image</button>
-                <div id="view_images_wrapper"></div>
-            </div>
-
-
-            <script>
-                // gallery images
-                $(document).ready(function() {
-                    var max_fields = 6;
-                    var wrapper    = $("#view_images_wrapper");
-                    var upload_img_gallery_button = $(".upload-img-gallery-button");
-                    var field_img_gallery_button  = $(".add_img_button");
-                    var x = 1;
-
-                    $(field_img_gallery_button).click(function(e){
-                        e.preventDefault();
-                        if(x < max_fields){
-                            x++;
-                            $(wrapper).append(
-                                    '<div class="fields" ><label><span></span><br>' +
-                                    '<input id="id_upload_image'+ x +'" type="file" name="upload_gallery_pictures[]" onchange="loadImageFile(this);"  multiple"/>' +
-                                    //'<input id="id_upload_image_water_markt'+ x +'" type="file" name="upload_gallery_pictures[]" onchange="loadImageFile(this);"  multiple"/>' +
-                                    '<a href="#" class="remove_field">'+
-                                    '<i style="color: red;" aria-hidden="true" id="chang-menu-icon" class="fa fa-times"></i></a>' +
-                                    '</label></div>');
-                        }
-                    });
-
-                    $(wrapper).on("click", ".remove_field", function(e){
-                        e.preventDefault();
-                        $(this).parent('div.fields label').parent('.fields').remove();
-                        x--;
-                    });
-
-
-
-                });
-
-                var loadImageFile = function (selectObject) {
-
-                    var fileReader = new FileReader();
-                    var filterType = /^(?:image\/bmp|image\/cis\-cod|image\/gif|image\/ief|image\/jpeg|image\/jpeg|image\/jpeg|image\/pipeg|image\/png|image\/svg\+xml|image\/tiff|image\/x\-cmu\-raster|image\/x\-cmx|image\/x\-icon|image\/x\-portable\-anymap|image\/x\-portable\-bitmap|image\/x\-portable\-graymap|image\/x\-portable\-pixmap|image\/x\-rgb|image\/x\-xbitmap|image\/x\-xpixmap|image\/x\-xwindowdump)$/i;
-
-                    var uploadImage = document.getElementById(selectObject.id);
-                    //check and retuns the length of uploded file.
-
-                    if (uploadImage.files.length === 0) {
-                        return;
-                    }
-
-                    var uploadFile = document.getElementById(selectObject.id).files[0];
-
-                    if (!filterType.test(uploadFile.type)) {
-                        alert("Please select a valid image.");
-                        return;
-                    }
-
-                    //console.log(selectObject.value);
-
-                    fileReader.readAsDataURL(uploadFile);
-
-                    fileReader.onload = function (event) {
-                        var image = new Image();
-
-                        image.onload = function(){
-
-                            var label_wrapper = document.getElementById(selectObject.id).parentNode;
-                            var img_tag = document.createElement("img");
-                            label_wrapper.append(image.width + 'x' + image.height);
-                            var canvas = document.createElement("canvas");
-                            var context = canvas.getContext("2d");
-
-                            canvas.width = 150;
-                            canvas.height = 150;
-
-                            //canvas.width = image.width/4;
-                            //canvas.height = image.height/4;
-
-
-                            context.drawImage(image,
-                                    0,
-                                    0,
-                                    image.width,
-                                    image.height,
-                                    0,
-                                    0,
-                                    canvas.width,
-                                    canvas.height
-                            );
-
-                            img_tag.src = canvas.toDataURL();
-                            label_wrapper.append(img_tag);
-
-                            var input_tag = document.createElement("input");
-                            input_tag.type="file";
-                            input_tag.value=event.target.result;
-
-                            label_wrapper.append(input_tag);
-                            label_wrapper.append('<span>'+ image.width + ' : ' + image.height+'</span>');
-
-                        }
-
-                        image.src = event.target.result;
-                    };
-
-                    }
-
-            </script>
-
 
             <br>
             <div class="specification_fields_wrap">
@@ -249,32 +113,55 @@
                 <br>
             </div>
 
+            <div class="input-append">
+                <input class="span2" id="text-string" type="text" placeholder="Add text ...">
+                <button id="add-text" class="btn" title="text">
+                    Add text
+                </button>
+                <hr>
+            </div>
+
+
+            <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
+                @if(isset($printTemplates))
+                    @foreach($printTemplates as $image)
+                        <img class="img-polaroid tt" width="100" height="100"
+                             src="{{ asset('img/templates/') }}/{{$image->image_path}}">
+                    @endforeach
+                @endif
+            </div>
+
+            <div class="pull-right" align="" id="imageeditor" style="">
+                <div class="btn-group">
+                    <button class="btn" id="bring-to-front" title="Bring to Front"><i class="icon-fast-backward rotate" style="height:19px;"></i></button>
+                    <button class="btn" id="send-to-back" title="Send to Back"><i class="icon-fast-forward rotate" style="height:19px;"></i></button>
+                    <button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button>
+                    <button id="remove-selected" class="btn" title="Delete selected item"><i class="icon-trash" style="height:19px;"></i></button>
+                </div>
+            </div>
+
+
+            <br><br>
+
+            <div id="desing-wrappers">
+                <div class="desing-wrapper">
+                    <div class="custom-file">
+
+
+                        <input type="file" class="form-control-file" id="add-base-img">
+
+                        <input type="hidden" id="id-canvas-content" name="canvas_content">
+
+                        <label class="custom-file-label" for="customFile">Choose file</label>
+                    </div>
+                    <canvas id="canvas"></canvas>
+                </div>
+            </div>
+            <a class="finish_desing btn-default btn-xs" href="#">Finish desing</a>
         </form>
     </div>
 
-    <br><br><br>
-
     <script>
-        function previewImages() {
-            var $preview = $('#preview').empty();
-            if (this.files) $.each(this.files, readAndPreview);
-            function readAndPreview(i, file) {
-                if (!/\.(jpe?g|png|gif)$/i.test(file.name)){
-                    return alert(file.name +" is not an image");
-                }
-                var reader = new FileReader();
-                $(reader).on("load", function() {
-                    $preview.append($("<img/>", {src:this.result, height:200}).css({'border': 'solid 1px', 'padding': '10px', 'margin': '5px', 'background-color': 'white', 'border-radios':'3px'}));
-                });
-                reader.readAsDataURL(file);
-            }
-        }
-
-        $('#file-input').on("change", previewImages);
-
-    </script>
-
-        <script>
             $( "#select-category" ).change(function(e) {
                 e.preventDefault();
                 var category_val =  $( "#select-category option:selected" ).val();
@@ -376,8 +263,6 @@
                     }
                 });
 
-
-
                 $(wrapper).on("click",".remove-img-gallery-button", function(e){
                     e.preventDefault(); $(this).parent('div.upload-img-gallery-button').remove(); x--;
                 });
@@ -440,15 +325,59 @@
                     $('#btnOn').focus();
                 }
             }
-        </script>
+        </script>\
 
-        <script src="{{ URL::to('/') }}/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
+
+    <!--[if lt IE 9]>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script>
+    <![endif]-->
+    <![endif]-->
+    <!--[if IE]>
+
+
+    <script type="text/javascript" src="{{ asset('js/designer_js/excanvas.js')}}"></script><![endif]-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
+    <script scr="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/1.7.11/fabric.js"></script>
+
+    <script type="text/javascript" src="{{ asset('js/designer_js/fabric.min.js')}}"></script>
+
+    <!--<script type="text/javascript" src="{{ asset('js/designer_js/tshirtEditor.js')}}"></script>-->
+
+    <script type="text/javascript" src="{{ asset('js/designer_js/productEditor.js')}}"></script>
+
+    <script type="text/javascript" src="{{ asset('js/designer_js/jquery.miniColors.min.js')}}"></script>
+
+    <script type="text/javascript" src="{{ asset('js/designer_js/html5.js')}}"></script>
+
+    <script type="text/javascript" src="{{ asset('js/designer_js/loading.js')}}"></script>
+
+    <script type="text/javascript" src="https://cdn.rawgit.com/eligrey/FileSaver.js/5733e40e5af936eb3f48554cf6a8a7075d71d18a/FileSaver.js"></script>
+
+    <script>
+
+        $(".finish_desing").on('click', function(e){
+            e.preventDefault();
+
+            var input_canvas_content = document.getElementById('id-canvas-content');
+
+            var canvas_data = JSON.stringify(canvas.toDatalessJSON());
+
+            console.log(canvas_data);
+
+            input_canvas_content.value = canvas_data;
+
+        });
+
+    </script>
+
+
+    <script src="{{ URL::to('/') }}/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 
         <script>
-            CKEDITOR.replace( 'editor-create' );
+            CKEDITOR.replace('editor-create');
         </script>
-
-
 
     @include('admin.admin_partials.admin_menu_bottom')
 @endsection

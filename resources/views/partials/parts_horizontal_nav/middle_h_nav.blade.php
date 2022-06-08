@@ -4,7 +4,7 @@
         <div class="row display-table">
 
             <div class="col-sm-3 vertical-align text-left hidden-xs">
-                <a href="/"><img style="margin: 5px 2px 0 0"  width="270" src="/storage/common_pictures/logo.png" alt=""></a></span>
+                <a href="/"><img style="margin: 5px 2px 0 0"  width="270"  alt=""></a></span>
             </div>
             <!-- end col -->
 

@@ -14,8 +14,9 @@
     Route::get('/', 'WelcomeController@welcome');
 
     // design
+    Route::get('/designer/{category}', ['uses' => 'DesignerController@searchCategory', 'as'   => 'designer.searchCategory']);
     Route::get('/designer', ['uses' => 'DesignerController@index', 'as'   => 'designer.index']);
-    Route::get('/designer/{identifier}', ['uses' => 'DesignerController@index', 'as'   => 'designer.index']);
+
 
     // store
     Route::get('/store',                       ['uses' => 'StoreController@index',          'as'   => 'store.index']);

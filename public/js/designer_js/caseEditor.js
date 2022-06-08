@@ -226,8 +226,9 @@ var line4;
 	        activeObject.fontFamily = this.value;
 	        canvas.renderAll();
 	      }
-	    });	  
-		$('#text-bgcolor').miniColors({
+	    });
+
+	  $('#text-bgcolor').miniColors({
 			change: function(hex, rgb) {
 			  var activeObject = canvas.getActiveObject();
 		      if (activeObject && activeObject.type === 'text') {
@@ -242,7 +243,7 @@ var line4;
 				//
 			}
 		});		
-		$('#text-fontcolor').miniColors({
+	  $('#text-fontcolor').miniColors({
 			change: function(hex, rgb) {
 			  var activeObject = canvas.getActiveObject();
 		      if (activeObject && activeObject.type === 'text') {
@@ -258,7 +259,7 @@ var line4;
 			}
 		});
 		
-		$('#text-strokecolor').miniColors({
+	  $('#text-strokecolor').miniColors({
 			change: function(hex, rgb) {
 			  var activeObject = canvas.getActiveObject();
 		      if (activeObject && activeObject.type === 'text') {
@@ -328,7 +329,8 @@ var line4;
 		 $("#text-string").val("");
 		 $("#imageeditor").css('display', 'none');
 	 }
-	 function setFont(font){
+
+	function setFont(font){
 		  var activeObject = canvas.getActiveObject();
 	      if (activeObject && activeObject.type === 'text') {
 	        activeObject.fontFamily = font;

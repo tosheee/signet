@@ -14,8 +14,10 @@ use App\Admin\Product;
 use App\Admin\Category;
 use App\Admin\SubCategory;
 use App\Admin\PrintTemplate;
+use App\ProductDesing;
+use DB;
 
-use App\Http\Requests;
+use Illuminate\Http\Request;
 
 class DesignerController extends Controller
 {
@@ -23,33 +25,21 @@ class DesignerController extends Controller
     {
 
         $printTemplates = PrintTemplate::all();
+        $productsDesing = ProductDesing::all();
         $colors = Color::all();
         return view('designer.index')->
-        with('printTemplates', $printTemplates)->with('colors', $colors);
+        with('printTemplates', $printTemplates)->
+        with('productsDesing', $productsDesing)->
+        with('colors', $colors);
     }
 
     public function searchCategory(Request $request)
     {
-        $query = $request->query;
-        $currentCategory = Category::select('*')->where('identifier', '=', $request->category);
-        $categories = Category::all();
+        //$productsDesing = ProductDesing::select('*')->where('category_id', '=', (int)$request->q)->get()    ;
 
-        if (count($query) > 0){
-            $products = Product::select('*')->
-            where('category_id', '=', $currentCategory->first()->id)->
-            where('active', '=', 1)->get();
-
-        }
-        else
-        {
-            $products = Product::select('*')->
-            where('category_id', '=', $currentCategory->first()->id)->
-            where('active', '=', 1)->get();
-        }
-
-        return view('store.index')->
-        with('categories', $categories)->
-        with('products', $products)->
-        with('category_id', $currentCategory->first()->id);
+        $productsDesing = ProductDesing::where('category_id', (int)$request->q);
+        dd($productsDesing);
+        return view('designer.index')->
+        with('productDesing', $productsDesing);
     }
 }

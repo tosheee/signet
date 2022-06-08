@@ -14,6 +14,7 @@ var line4;
 		  selection: true,
 		  selectionBorderColor:'blue'
 		});
+
  		canvas.on({
 			 'object:moving': function(e) {		  	
 			    e.target.opacity = 0.5;
@@ -24,6 +25,7 @@ var line4;
 			 'object:selected':onObjectSelected,
 			 'selection:cleared':onSelectedCleared
 		 });
+
 		// piggyback on `canvas.findTarget`, to fire "object:over" and "object:out" events
  		canvas.findTarget = (function(originalFn) {
 		  return function() {
@@ -57,7 +59,27 @@ var line4;
 
 
 
-		 		 	 
+		document.getElementById('add-base-img').addEventListener("change", function(e) {
+
+
+			var file = e.target.files[0];
+			var reader = new FileReader();
+			reader.onload = function(f) {
+				var data = f.target.result;
+
+				fabric.Image.fromURL(data, function(img) {
+					// add background image
+					console.log(img)
+					canvas.setBackgroundImage('http://localhost:8000/img/t-shirts/crew_front.png', canvas.renderAll.bind(canvas), {
+						width: canvas.width,
+						height: canvas.height
+					});
+				});
+			};
+			reader.readAsDataURL(file);
+		});
+
+
 		document.getElementById('add-text').onclick = function() {
 			var text = $("#text-string").val();
 		    var textSample = new fabric.Text(text, {
@@ -83,6 +105,7 @@ var line4;
 		    	  canvas.renderAll();
 		      }
 	  	});
+
 	  	//$(".img-polaroid").on('click',function(e){
         $('body').on('click', '.img-polaroid', function (e){
 	  		//alert("OK");
@@ -107,7 +130,9 @@ var line4;
 		          //image.scale(getRandomNum(0.1, 0.25)).setCoords();
 		          canvas.add(image);
 		        });
-	  	});	  		  
+	  	});
+
+
 	  document.getElementById('remove-selected').onclick = function() {		  
 		    var activeObject = canvas.getActiveObject(),
 		        activeGroup = canvas.getActiveGroup();
@@ -123,6 +148,7 @@ var line4;
 		      });
 		    }
 	  };
+
 	  document.getElementById('bring-to-front').onclick = function() {		  
 		    var activeObject = canvas.getActiveObject(),
 		        activeGroup = canvas.getActiveGroup();
@@ -137,6 +163,7 @@ var line4;
 		      });
 		    }
 	  };
+
 	  document.getElementById('send-to-back').onclick = function() {		  
 		    var activeObject = canvas.getActiveObject(),
 		        activeGroup = canvas.getActiveGroup();
@@ -150,7 +177,8 @@ var line4;
 		        object.sendToBack();
 		      });
 		    }
-	  };		  
+	  };
+
 	  $("#text-bold").click(function() {		  
 		  var activeObject = canvas.getActiveObject();
 		  if (activeObject && activeObject.type === 'text') {
@@ -158,6 +186,7 @@ var line4;
 		    canvas.renderAll();
 		  }
 		});
+
 	  $("#text-italic").click(function() {		 
 		  var activeObject = canvas.getActiveObject();
 		  if (activeObject && activeObject.type === 'text') {
@@ -165,6 +194,7 @@ var line4;
 		    canvas.renderAll();
 		  }
 		});
+
 	  $("#text-strike").click(function() {		  
 		  var activeObject = canvas.getActiveObject();
 		  if (activeObject && activeObject.type === 'text') {
@@ -172,6 +202,7 @@ var line4;
 		    canvas.renderAll();
 		  }
 		});
+
 	  $("#text-underline").click(function() {		  
 		  var activeObject = canvas.getActiveObject();
 		  if (activeObject && activeObject.type === 'text') {
@@ -179,6 +210,7 @@ var line4;
 		    canvas.renderAll();
 		  }
 		});
+
 	  $("#text-left").click(function() {		  
 		  var activeObject = canvas.getActiveObject();
 		  if (activeObject && activeObject.type === 'text') {
@@ -186,6 +218,7 @@ var line4;
 		    canvas.renderAll();
 		  }
 		});
+
 	  $("#text-center").click(function() {		  
 		  var activeObject = canvas.getActiveObject();
 		  if (activeObject && activeObject.type === 'text') {
@@ -193,21 +226,24 @@ var line4;
 		    canvas.renderAll();
 		  }
 		});
+
 	  $("#text-right").click(function() {		  
 		  var activeObject = canvas.getActiveObject();
 		  if (activeObject && activeObject.type === 'text') {
 			  activeObject.textAlign = 'right';		    
 		    canvas.renderAll();
 		  }
-		});	  
+		});
+
 	  $("#font-family").change(function() {
 	      var activeObject = canvas.getActiveObject();
 	      if (activeObject && activeObject.type === 'text') {
 	        activeObject.fontFamily = this.value;
 	        canvas.renderAll();
 	      }
-	    });	  
-		$('#text-bgcolor').miniColors({
+	    });
+
+	  $('#text-bgcolor').miniColors({
 			change: function(hex, rgb) {
 			  var activeObject = canvas.getActiveObject();
 		      if (activeObject && activeObject.type === 'text') {
@@ -221,8 +257,9 @@ var line4;
 			close: function(hex, rgb) {
 				//
 			}
-		});		
-		$('#text-fontcolor').miniColors({
+		});
+
+	  $('#text-fontcolor').miniColors({
 			change: function(hex, rgb) {
 			  var activeObject = canvas.getActiveObject();
 		      if (activeObject && activeObject.type === 'text') {
@@ -237,8 +274,8 @@ var line4;
 				//
 			}
 		});
-		
-		$('#text-strokecolor').miniColors({
+
+	  $('#text-strokecolor').miniColors({
 			change: function(hex, rgb) {
 			  var activeObject = canvas.getActiveObject();
 		      if (activeObject && activeObject.type === 'text') {
@@ -255,28 +292,30 @@ var line4;
 		});
 	
 		//canvas.add(new fabric.fabric.Object({hasBorders:true,hasControls:false,hasRotatingPoint:false,selectable:false,type:'rect'}));
-	   $("#drawingArea").hover(
-	        function() { 	        	
-	        	 canvas.add(line1);
-		         canvas.add(line2);
-		         canvas.add(line3);
-		         canvas.add(line4); 
-		         canvas.renderAll();
-	        },
-	        function() {	        	
-	        	 canvas.remove(line1);
-		         canvas.remove(line2);
-		         canvas.remove(line3);
-		         canvas.remove(line4);
-		         canvas.renderAll();
-	        }
-	    );
+
+	  $("#drawingArea").hover(
+		function() {
+			 canvas.add(line1);
+			 canvas.add(line2);
+			 canvas.add(line3);
+			 canvas.add(line4);
+			 canvas.renderAll();
+		},
+
+		function() {
+			 canvas.remove(line1);
+			 canvas.remove(line2);
+			 canvas.remove(line3);
+			 canvas.remove(line4);
+			 canvas.renderAll();
+		}
+	  );
 	   
-	   $('.color-preview').click(function(){
-		   var color = $(this).css("background-color");
-		   document.getElementById("shirtDiv").style.backgroundColor = color;		   
-	   });
-	   
+   $('.color-preview').click(function(){
+	   var color = $(this).css("background-color");
+	   document.getElementById("shirtDiv").style.backgroundColor = color;
+   });
+
 	  // $('#flip').click(
         $('body').on('click', '#flip', function (e){
 		   //function() {
@@ -317,12 +356,10 @@ var line4;
 	   line3 = new fabric.Line([0,0,0,400], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
 	   line4 = new fabric.Line([0,400,200,399], {"stroke":"#000000", "strokeWidth":1,hasBorders:false,hasControls:false,hasRotatingPoint:false,selectable:false});
 	 });//doc ready
-	 
-	 
+
 	 function getRandomNum(min, max) {
 	    return Math.random() * (max - min) + min;
 	 }
-	 
 	 function onObjectSelected(e) {	 
 	    var selectedObject = e.target;
 	    $("#text-string").val("");

@@ -6,7 +6,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button> <span class="menu-icon" id="menu-icon"><i class="fa fa-times" aria-hidden="true" id="chang-menu-icon"></i></span>
-                <a class="navbar-brand" href="#"><img src="/storage/common_pictures/logo.png" width="100"> </a>
+                <a class="navbar-brand" href="#"><img  width="100"> </a>
             </div>
             <div class="collapse navbar-collapse navbar-right" id="myNavbar">
                 <form class="navbar-form navbar-left">

@@ -2,7 +2,7 @@
     <div class="container" style="width: 95%" >
 
         <div class="navbar-header">
-            <span ><a href="/"><img style="margin: 5px 2px 0 0" height="40" width="180" src="/storage/common_pictures/logo.png" alt=""></a></span>
+            <span ><a href="/"><img style="margin: 5px 2px 0 0" height="40" width="180"  alt=""></a></span>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
