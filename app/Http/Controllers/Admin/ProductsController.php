@@ -119,7 +119,8 @@ class ProductsController extends Controller
             $descriptionRequest['main_picture_url'] = array_values($picturesOfUrl['gallery'][0])[0];
         }
 
-        $descriptionRequest['canvas_content'] = $request->input('canvas_content');
+        $descriptionRequest['canvas_content_json'] = $request->input('canvas_content_json');
+        $descriptionRequest['canvas_content_svg'] = $request->input('canvas_content_svg');
 
         $description = json_encode($descriptionRequest, JSON_UNESCAPED_UNICODE );
 

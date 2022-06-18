@@ -42,7 +42,13 @@
             <div class="show-page-product">
                 <div class="col-md-6">
                     <div id="showPageProductImages">
-                        <div class="container-fluid">
+                        @if (isset($descriptions['canvas_content_svg']))
+
+                            {!! json_decode($descriptions['canvas_content_svg'], false) !!}
+                            <!--<canvas id="canvas" data-content="{{ $descriptions['canvas_content_svg'] }}"></canvas> -->
+
+                        @else
+                            <div class="container-fluid">
                             <div class="product-slider" id="product-slider-id">
                                 <div id="carousel" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
@@ -80,6 +86,10 @@
 
                                                 </div>
 
+
+
+
+
                                                 @if (isset($descriptions['gallery']))
                                                     @foreach( $descriptions['gallery'] as $key => $type_pictures)
                                                         @foreach($type_pictures as $key_picture => $picture)
@@ -100,6 +110,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <div class="col-md-5">
@@ -241,6 +252,34 @@
         @endif
     </div>
     <div class="col-md-9">
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/521/fabric.min.js" integrity="sha512-nPzvcIhv7AtvjpNcnbr86eT6zGtiudLiLyVssCWLmvQHgR95VvkLX8mMpqNKWs1TG3Hnf+tvHpnGmpPS3yJIgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script>
+
+            var canvas;
+
+            $(function() {
+
+                var svg, jsonCanvas;
+
+                jsonCanvas = $('#canvas').data('content');
+                svg = JSON.parse(jsonCanvas)
+
+                canvas = new fabric.Canvas('canvas');
+                canvas.setDimensions({width:500, height:450});
+
+                fabric.loadSVGFromString(svg, function(objects, options) {
+                    var obj = fabric.util.groupSVGElements(objects, options);
+                    canvas.add(obj).centerObject(obj).renderAll();
+                    obj.setCoords();
+                });
+            });
+        </script>
+
+
+
         <script type="text/javascript" src="{{ asset('js/owl.carousel.js') }}"></script>
 
         @include('partials.items_slider')

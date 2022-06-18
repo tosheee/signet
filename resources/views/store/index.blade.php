@@ -27,8 +27,12 @@
             </div>
 
         <!-- end col-md-10-->
+
+
+
+
             <div class="row">
-                @foreach($products as $product)
+                @foreach($products as $idx => $product)
                     <?php $descriptions = json_decode($product->description, true); ?>
                         <div class="col-md-3 product">
 
@@ -114,11 +118,28 @@
                             <div class="make3D">
                                 <div class="product-front">
                                     <div class="shadow"></div>
+                                    @if (isset($descriptions['canvas_content_svg']))
 
-                                    @if (isset($descriptions['main_picture_url']))
+                                        {!! json_decode($descriptions['canvas_content_svg'], false) !!}
+
+                                    <div onload="myFunction()">
+                                        <canvas id="canvas{{$idx}}" ></canvas>
+                                    </div>
+
+
+                                    @endif
+
+
+
+                                        @if (isset($descriptions['main_picture_url']))
+
+
                                         <img style="max-width: 270px; max-height: 320px;" src="{{ $descriptions['main_picture_url'] }}"  alt="{{ $descriptions['title_product'] }}"/>
                                     @elseif(isset($descriptions['upload_main_picture']))
                                         <img style="max-width: 270px; max-height: 320px;" src="{{ asset('product_images/') }}/{{ $product->id }}/{{ $descriptions['upload_main_picture'] }}" alt="{{ $descriptions['title_product'] }}" />
+
+
+
                                     @else
                                         <img style="max-width: 400px; max-height: 450px;" src="{{ asset('product_images/') }}noimage.jpg" alt="{{ $descriptions['title_product'] }}" />
                                     @endif
@@ -251,6 +272,15 @@
         </div>
         <!-- end col-md-10-->
 
+
+
+        <script>
+            function myFunction() {
+                alert("Page is loaded");
+            }
+        </script>
+
+
         <div style="margin-left: 10%">
             @if( method_exists($products,'links') )
                 {{  $products ->links() }}
@@ -267,6 +297,31 @@
         </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/521/fabric.min.js" integrity="sha512-nPzvcIhv7AtvjpNcnbr86eT6zGtiudLiLyVssCWLmvQHgR95VvkLX8mMpqNKWs1TG3Hnf+tvHpnGmpPS3yJIgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+
+
+
+    function renderSvg(id) {
+        var canvas;
+        var svg;
+        console.log(id)
+        console.log(jsonCanvas  )
+
+        svg = JSON.parse(jsonCanvas);
+
+        canvas = new fabric.Canvas(id);
+        canvas.setDimensions({width:500, height:450});
+
+        fabric.loadSVGFromString(svg, function(objects, options) {
+            var obj = fabric.util.groupSVGElements(objects, options);
+            canvas.add(obj).centerObject(obj).renderAll();
+            obj.setCoords();
+        });
+    }
+
+</script>
 
 <script>
     $(window).resize(function () {

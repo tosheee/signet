@@ -150,14 +150,15 @@
 
                         <input type="file" class="form-control-file" id="add-base-img">
 
-                        <input type="hidden" id="id-canvas-content" name="canvas_content">
+                        <input type="hidden" id="id-canvas-content-json" name="canvas_content_json">
+                        <input type="hidden" id="id-canvas-content-svg" name="canvas_content_svg">
 
                         <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                     <canvas id="canvas"></canvas>
                 </div>
             </div>
-            <a class="finish_desing btn-default btn-xs" href="#">Finish desing</a>
+            <a class="finish_desing btn-primary btn-xs" href="#">Create Desing</a>
         </form>
     </div>
 
@@ -360,15 +361,16 @@
         $(".finish_desing").on('click', function(e){
             e.preventDefault();
 
-            var input_canvas_content = document.getElementById('id-canvas-content');
+            var input_canvas_content_json = document.getElementById('id-canvas-content-json');
+            input_canvas_content_json.value = JSON.stringify(canvas.toDatalessJSON());
 
-            var canvas_data = JSON.stringify(canvas.toDatalessJSON());
+            var input_canvas_content_svg = document.getElementById('id-canvas-content-svg');
+            console.log(canvas.toSVG());
+            input_canvas_content_svg.value = JSON.stringify(canvas.toSVG());
 
-            console.log(canvas_data);
-
-            input_canvas_content.value = canvas_data;
 
         });
+
 
     </script>
 
