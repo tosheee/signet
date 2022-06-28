@@ -24,13 +24,27 @@ use Illuminate\Support\Facades\Auth;
 class StoreController extends Controller
 {
     // show all products
-    public function index()
+    public function index(Request $request)
     {
-        $categories = Category::all();
+        $cat = $request->input('cat');
+        if (isset($cat)){
+            $categories = Category::where('identifier', $cat)->get();
+        }
+        else{
+            $categories = Category::all();
+        }
+
+        //dd($categories);
+
+
         $subCategories = SubCategory::all();
+
         $products = Product::where('active', true)->where('recommended', 1)->orderBy('created_at', 'desc')->paginate(9);
+
         $product_count = count($products);
-        
+
+        //$products = Product::all();
+
         return view('store.index')->
         with('categories', $categories)->
         with('subCategories', $subCategories)->

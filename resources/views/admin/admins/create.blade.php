@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.old_app')
 
 @section('content')
     @include('admin.admin_partials.admin_menu')
