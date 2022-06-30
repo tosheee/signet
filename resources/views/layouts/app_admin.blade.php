@@ -69,7 +69,7 @@
 
     <body>
         <header>
-            @include('partials.horizontal_nav_bar')
+            @include('partials.old_horizontal_nav_bar')
         </header>
 
         <div class="wrapper-main-content">
@@ -78,7 +78,7 @@
         </div>
 
 
-        @include('partials.footer')
+        @include('partials.old_footer')
 
         <script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
     </body>

@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.old_app')
 
 @section('content')
 
 <div class="container-fluid">
         <div class="col-md-2" id="vertical-nav-bar" style="width: 22%">
-            @include('partials.vertical_navigation')
+            @include('partials.old_vertical_navigation')
         </div>
 
     <div id="grid">

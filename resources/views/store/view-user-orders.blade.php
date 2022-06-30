@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-md-2" id="vertical-nav-bar">
-        @include('partials.vertical_navigation')
+        @include('partials.old_vertical_navigation')
     </div>
 
     <div class="col-md-9">
@@ -99,7 +99,7 @@
                 {{ $user_orders->links() }}
             @else
                 <div class="page-empty-cart">
-                    @include('partials.empty_cart')
+                    @include('partials.old_empty_cart')
                     <div>
                         <a class="btn btn-info" href="/">Към началната страница </a>
                     </div>

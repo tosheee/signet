@@ -7,10 +7,10 @@ var canvas;
 
 
 $(document).ready(function() {
-    //setup front side canvas
+    // setup front side canvas
     canvas = new fabric.Canvas('canvas', {
-        width:550,
-        height: 600,
+        width:320,
+        height: 320,
         hoverCursor: 'pointer',
         selection: true,
         selectionBorderColor: 'blue',
@@ -23,22 +23,11 @@ $(document).ready(function() {
         var reader = new FileReader();
 
         reader.onload = function (f) {
-            // var image = new Image();
-
-            // image.onload=function(){
-                //console.log(image);
-            //}
-
-            // data = f.target.result;
-            // var url = image.src;
-
-            // fabric.Image.fromURL(data, function (img) {
-            var url = 'http://localhost:8000/img/t-shirts/' + file.name
+            var url = 'http://localhost:8000/img/t-shirts/' + file.name;
             fabric.Image.fromURL(url, function (img) {
-                // add background image
                 canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
-                    //scaleX: canvas.width,
-                    //scaleY: canvas.height
+                    scaleX: canvas.width / img.width,
+                    scaleY: canvas.height / img.height
                 });
             });
         };
@@ -46,9 +35,7 @@ $(document).ready(function() {
         reader.readAsDataURL(file);
     });
 
-    //$(".img-polaroid").on('click',function(e){
     $('body').on('click', '.img-polaroid', function (e){
-        //alert("OK");
         var el = e.target;
         /*temp code*/
         var offset = 50;
@@ -71,8 +58,4 @@ $(document).ready(function() {
             canvas.add(image);
         });
     });
-
-
-
-
 });//doc ready

@@ -24,6 +24,11 @@ class WelcomeController extends Controller
         $productsRecommended = Product::where('active', true)->where('recommended',  true)->orderBy('created_at', 'desc')->take(10)->get();
         $productsBestSeller =  Product::where('active', true)->where('best_sellers', true)->orderBy('created_at', 'desc')->take(10)->get();
 
-        return view('welcome')->with('productsSale', $productsSale)->with('productsRecommended', $productsRecommended)->with('productsBestSeller', $productsBestSeller);
+        return view('welcome')->
+        with('productsSale', $productsSale)->
+        with('productsRecommended', $productsRecommended)->
+        with('show_slider', true)->
+        with('show_sidebar', true)->
+        with('productsBestSeller', $productsBestSeller);
     }
 }

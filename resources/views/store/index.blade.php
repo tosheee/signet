@@ -1,10 +1,52 @@
-@extends('layouts.app_shop')
+@extends('layouts.app')
 
 @section('content')
+
+        <!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 30px">
+        <h3 class="font-weight-semi-bold text-uppercase mb-3">{{ $categoryName }}</h3>
+        <div class="d-inline-flex">
+            <p class="m-0"><a href="">Home</a></p>
+            <p class="m-0 px-2">-</p>
+            <p class="m-0">Shop</p>
+        </div>
+    </div>
+</div>
+<!-- Page Header End -->
 
     <!-- Shop Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
+            <!-- Shop Sidebar Start -->
+            <div class="col-lg-3 col-md-12">
+                <div class="border-bottom mb-4 pb-4">
+                    <?php $paramOfUrl = explode('=', Request::fullUrl()) ?>
+                    @if(!$show_sidebar)
+                        <?php $idxCss = 0; ?>
+                        @foreach($categories as $category)
+                            <form action="/store?cat={{$category->name}}" method="get">
+                                @if($category->id == $categoryId && isset($category->filters))
+                                    <?php $jsonFilters = json_decode($category->filters, true)?>
+                                    @foreach($jsonFilters as $key => $filters)
+                                        <h5 class="font-weight-semi-bold mb-4">{{$filters['key']}}</h5>
+                                            @foreach($filters['values'] as $filter)
+                                                @foreach($filter as $key => $f)
+                                                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                                                        <input type="checkbox" class="custom-control-input" name="{{$category->identifier}}_{{$key}}" id="{{  $key }}">
+                                                        <label class="custom-control-label" for="{{ $key }}">{!! $f  !!} </label>
+                                                        <span class="badge border font-weight-normal"></span>
+                                                    </div>
+                                                @endforeach
+                                            @endforeach
+                                    @endforeach
+                                <input type="submit" class="btn btn-block col-8"  value="Филтрирай">
+                                @endif
+                            </form>
+                        @endforeach
+                    @endif
+                </div>
+                </div>
 
         <!-- Shop Product Start -->
         <div class="col-lg-9 col-md-12">
@@ -15,21 +57,17 @@
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Търсене по име">
                                 <div class="input-group-append">
-                                        <span class="input-group-text bg-transparent text-primary">
-                                            <i class="fa fa-search"></i>
-                                        </span>
+                                    <span class="input-group-text bg-transparent text-primary"><i class="fa fa-search"></i></span>
                                 </div>
                             </div>
                         </form>
+
                         <div class="dropdown ml-4">
-                            <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true"
-                                    aria-expanded="false">
-                                Sort by
-                            </button>
+                            <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Сортирай</button>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="triggerId">
-                                <a class="dropdown-item" href="#">Latest</a>
-                                <a class="dropdown-item" href="#">Popularity</a>
-                                <a class="dropdown-item" href="#">Best Rating</a>
+                                <a class="dropdown-item" href="#">Най-нови</a>
+                                <a class="dropdown-item" href="#">Популярни</a>
+                                <a class="dropdown-item" href="#">Висок рейтинг</a>
                             </div>
                         </div>
                     </div>
@@ -43,15 +81,11 @@
 
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
                                 <!-- <img class="img-fluid w-100" src="img/product-1.jpg" alt="">-->
-
                                 <a href="/store/{{ $product->id }}">
                                     @if (isset($descriptions['canvas_content_svg']))
-
                                         {!! json_decode($descriptions['canvas_content_svg'], false) !!}
-
                                     @endif
                                 </a>
-
                             </div>
 
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
@@ -65,7 +99,6 @@
                                 <h6>
                                     {{ isset($descriptions['price']) ? $descriptions['price'] : '' }}
                                     {{ isset($descriptions['currency']) ? $descriptions['currency'] : '' }}
-
                                 </h6>
 
                                 <h6 class="text-muted ml-2">
@@ -117,7 +150,16 @@
                 @endforeach
 
 
+
+
                 <div class="col-12 pb-1">
+
+                    <div style="margin-left: 10%">
+                        @if( method_exists($products,'links') )
+                            {{  $products ->links() }}
+                        @endif
+                    </div>
+                    <!--
                     <nav aria-label="Page navigation">
                         <ul class="pagination justify-content-center mb-3">
                             <li class="page-item disabled">
@@ -136,7 +178,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </nav>
+                    </nav>-->
                 </div>
             </div>
         </div>
@@ -145,14 +187,9 @@
 </div>
     <!-- Shop End -->
 
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/521/fabric.min.js" integrity="sha512-nPzvcIhv7AtvjpNcnbr86eT6zGtiudLiLyVssCWLmvQHgR95VvkLX8mMpqNKWs1TG3Hnf+tvHpnGmpPS3yJIgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 <script>
-
-
-
     function renderSvg(id) {
         var canvas;
         var svg;
@@ -170,7 +207,6 @@
             obj.setCoords();
         });
     }
-
 </script>
 
 <script>

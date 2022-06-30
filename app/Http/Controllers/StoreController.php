@@ -27,29 +27,35 @@ class StoreController extends Controller
     public function index(Request $request)
     {
         $cat = $request->input('cat');
-        if (isset($cat)){
-            $categories = Category::where('identifier', $cat)->get();
-        }
-        else{
-            $categories = Category::all();
-        }
-
-        //dd($categories);
-
-
         $subCategories = SubCategory::all();
+        $categoryId = -1;
+        $show_sidebar = false;
+        $categoryName = '';
 
-        $products = Product::where('active', true)->where('recommended', 1)->orderBy('created_at', 'desc')->paginate(9);
+        if (isset($cat))
+        {
+            $categories = Category::where('identifier', $cat)->get();
+            $categoryId = $categories[0]->id;
+            $categoryName = $categories[0]->name;
+            $products = Product::where('category_id', $categoryId)->orderBy('created_at', 'desc')->paginate(9);
+        }
+        else
+        {
+            $categories = Category::all();
+            $show_sidebar = true;
+            $products = Product::where('active', true)->where('recommended', 1)->orderBy('created_at', 'desc')->paginate(9);
+        }
 
         $product_count = count($products);
 
-        //$products = Product::all();
-
         return view('store.index')->
-        with('categories', $categories)->
-        with('subCategories', $subCategories)->
-        with('products', $products)->
-        with('product_count', $product_count);
+                                    with('categories', $categories)->
+                                    with('subCategories', $subCategories)->
+                                    with('products', $products)->
+                                    with('categoryId', $categoryId)->
+                                    with('show_sidebar', $show_sidebar)->
+                                    with('categoryName', $categoryName)->
+                                    with('product_count', $product_count);
     }
     
     // show product

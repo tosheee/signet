@@ -1,88 +1,51 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
-<head>
+<html lang="en">
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124589373-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <head>
+        <meta charset="utf-8">
+        <title>EShopper - Bootstrap Shop Template</title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="Free HTML Templates" name="keywords">
+        <meta content="Free HTML Templates" name="description">
 
-        gtag('config', 'UA-124589373-1');
-    </script>
+        <!-- Favicon -->
+        <link href="" rel="icon">
 
-    @if(isset($product))
-        @if(isset($metaDescription))
-            <meta property="fb:app_id" content="966242223397117" />
-            <meta property="og:url" content="{{ Request::fullUrl() }}" />
-            <meta property="og:type" content="product" />
-            <meta property="og:title" content=" - {{isset($metaDescription) ? $metaDescription['title_product'] : '' }}" />
-            <meta property="og:description" content="{{isset($metaDescription) ? $metaDescription['title_product'] : '' }}" />
-            <meta property="og:image" content="{{ asset('storage/upload_pictures')}}/{{ $product->id }}/{{ isset($metaDescription['upload_main_picture']) ? $metaDescription['upload_main_picture'] : '' }}" />
-            <script src="//connect.facebook.net/bg_BG/sdk.js#xfbml=1&version=v2.11"></script>
-        @endif
-    @endif
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <base href="{{Request::getHost()}}" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="_token" content="{{ csrf_token() }}">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="robots" content="index">
-    <title>
-        @if(isset($product))
-            @if(isset($metaDescription))
-                {{ isset($metaDescription) ? $metaDescription['title_product'] : 'text' }}
-            @else
-                text
-            @endif
-        @else
-            text
-        @endif
-    </title>
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
 
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <!-- Libraries Stylesheet -->
+        <link href="{{ asset('js/lib/owlcarousel/assets/owl.carousel.min.css')}}" rel="stylesheet">
 
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="{{ asset('css/shop_css/style.css')}}" rel="stylesheet">
+        <link href="{{ asset('css/users_forms.css')}}" rel="stylesheet">
+    </head>
 
-    <!-- Libraries Stylesheet -->
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/shop_css/style.css" rel="stylesheet">
-    <script>
-        $(document).ready(function () {
-            var part_url = window.location.pathname.split('/')[1];
-
-            if (part_url == 'admin') {
-                $("header").css('display', 'none')
-            };
-        });
-    </script>
-
-    <script src="{{ asset('js/jquery.imgareaselect.js') }}"></script>
-</head>
-
-<body>
-<header>
-    @include('partials.horizontal_nav_bar')
-</header>
-
-<div class="wrapper-main-content">
-    @yield('content')
-    <div class="clearfix"/>
-</div>
+    <body>
 
 
-@include('partials.footer')
+        @include('partials.nav_bar_top')
+        @include('partials.nav_bar_bottom')
+        @yield('content')
+        @include('partials.footer')
 
-<script type="text/javascript" src="{{ asset('js/script.js') }}"></script>
-</body>
+        <!-- JavaScript Libraries -->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="{{ asset('js/lib/easing/easing.min.js')}}"></script>
+        <script src="{{ asset('js/lib/owlcarousel/owl.carousel.min.js')}}"></script>
+
+        <!-- Contact Javascript File -->
+        <script src="{{ asset('mail/jqBootstrapValidation.min.js')}}"></script>
+        <script src="{{ asset('mail/contact.js')}}"></script>
+
+        <!-- Template Javascript -->
+        <script src="{{ asset('js/main.js')}}"></script>
+    </body>
+
 </html>

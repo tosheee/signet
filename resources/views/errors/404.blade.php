@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('layouts.old_app')
 
 @section('content')
 
     <div class="col-md-2">
-        @include('partials.vertical_navigation')
+        @include('partials.old_vertical_navigation')
     </div>
     <style>
         html {

@@ -146,13 +146,9 @@
             <div id="desing-wrappers">
                 <div class="desing-wrapper">
                     <div class="custom-file">
-
-
                         <input type="file" class="form-control-file" id="add-base-img">
-
                         <input type="hidden" id="id-canvas-content-json" name="canvas_content_json">
                         <input type="hidden" id="id-canvas-content-svg" name="canvas_content_svg">
-
                         <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                     <canvas id="canvas"></canvas>

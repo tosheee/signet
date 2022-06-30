@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.old_app')
 
 @section('content')
         <div class="col-md-1" id="vertical-nav-bar"></div>
@@ -506,7 +506,7 @@
     </div>
     @else
         <div class="page-empty-cart">
-            @include('partials.empty_cart')
+            @include('partials.old_empty_cart')
             <div>
                 <a class="btn btn-info" href="/">Към началната страница </a>
             </div>
