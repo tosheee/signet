@@ -32,6 +32,7 @@ class StoreController extends Controller
         $show_sidebar = false;
         $categoryName = '';
 
+
         if (isset($cat))
         {
             $categories = Category::where('identifier', $cat)->get();
@@ -272,7 +273,7 @@ class StoreController extends Controller
         $cart_product = [$cart->totalPrice, $cart->totalQty, $cart->items];
         
         return $cart_product;
-       }
+    }
 
     public function getRemoveItem($id)
     {

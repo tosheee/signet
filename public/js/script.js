@@ -47,11 +47,12 @@
     $( ".quantity-field" ).click(function() {
         var quantity_wrapper = $(this).parent();
         var idProduct = quantity_wrapper.find('#id-product').val();
+        console.log(quantity_wrapper);
         var  quantityProduct = $(this).val();
         var priceProduct = quantity_wrapper.parent().find('.price-shopping-cart strong').html();
 
         quantity_wrapper.parent().find('.subtotal').html(parseFloat(priceProduct * quantityProduct).toFixed(2) + ' лв.');
-
+        /*
         $.ajax({
             method: "POST",
             url: "/add-to-cart?product_id=" + idProduct + "&product_quantity=" + quantityProduct,
@@ -60,6 +61,7 @@
                 updateCart(new_cart);
             }
         });
+        */
     });
 
     $('.remove').on('click','.remove-item-button', function() {
@@ -87,6 +89,7 @@
     });
 
     $( ".add-product-button" ).click(function() {
+        console.log('alabala')
         var idProductShowPage = $('#id-product-show-page').val();
         var add_product_button = $(this);
         var idProduct = $(this).find('#id-product').val();

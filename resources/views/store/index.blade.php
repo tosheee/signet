@@ -115,15 +115,13 @@
 
 
                         <div class="card-footer d-flex justify-content-between bg-light border">
-                            <a href="/store/{{ $product->id }}" class="btn btn-sm text-dark p-0">
+                            <a href="/store/{{ $product->id }}" class="btn btn-sm text-dark p-0" style="color: #2b2828 !important">
                                 <i class="fas fa-eye text-primary mr-1"></i>
                                 Виж подробности
                             </a>
 
-                            <a href="" class="btn btn-sm text-dark p-0">
-                                <i class="fas fa-shopping-cart text-primary mr-1"></i>
-                                Добави
-
+                            <a class="add-product-button btn btn-sm text-dark p-0" style="color: #2b2828 !important">
+                                <i class="fas fa-shopping-cart text-primary mr-1">
                                 <?php if(Session::has('cart'))
                                 {
                                     $oldCart = Session::get('cart');
@@ -134,14 +132,15 @@
                                 }
                                 ?>
                                 @if(!empty($oldCart->items[$product->id]) )
-                                    <sup id="sup-product-qty"> {{ isset($product_qty) ? $product_qty : '' }}</sup>
+                                    <sup id="sup-product-qty">{{ isset($product_qty) ? $product_qty : '' }}</sup>
                                     <input id="quantity-product" type="hidden" value="{{ isset($product_qty) ? $product_qty + 1 : '1' }}"  >
                                 @else
                                     <sup id="sup-product-qty"></sup>
                                     <input id="quantity-product" type="hidden" value="1"  >
                                 @endif
-
+                                </i>Добави
                                 <input id="id-product" type="hidden" value="{{ $product->id }}"/>
+
                             </a>
 
                         </div>

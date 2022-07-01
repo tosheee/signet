@@ -8,6 +8,16 @@
         <meta content="Free HTML Templates" name="keywords">
         <meta content="Free HTML Templates" name="description">
 
+        <base href="{{Request::getHost()}}" />
+        <meta name="description" content="" />
+        <meta name="keywords" content="" />
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="_token" content="{{ csrf_token() }}">
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="robots" content="index">
+
         <!-- Favicon -->
         <link href="" rel="icon">
 
@@ -31,7 +41,9 @@
 
         @include('partials.nav_bar_top')
         @include('partials.nav_bar_bottom')
+
         @yield('content')
+
         @include('partials.footer')
 
         <!-- JavaScript Libraries -->
@@ -46,6 +58,50 @@
 
         <!-- Template Javascript -->
         <script src="{{ asset('js/main.js')}}"></script>
+
+        <script>
+            $( ".add-product-button" ).click(function() {
+                var idProductShowPage = $('#id-product-show-page').val();
+                var add_product_button = $(this);
+                var idProduct = $(this).find('#id-product').val();
+                var quantityProductWrapper = $(this).find('#quantity-product');
+                var quantityProduct = quantityProductWrapper.val();
+
+                var oldCard = "{{ Session::get('cart')->totalQty }}";
+                console.log(oldCard);
+
+                if(typeof idProductShowPage != "undefined"){
+                    idProduct = idProductShowPage;
+                    quantityProduct = $('.show-page#quantity-product').html();
+                }
+
+                var shopingCardTop = $('#shoping-card-top');
+                shopingCardTop.html(parseInt(shopingCardTop.text())+1);
+
+
+                $.ajax({
+                    method: "POST",
+                    url: "/add-to-cart?product_id=" + idProduct + "&product_quantity=" + quantityProduct,
+                    data: { "_token": $('meta[name="_token"]').attr('content') },
+                    success: function( new_cart ) {
+                        //updateCart(new_cart);
+
+
+                        add_product_button.find('#sup-product-qty').html(quantityProduct);
+                        add_product_button.find('#quantity-product').val(parseInt(quantityProduct) + 1);
+
+                        $('#shoping-card-top').html()
+                        // $('.price.totalPrice strong').html(parseFloat(new_cart[0]).toFixed(2));
+                        // add_product_button.parent().parent().parent().find('b#common-product-price-sc').html(items_obj[idProduct]['total_item_price'] + ' лв.');
+                        // add_product_button.parent().parent().parent().find('b#common-product-qty-sc').html(quantityProduct);
+
+                        //$('.totalspent-orders h2').html(parseFloat(new_cart[0]).toFixed(2) + ' лв.')
+                        //$('.printqty-orders h2').html(new_cart[1] + ' бр.')
+                    }
+                });
+            });
+        </script>
+
     </body>
 
 </html>
