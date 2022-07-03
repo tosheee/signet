@@ -19,13 +19,23 @@
                         </div>
                     </div>
                     -->
-                    @foreach($sideBarCategories as $sbItem)
-                        @if(isset($categoryId) && $sbItem->id == $categoryId)
-                            <a href="/store?cat={{$sbItem->identifier}}" class="nav-item nav-link" style="color: #56c56f"><b>{{$sbItem->name}}</b></a>
-                        @else
-                            <a href="/store?cat={{$sbItem->identifier}}" class="nav-item nav-link">{{  $sbItem->name }}</a>
-                        @endif
-                    @endforeach
+                    @if(isset($customSideBar))
+                        @foreach($customSideBar as $csbItem)
+                            @if(isset($categoryId) && $sbItem->id == $categoryId)
+                                <a href="/{{$pathLink}}?cat={{$csbItem->identifier}}" class="nav-item nav-link" style="color: #56c56f"><b>{{$csbItem->name}}</b></a>
+                            @else
+                                <a href="/{{$pathLink}}?cat={{$csbItem->identifier}}" class="nav-item nav-link">{{  $csbItem->name }}</a>
+                            @endif
+                        @endforeach
+                    @else
+                        @foreach($sideBarCategories as $sbItem)
+                            @if(isset($categoryId) && $sbItem->id == $categoryId)
+                                <a href="/store?cat={{$sbItem->identifier}}" class="nav-item nav-link" style="color: #56c56f"><b>{{$sbItem->name}}</b></a>
+                            @else
+                                <a href="/store?cat={{$sbItem->identifier}}" class="nav-item nav-link">{{  $sbItem->name }}</a>
+                            @endif
+                        @endforeach
+                    @endif
                 </div>
             </nav>
         </div>
@@ -41,8 +51,9 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav mr-auto py-0">
                         <a href="/" class="nav-item nav-link">Начало</a>
-                        <a href="/designer" class="nav-item nav-link">Собствен дизайн</a>
                         <a href="/store" class="nav-item nav-link active">Продукти</a>
+                        <a href="/designer" class="nav-item nav-link">Собствен дизайн</a>
+
                         <!--<a href="detail.html" class="nav-item nav-link">Shop Detail</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
@@ -51,6 +62,7 @@
                                 <a href="checkout.html" class="dropdown-item">Checkout</a>
                             </div>
                         </div>-->
+
                         <a href="/contact" class="nav-item nav-link">Контакти</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
@@ -83,6 +95,7 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="carousel-item" style="height: 410px;">
                             <img class="img-fluid" src="img/carousel-2.jpg" alt="Image">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">

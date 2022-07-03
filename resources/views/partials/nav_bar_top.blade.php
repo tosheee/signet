@@ -37,24 +37,28 @@
                     <span class="text-primary font-weight-bold border px-3 mr-1">Color</span>Flow</h1>
             </a>
         </div>
-        <div class="col-lg-6 col-6 text-left">
-            <form action="">
-                <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Търсене">
-                    <div class="input-group-append">
-                            <span class="input-group-text bg-transparent text-primary">
-                                <i class="fa fa-search"></i>
-                            </span>
+
+            <div class="col-lg-6 col-6 text-left">
+                @if(isset($show_search) && $show_search)
+                <form action="">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Търсене">
+                        <div class="input-group-append">
+                                <span class="input-group-text bg-transparent text-primary">
+                                    <i class="fa fa-search"></i>
+                                </span>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
+                </form>
+                @endif
+            </div>
+
         <div class="col-lg-3 col-6 text-right">
             <a href="" class="btn border">
                 <i class="fas fa-heart text-primary"></i>
                 <span class="badge">0</span>
             </a>
-            <a href="" class="btn border">
+            <a href="/shopping-cart" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
                 <span class="badge" id="shoping-card-top">{{ Session::has('cart') ? Session::get('cart')->totalQty : 0 }}</span>
             </a>

@@ -156,8 +156,6 @@
         $('#basket-subtotal').html(new_cart[1] + ' бр.')
     }
 
-
-
     $(document).ready(function(){
 
         $(".largeGrid").click(function(){

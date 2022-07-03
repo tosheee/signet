@@ -1,111 +1,117 @@
 @extends('layouts.app')
 
 @section('content')
+    <style>
+        svg {
+            display:block;
+            position: absolute;
+            height:8%;
+            width:8%;
+            margin: 0;
+            padding: 0;
+            border: none;
+            overflow: hidden;
+        }
+    </style>
 
-    <div class="col-md-2" id="vertical-nav-bar">
-        @include('partials.old_vertical_navigation')
-    </div>
+    <!-- Преизчисляване на поръчката при смяна на количеството, Изриване на продукт -->
 
-    <script>
-        $('#new-view-cart').hide();
-        $('#menu-scroll-cart').hide();
-    </script>
-
-    <br/><br/><br/>
-    <div class="col-sm-10">
         @if(isset($products))
-            <div class="basket">
-
-                <div class="basket-module">
-                    <h3>Количка за пазаруване</h3>
+        <!-- Cart Start -->
+        <div class="container-fluid pt-5">
+            <div class="row px-xl-5">
+                <div class="col-lg-8 table-responsive mb-5">
+                    <table class="table table-bordered text-center mb-0">
+                        <thead class="bg-secondary text-dark">
+                        <tr>
+                            <th>Продукт</th>
+                            <th></th>
+                            <th>Цена</th>
+                            <th>Количество</th>
+                            <th>Общо</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody class="align-middle">
+                        @foreach($products as $product)
+                            <?php $descriptions = json_decode($product['item']->description, true); ?>
+                            <tr class="cart-items">
+                                <td class="align-middle">
+                                    @if (isset($descriptions['canvas_content_svg']))
+                                        <div style="width: 48px; height: 48px;">{!! json_decode($descriptions['canvas_content_svg'], false) !!}</div>
+                                    @endif
+                                </td>
+                                <td class="align-middle">
+                                    <a href="/store/{{ $product['item']->id}}" target="_blank">{{ $descriptions['title_product'] }}</a>
+                                </td>
+                                <td class="align-middle row-price" data-content="{{ number_format($descriptions['price'], 2) }}">{{ number_format($descriptions['price'], 2) }} {{ $descriptions['currency'] }}</td>
+                                <td class="align-middle">
+                                    <div class="input-group quantity mx-auto" style="width: 100px;">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-minus" >
+                                                <i class="fa fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <input type="text" class="form-control form-control-sm bg-secondary text-center product-qty" value="{{ $product['qty'] }}">
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-sm btn-primary btn-plus">
+                                                <i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="align-middle item-total-price">{{ number_format($product['qty'] * $descriptions['price'], 2) }}  {{ $descriptions['currency'] }}</td>
+                                <td class="align-middle remove">
+                                <button class="btn btn-sm btn-primary remove-item-button" style="background-color: #df5320; color: whitesmoke;">
+                                    <i class="fa fa-times"></i>
+                                    <input id="id-product" type="hidden" value="{{ $product['item']->id }}"/>
+                                </button>
+                            </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
                 </div>
-
-                <div class="basket-labels">
-                    <ul>
-                        <li class="item-shopping-cart item-heading">Продукт</li>
-                        <li class="price-shopping-cart">Цена</li>
-                        <li class="quantity-shopping-cart">Количество</li>
-                        <li class="subtotal">Общо</li>
-                    </ul>
-                </div>
-
-                @foreach($products as $product)
-                    <?php $descriptions = json_decode($product['item']->description, true); ?>
-
-                    <div class="basket-product">
-                        <div class="item-shopping-cart">
-                            <div class="product-image">
-                                @if (isset($descriptions['main_picture_url']))
-                                    <a class="thumbnail pull-left" href="/store/{{ $product['item']->id}}">
-                                        <img   src="{{ $descriptions['main_picture_url'] }}" alt="pic" />
-                                    </a>
-                                @elseif(isset($descriptions['upload_main_picture']))
-                                    <a class="thumbnail pull-left" href="/store/{{ $product['item']->id }}">
-                                        <img  src="/storage/upload_pictures/{{ $product['item']->id }}/{{ $descriptions['upload_main_picture'] }}" alt="pic" />
-                                    </a>
+                <div class="col-lg-4">
+                    <form class="mb-5" action="">
+                        <div class="input-group">
+                            <input type="text" class="form-control p-4" placeholder="Coupon Code">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary">Apply Coupon</button>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="card border-secondary mb-5">
+                        <div class="card-header bg-secondary border-0">
+                            <h4 class="font-weight-semi-bold m-0">Информация за поръчката</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between mb-3 pt-1">
+                                <h6 class="font-weight-medium">Общ брой:</h6>
+                                <h6 class="font-weight-medium" id="basket-total-qty" data-content="{{ $totalQuantity }}">{{ $totalQuantity }} бр.</h6>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                @if(isset($freeShipping))
+                                    <h6 class="font-weight-medium">Безплатна доставка</h6>
                                 @else
-                                    <a class="thumbnail pull-left" href="/store/{{ $product['item']->id }}">
-                                        <img  src="/storage/common_pictures/noimage.jpg" alt="pic" />
-                                    </a>
+                                    <h6 class="font-weight-medium">Куриерската услуга не е включена в цената и е за сметка на купувача.</h6>
+                                    <!--<h6 class="font-weight-medium">{{ $totalPrice }} лв.</h6>-->
                                 @endif
+
                             </div>
-
-                            <div class="product-details-shopping-cart">
-                                <h5><a href="/store/{{ $product['item']->id }}" target="_blank">{{ $descriptions['title_product'] }}</a></h5>
-                                <p><strong></strong></p>
-                                <p>Продуктов код: {{ $descriptions['article_id'] }}</p>
+                        </div>
+                        <div class="card-footer border-secondary bg-transparent">
+                            <div class="d-flex justify-content-between mt-2">
+                                <h5 class="font-weight-bold">Общо:</h5>
+                                <h5 class="font-weight-bold" id="basket-total-price" data-content="{{ $totalPrice }}">{{ $totalPrice }} лв.</h5>
                             </div>
-
+                            <button class="btn btn-block btn-primary my-3 py-3" onclick="location.href='/checkout'" >Приключване на поръчката</button>
                         </div>
-
-                        <div class="price-shopping-cart"><strong>{{ number_format($descriptions['price'], 2) }}</strong> {{ $descriptions['currency'] }}</div>
-
-                        <div class="quantity-shopping-cart">
-                            <input type="number" value="{{ $product['qty'] }}" min="1" class="quantity-field">
-                            <input id="id-product" type="hidden" name="q" value="{{ $product['item']['id'] }}"/>
-                        </div>
-
-                        <div class="subtotal">{{ number_format($product['qty'] * $descriptions['price'], 2) }}  {{ $descriptions['currency'] }}</div>
-
-                        <div class="remove">
-                            <button type="button" class="remove-item-button" style="width:40%; background-color: #ff4208; border-color:#ff4208; " title="Премахване на продукт">
-                                <i class="fa fa-close" style="color: #ffffff"></i>
-                                <input id="id-product" type="hidden" value="{{ $product['item']->id }}"/>
-                            </button>
-
-                        </div>
-
-                    </div>
-                @endforeach
-
-            </div>
-            <aside>
-            <div class="summary">
-                <div class="summary-total-items" style="font-size: 1.2em;">Информация за поръчката<span class="total-items"></span></div>
-
-                <div class="summary-subtotal">
-                    <div class="subtotal-title">Общ брой:</div>
-                    <div class="subtotal-value final-value" id="basket-subtotal">{{ $totalQuantity }} бр.</div>
-                    <div class="summary-promo hide">
-                        <div class="promo-title">Promotion</div>
-                        <div class="promo-value final-value" id="basket-promo"></div>
                     </div>
                 </div>
-
-                <div class="summary-delivery">
-                    Куриерската услуга не е включена в цената и е за сметка на купувача.
-                </div>
-
-                <div class="summary-total">
-                    <div class="total-title">Общо:</div>
-                    <div class="total-value final-value" id="basket-total">{{ $totalPrice }} лв.</div>
-                </div>
-
-                <div class="summary-checkout">
-                    <button class="checkout-cta" onclick="location.href='/checkout'">Продължи</button>
-                </div>
             </div>
-        </aside>
+        </div>
+        <!-- Cart End -->
         @else
             <div class="page-empty-cart">
                 @include('partials.old_empty_cart')
@@ -115,6 +121,5 @@
                 <h3>Количка за пазаруване е празна!</h3>
             </div>
         @endif
-    </div>
 
 @endsection
