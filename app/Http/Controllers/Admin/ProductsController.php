@@ -8,6 +8,7 @@ use App\Admin\Category;
 use App\Admin\SubCategory;
 use App\Admin\Product;
 use App\Admin\PrintTemplate;
+use App\Admin\BaseProductTemplate;
 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
@@ -51,11 +52,13 @@ class ProductsController extends Controller
         $categories = Category::all();
         $subCategories = SubCategory::all();
         $printTemplates = PrintTemplate::all();
+        $baseProductTemplates = BaseProductTemplate::all();
 
         return view('admin.products.create')->
         with('categories', $categories)->
         with('subCategories', $subCategories)->
         with('printTemplates', $printTemplates)->
+        with('baseProductTemplates', $baseProductTemplates)->
         with('title', 'Създаване на продукт');
     }
 

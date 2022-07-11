@@ -168,11 +168,24 @@
                     </li>
 
                     <li class="panel">
+                        <a id="panel9" href="javascript:;" data-toggle="collapse" data-target="#base_product_template"> <i class="fa fa-cogs"></i> Base tempate
+
+                            <?php  $baseProductTemplates = count(App\Admin\BaseProductTemplate::all()) ?>
+                            <span class="label label-success">{{ $baseProductTemplates or '0' }}</span>
+                            <i class="fa fa fa-chevron-left pull-right" id="arow9"></i>
+                        </a>
+                        <ul class="collapse nav" id="base_product_template">
+                            <li> <a href="/admin/base_product_template/"><i class="fa fa-angle-double-right"></i> All Base Template </a></li>
+                            <li> <a href="/admin/base_product_template/create"><i class="fa fa-angle-double-right"></i> New Base Template </a> </li>
+                        </ul>
+                    </li>
+
+                    <li class="panel">
                         <a id="panel9" href="javascript:;" data-toggle="collapse" data-target="#type_print_templates"> <i class="fa fa-cogs"></i> Type Templates
 
                             <?php  $typePrintTemplates = count(App\Admin\TypePrintTemplate::all()) ?>
                             <span class="label label-success">{{ $typePrintTemplates or '0' }}</span>
-                            <i class="fa fa fa-chevron-left pull-right" id="arow9"></i>
+                            <i class="fa fa fa-chevron-left pull-right" id="arow10"></i>
                         </a>
                         <ul class="collapse nav" id="type_print_templates">
                             <li> <a href="/admin/type_print_templates/"><i class="fa fa-angle-double-right"></i> Type Templates</a> </li>
@@ -185,7 +198,7 @@
 
                             <?php  $printTemplates = count(App\Admin\PrintTemplate::all()) ?>
                             <span class="label label-success">{{ isset($printTemplates) ? $printTemplates : '0' }}</span>
-                            <i class="fa fa fa-chevron-left pull-right" id="arow9"></i>
+                            <i class="fa fa fa-chevron-left pull-right" id="arow11"></i>
                         </a>
                         <ul class="collapse nav" id="print_templates">
                             <li> <a href="/admin/print_templates/"><i class="fa fa-angle-double-right"></i> Всички Щампи</a> </li>
@@ -193,13 +206,10 @@
                         </ul>
                     </li>
 
-
-
-
                     <li class="panel">
-                        <a id="panel10" href="javascript:;" data-toggle="collapse" data-target="#btc">
+                        <a id="panel12" href="javascript:;" data-toggle="collapse" data-target="#btc">
                             <i class="fa fa-globe"></i> Информация за сайта
-                            <i class="fa fa fa-chevron-left pull-right" id="arow10"></i>
+                            <i class="fa fa fa-chevron-left pull-right" id="arow12"></i>
                         </a>
                         <ul class="collapse nav" id="btc">
                             <li> <a href="/admin/info_company/"><i class="fa fa-angle-double-right"></i> Информация за сайта</a> </li>
@@ -207,9 +217,9 @@
                     </li>
                     
                      <li class="panel">
-                        <a id="panel11" href="javascript:;" data-toggle="collapse" data-target="#pie-Chart">
+                        <a id="panel13" href="javascript:;" data-toggle="collapse" data-target="#pie-Chart">
                             <i class="fa fa-bar-chart"></i> Слидер
-                            <i class="fa fa fa-chevron-left pull-right" id="arow11"></i> </a>
+                            <i class="fa fa fa-chevron-left pull-right" id="arow13"></i> </a>
                         <ul class="collapse nav" id="pie-Chart">
                             <li> <a href="/admin/slider/"><i class="fa fa-angle-double-right"></i>Всички снимки в слайдер </a> </li>
                             <li> <a href="/admin/slider/create"><i class="fa fa-angle-double-right"></i> Добавяне на снимка</a> </li>
@@ -217,9 +227,9 @@
                     </li>
 
                     <li class="panel">
-                        <a id="panel12" href="javascript:;" data-toggle="collapse" data-target="#support_message">
+                        <a id="panel14" href="javascript:;" data-toggle="collapse" data-target="#support_message">
                             <i class="fa fa-bar-chart"></i> Support Messages
-                            <i class="fa fa fa-chevron-left pull-right" id="arow12"></i> </a>
+                            <i class="fa fa fa-chevron-left pull-right" id="arow14"></i> </a>
                         <ul class="collapse nav" id="support_message">
                             <li> <a href="/admin/support_messages/"><i class="fa fa-angle-double-right"></i> Съобщения от подръжката</a></li>
                             <li> <a href="/admin/support_messages/create"><i class="fa fa-angle-double-right"></i> Добавяне на съобщение</a> </li>
@@ -227,8 +237,8 @@
                     </li>
 
                     <li class="panel" style="background-color: #084951;">
-                        <a id="panel13" href="javascript:;" data-toggle="collapse" data-target="#space_bottom_menu">
-                            <i id="arow13"></i>
+                        <a id="panel15" href="javascript:;" data-toggle="collapse" data-target="#space_bottom_menu">
+                            <i id="arow15"></i>
                         </a>
                         <ul class="collapse nav" id="space_bottom_menu">
                             <li>     </li>
@@ -237,8 +247,8 @@
                     </li>
 
                     <li class="panel" style="background-color: #084951;">
-                        <a id="panel14" href="javascript:;" data-toggle="collapse" data-target="#space_bottom_menu_2">
-                            <i id="arow14"></i>
+                        <a id="panel16" href="javascript:;" data-toggle="collapse" data-target="#space_bottom_menu_2">
+                            <i id="arow16"></i>
                         </a>
                         <ul class="collapse nav" id="space_bottom_menu_2">
                             <li>     </li>

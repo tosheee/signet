@@ -23,7 +23,9 @@ $(document).ready(function() {
         var reader = new FileReader();
 
         reader.onload = function (f) {
-            var url = 'http://localhost:8000/img/t-shirts/' + file.name;
+            //var url = 'http://localhost:8000/img/t-shirts/' + file.name;
+            var url = 'http://localhost:8000/img/img_templates/base_product_templates/' + file.name;
+
             fabric.Image.fromURL(url, function (img) {
                 canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
                     scaleX: canvas.width / img.width,
@@ -34,6 +36,26 @@ $(document).ready(function() {
 
         reader.readAsDataURL(file);
     });
+
+
+    $('body').on('click', '.img-base-polaroid', function (e){
+
+        var el = e.target;
+
+
+
+            fabric.Image.fromURL(el.src, function (img) {
+                canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
+                    scaleX: canvas.width / img.width,
+                    scaleY: canvas.height / img.height
+                });
+            });
+
+
+
+    });
+
+
 
     $('body').on('click', '.img-polaroid', function (e){
         var el = e.target;

@@ -3,11 +3,13 @@
     View::composer('*', function($view) { $view->with('categoriesButtonsName', App\Admin\Category::all()); });
     View::composer('*', function($view) { $view->with('subCategoriesButtonsName', App\Admin\SubCategory::all()); });
     View::composer('*', function($view) { $view->with('typePrintTemplates', App\Admin\TypePrintTemplate::all()); });
-    //View::composer('*', function($view) {$view->with('categories', App\Admin\Category::all());});
-    View::composer('*', function($view) {$view->with('sideBarCategories', App\Admin\Category::all());});
+
     View::composer('*', function($view) {$view->with('subCategories', App\Admin\SubCategory::all());});
     View::composer('*', function($view) {$view->with('allSliderData', App\Admin\Slider::all());});
     View::composer('*', function($view) {$view->with('pagesButtonsRender', App\Admin\Page::where('active_page', true)->get());});
+
+    View::composer('*', function($view) {$view->with('adminCategories', App\Admin\Category::all());});
+    View::composer('*', function($view) {$view->with('sideBarCategories', App\Admin\Category::all());});
 
     Auth::routes();
 
@@ -67,6 +69,7 @@
         Route::resource('/slider',           'SliderController');
         Route::resource('/user_messages',    'UserMessagesController');
         Route::resource('/support_messages', 'SupportMessagesController');
+        Route::resource('/base_product_template', 'BaseProductTemplateController');
     });
 
     Route::post('admin/products/create/{id?}', function($id = null) {

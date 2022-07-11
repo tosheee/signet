@@ -29,7 +29,7 @@
                     </td>
 
                     <td style="width:30%">
-                        @foreach($categories as $category)
+                        @foreach($adminCategories as $category)
                             @if( $template->category_id == $category->id)
                                 <p>
                                     <b>Категория:</b> {{ $category->name }}

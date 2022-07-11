@@ -6,6 +6,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() {
+
         $("#panel1").click(function() {
             $("#arow1").toggleClass("fa-chevron-left");
             $("#arow1").toggleClass("fa-chevron-down");
@@ -64,6 +65,11 @@
         $("#panel12").click(function() {
             $("#arow12").toggleClass("fa-chevron-left");
             $("#arow12").toggleClass("fa-chevron-down");
+        });
+
+        $("#panel13").click(function() {
+            $("#arow13").toggleClass("fa-chevron-left");
+            $("#arow13").toggleClass("fa-chevron-down");
         });
 
         $("#menu-icon").click(function() {

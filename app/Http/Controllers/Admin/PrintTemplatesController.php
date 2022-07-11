@@ -45,7 +45,7 @@ class PrintTemplatesController extends Controller
         SubCategory::find($request->input('sub_category_id'));
 
 
-        // File::ensureDirectoryExists(public_path('img/templates').);
+        //File::ensureDirectoryExists(public_path('img/templates').);
 
         $printTemplate = new PrintTemplate;
 

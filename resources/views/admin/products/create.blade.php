@@ -5,7 +5,12 @@
 
     @include('admin.admin_partials.admin_menu')
 
+<!--
 
+base template with chose from select
+stamps with chose from select
+
+-->
 
 <div class="basic-grey">
         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" id="new_form">
@@ -121,6 +126,19 @@
                 <hr>
             </div>
 
+            <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
+                @if(isset($baseProductTemplates))
+
+                    @foreach($baseProductTemplates as $image)
+                        <?php $content = json_decode($image->content, true)?>
+
+                            @foreach($content['images'] as $image )
+                                <img class="img-base-polaroid tt" width="100" height="100" src="{{ asset('img/img_templates/base_product_templates/') }}/{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                            @endforeach
+
+                    @endforeach
+                @endif
+            </div>
 
             <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
                 @if(isset($printTemplates))

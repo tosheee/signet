@@ -60,7 +60,13 @@
             </a>
             <a href="/shopping-cart" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge" id="shoping-card-top">{{ Session::has('cart') ? Session::get('cart')->totalQty : 0 }}</span>
+                <span class="badge" id="shoping-card-top">
+                    @if (Session::has('cart'))
+
+                    @else
+                        0
+                    @endif
+                </span>
             </a>
         </div>
     </div>

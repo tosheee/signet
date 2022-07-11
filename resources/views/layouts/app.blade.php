@@ -67,7 +67,7 @@
                 var quantityProductWrapper = $(this).find('#quantity-product');
                 var quantityProduct = quantityProductWrapper.val();
 
-                var oldCard = "{{ Session::get('cart')->totalQty }}";
+                var oldCard = "{{ Session::get('cart')->totalQty ?? ''}}";
                 console.log(oldCard);
 
                 if(typeof idProductShowPage != "undefined"){
