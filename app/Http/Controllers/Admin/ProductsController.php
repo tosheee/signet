@@ -71,7 +71,10 @@ class ProductsController extends Controller
         ]);
 
         $catIdentifier = Category::find($request->input('category_id'))->identifier;
-        $productId = ImagesHelper::getLastProductId();
+
+        $productId = ImagesHelper::getLastProductId('products');
+
+
         $descriptionRequest =  $request->input('description');
         $picturesOfUrl = $request->input('description');
 

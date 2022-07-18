@@ -129,22 +129,29 @@ stamps with chose from select
             <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
                 @if(isset($baseProductTemplates))
 
-                    @foreach($baseProductTemplates as $image)
-                        <?php $content = json_decode($image->content, true)?>
 
-                            @foreach($content['images'] as $image )
-                                <img class="img-base-polaroid tt" width="100" height="100" src="{{ asset('img/img_templates/base_product_templates/') }}/{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                    @foreach($baseProductTemplates as $baseProductTemplate)
+                        <?php $content = json_decode($baseProductTemplate->content, true)?>
+
+                            @foreach($content['images'] as $baseProductImage )
+                                <img class="img-base-polaroid tt" width="100" height="100"
+                                     src="{{ asset('storage/images/base_templates/') }}/{{$baseProductTemplate->id}}/{{$baseProductImage}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
                             @endforeach
 
                     @endforeach
+
+
+
                 @endif
             </div>
 
             <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
                 @if(isset($printTemplates))
-                    @foreach($printTemplates as $image)
+                    @foreach($printTemplates as $printTemplate)
+
+
                         <img class="img-polaroid tt" width="100" height="100"
-                             src="{{ asset('img/templates/') }}/{{$image->image_path}}">
+                             src="{{ asset('storage/images/print_templates/') }}/{{$printTemplate->id}}/{{$printTemplate->name}}">
                     @endforeach
                 @endif
             </div>

@@ -24,7 +24,8 @@
             "App\\": "app/"
         },
       "files": [
-        "app/Http/Helpers/ImagesHelper.php"
+          "app/Http/Helpers/ImagesHelper.php",
+          "app/Http/Helpers/DbRecordHelper.php"
       ]
     },
     "autoload-dev": {

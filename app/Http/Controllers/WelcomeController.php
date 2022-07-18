@@ -29,6 +29,13 @@ class WelcomeController extends Controller
         with('productsRecommended', $productsRecommended)->
         with('show_slider', true)->
         with('show_sidebar', true)->
+        with('show_featured', true)->
+        with('show_categories', true)->
+        with('show_offer', true)->
+        with('show_subscribe', true)->
+        with('show_products', true)->
+        with('show_vendor', true)->
+
         with('productsBestSeller', $productsBestSeller);
     }
 }

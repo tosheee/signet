@@ -22,9 +22,13 @@
 
                 <tr>
                     <td>
+                        <b>{{ $template->id }}</b>
+                    </td>
+
+                    <td>
                         <div class="middle">
                             @foreach($content['images'] as $image )
-                                <img src="{{ asset('img/img_templates/base_product_templates/') }}/{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                                <img src="/storage/images/base_templates/{{$template->id}}/{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
                             @endforeach
                         </div>
                     </td>
@@ -38,9 +42,7 @@
 
                         @foreach($typePrintTemplates as $typePrintTemplate)
                             @if( $template->category_id == $typePrintTemplate->id)
-                                <p>
-                                    <b>Type:</b> {{ $typePrintTemplate->name }}
-                                </p>
+                                <p><b>Type:</b> {{ $typePrintTemplate->name }}</p>
                             @endif
                         @endforeach
                     </td>

@@ -7,24 +7,24 @@ use Intervention\Image\Facades\Image;
 
 class ImagesHelper{
 
-    public static function getLastProductId()
+    public static function getLastProductId($tableName)
     {
 
-        if(!isset(DB::table('products')->latest('id')->first()->id))
+        if(!isset(DB::table($tableName)->latest('id')->first()->id))
         {
             $product = new Product;
-            $product->category_id     = 1;
+            $product->category_id = 1;
 
             $product->save();
 
-            $oldId = DB::table('products')->latest('id')->first()->id;
+            $oldId = DB::table($tableName)->latest('id')->first()->id;
 
             $product = Product::find($oldId);
             $product->delete();
         }
         else
         {
-            $oldId = DB::table('products')->latest('id')->first()->id;
+            $oldId = DB::table($tableName)->latest('id')->first()->id;
         }
 
         return $oldId;

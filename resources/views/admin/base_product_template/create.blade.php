@@ -53,15 +53,6 @@
                             </label>
                             <br>
 
-                            </label>
-                            <input  style="width: 50px;" type="number" class="label-values" name="resize_percent" min="10" max="100" value="100" />     Оразмеряване в %
-                            </label>
-
-
-
-
-                            <br><br>
-
 
                             <div class="custom-file">
                                 <input type="file" name="images[]" class="custom-file-input" id="gallery-photo-add"  multiple />
@@ -89,29 +80,17 @@
 
                                                     var img = $($.parseHTML('<img>'));
                                                     img.attr('src', event.target.result).appendTo(placeToInsertImagePreview);
-
                                                     img.attr('wight', '200');
                                                     img.attr('height', '200');
                                                     img.attr('class', 'img-base-templates');
 
-
-
                                                     image.onload = function() {
-
                                                         img.parent().append(image.width+' x '+image.height);
-
                                                     };
-
-
-
                                                 }
-
-
                                                 reader.readAsDataURL(input.files[i]);
                                             }
-
                                         }
-
                                     };
 
                                     $('#gallery-photo-add').on('change', function() {
@@ -119,6 +98,24 @@
                                     });
                                 });
                             </script>
+
+
+                            </label>
+                            <input  style="width: 50px;" type="number" id="resize_percent" class="label-values" name="resize_percent" step="5" min="10" max="100" value="100" />     Оразмеряване в %
+                            </label>
+                            <br><br>
+
+                            <script>
+                                $('#resize_percent').on('click', function(){
+
+                                    console.log($(this).val())
+
+
+                                });
+
+                            </script>
+
+
                             <div class="form-group">
                                 <div class="col-md-6 col-md-offset-4">
                                     <button type="submit" class="btn btn-primary">

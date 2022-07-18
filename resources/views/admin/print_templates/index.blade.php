@@ -20,7 +20,7 @@
                 <tr>
                     <td>
                         <div class="middle">
-                            <img src="{{ asset('img/templates/') }}/{{$template->image_path}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                            <img src="/storage/images/print_templates/{{$template->id}}/{{$template->name}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
                         </div>
                     </td>
 
