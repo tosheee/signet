@@ -169,7 +169,6 @@
                                 </div>
                             @endif
 
-
                             <label>
                                 <span style="margin: 0;">Activ stamps: </span>
                                 <input type="radio" name="active" value="1" checked> ДА
@@ -191,48 +190,9 @@
                             </div>
 
                             <div class="gallery-wrapper">
-                                <button class="upload-img-butt btn btn-info btn-xs">Add picture</button>
+                                <button type="button" class="upload-img-butt btn btn-info btn-xs">Add picture</button>
                                 <br>
                             </div>
-
-                            <script>
-                                $(document).ready(function() {
-                                    var wrapper = $(".gallery-wrapper");
-                                    var button_upload_img = $(".upload-img-butt");
-                                    var button_url_img    = $(".field-img-butt");
-                                    var max_fields = 5;
-                                    var x = $('.gallery-image-wrapper').length;
-
-                                    $(button_upload_img).click(function(e){
-                                        e.preventDefault();
-                                        if(x < max_fields) {
-                                            x++;
-                                            wrapper.append('' +
-                                                    '<div class="gallery-image-wrapper" id="g_wrapper' + x +'"'+'>' +
-                                                    '<a class="remove-image-button">' +
-                                                    '<i style="color: red;" aria-hidden="true" class="fa fa-times"></i></a>' +
-                                                    '<div class="file-upload">' +
-                                                    '<div class="image-upload-wrap">' +
-                                                    '<input class="file-upload-input" name="images[]" type="file" onchange="readURL(this);" accept="image/*" />' +
-                                                    '<div class="drag-text">' +
-                                                    '<h3>Drag and drop a file or select add Image</h3></div></div>' +
-                                                    '<div class="file-upload-content">' +
-                                                    '<img class="file-upload-image" src="#" alt="your image" />' +
-                                                    '<div class="image-title-wrap">' +
-                                                    '<button type="button" onclick="removeUpload()" class="remove-image">' +
-                                                    'Remove <span class="image-title">Uploaded Image</span>' +
-                                                    '</button></div><div class="range-content"></div></div></div><br></div>' +
-                                                    '');
-                                        }
-                                    });
-
-                                    $('.gallery-wrapper').on("click", ".remove-image-button", function(e){
-                                        e.preventDefault();
-                                        $(this).parent('div.gallery-image-wrapper').remove();
-                                        x--;
-                                    });
-                                });
-                            </script>
 
                             <br>
                             <div class="form-group">
@@ -250,6 +210,7 @@
             </div>
         </div>
     </div>
+    @include('admin.admin_partials.admin_menu_bottom')
 
     <script>
         function readURL(input) {
@@ -275,14 +236,15 @@
                     file_upload_content.show();
                     file_upload_content.find('.image-title').html(input.files[0].name);
 
-
-
-                    var range_tag = '<input type="range" data-width="" data-height=""  name="weight" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">' +
+                    var range_tag = '' +
+                            '<input type="range" data-width="" data-height=""  name="weight" ' +
+                            'id="range_weight" value="100" min="1" max="100" ' +
+                            'oninput="range_weight_disp.value = range_weight.value">' +
                             '<output  id="range_weight_disp"></output>' +
-                            ''+
                             '<p>Original dimensions: <span class="dimensions"></span>' +
                             '<p>New dimensions: <span class="new-dimensions"></span></p>' +
                             '<p>Recommended around: <span> 150 x 176 </span></p>';
+
                     var range_content = file_upload_content.find('.range-content');
                     range_content.append(range_tag);
 
@@ -294,7 +256,6 @@
                 };
 
                 reader.readAsDataURL(input.files[0]);
-
             }
             else
             {
@@ -329,49 +290,42 @@
             $(this).parent().find('.new-dimensions').html(add_to_html);
         });
 
-    </script>
+        $(document).ready(function() {
+            var wrapper = $(".gallery-wrapper");
+            var button_upload_img = $(".upload-img-butt");
+            var button_url_img    = $(".field-img-butt");
+            var max_fields = 5;
+            var x = $('.gallery-image-wrapper').length;
 
-
-
-
-
-    <script>
-
-        $(function() {
-            // Multiple images preview in browser
-            var imagesPreview = function(input, placeToInsertImagePreview) {
-
-                if (input.files) {
-                    var filesAmount = input.files.length;
-                    var catImageWidth = 0;
-
-                    for (i = 0; i < filesAmount; i++) {
-                        var reader = new FileReader();
-
-                        reader.onload = function(event) {
-                            var image = new Image();
-                            image.src = event.target.result;
-
-                            var img = $($.parseHTML('<img>'));
-                            img.attr('src', event.target.result).appendTo(placeToInsertImagePreview);
-                            img.attr('wight', '200');
-                            img.attr('height', '200');
-                            img.attr('class', 'img-base-templates');
-
-                            image.onload = function() {
-                                img.parent().append(image.width+' x '+image.height);
-                            };
-                        }
-                        reader.readAsDataURL(input.files[i]);
-                    }
+            $(button_upload_img).click(function(e){
+                e.preventDefault();
+                if(x < max_fields) {
+                    x++;
+                    wrapper.append('' +
+                            '<div class="gallery-image-wrapper" id="g_wrapper' + x +'"'+'>' +
+                            '<a class="remove-image-button">' +
+                            '<i style="color: red;" aria-hidden="true" class="fa fa-times"></i></a>' +
+                            '<div class="file-upload">' +
+                            '<div class="image-upload-wrap">' +
+                            '<input class="file-upload-input" name="images[]" type="file" onchange="readURL(this);" accept="image/*" />' +
+                            '<div class="drag-text">' +
+                            '<h3>Drag and drop a file or select add Image</h3></div></div>' +
+                            '<div class="file-upload-content">' +
+                            '<img class="file-upload-image" src="" alt="your image" />' +
+                            '<div class="image-title-wrap">' +
+                            '<button type="button" onclick="removeUpload()" class="remove-image">' +
+                            'Remove <span class="image-title">Uploaded Image</span>' +
+                            '</button></div><div class="range-content"></div></div></div><br></div>' +
+                            '');
                 }
-            };
+            });
 
-            $('#chooseImage').on('change', function() {
-                imagesPreview(this, 'div.gallery');
+            $('.gallery-wrapper').on("click", ".remove-image-button", function(e){
+                e.preventDefault();
+                $(this).parent('div.gallery-image-wrapper').remove();
+                x--;
             });
         });
-    </script>
 
-    @include('admin.admin_partials.admin_menu_bottom')
+    </script>
 @endsection

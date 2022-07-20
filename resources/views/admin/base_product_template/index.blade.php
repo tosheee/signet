@@ -14,6 +14,7 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         @if(isset($baseProductTemplates))
                 @foreach($baseProductTemplates as $template)
@@ -27,9 +28,12 @@
 
                     <td>
                         <div class="middle">
-                            @foreach($content['images'] as $image )
-                                <img src="/storage/images/base_templates/{{$template->id}}/{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
-                            @endforeach
+                            @if (isset($content['images']))
+                                @foreach($content['images'] as $image )
+                                    <img src="/storage/images/base_templates/{{$template->id}}/{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                                    <p>{{$image}}</p>
+                                @endforeach
+                            @endif
                         </div>
                     </td>
 

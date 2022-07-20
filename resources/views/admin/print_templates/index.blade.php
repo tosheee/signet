@@ -14,10 +14,15 @@
             <th></th>
             <th></th>
             <th></th>
+            <th></th>
         </tr>
         @if(isset($print_templates))
                 @foreach($print_templates as $template)
                 <tr>
+                    <td>
+                        <b>{{ $template->id }}</b>
+                    </td>
+
                     <td>
                         <div class="middle">
                             <img src="/storage/images/print_templates/{{$template->id}}/{{$template->name}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>

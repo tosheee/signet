@@ -22,10 +22,8 @@ class BaseProductTemplateController extends Controller
 
     public function index()
     {
-        $baseProductTemplates = BaseProductTemplate::all();
-
         return view('admin.base_product_template.index')->
-        with('baseProductTemplates', $baseProductTemplates)->
+        with('baseProductTemplates', BaseProductTemplate::all())->
         with('title', 'Base Template');
     }
 
@@ -36,29 +34,36 @@ class BaseProductTemplateController extends Controller
 
     public function store(Request $request)
     {
-        $template_name =  DbHelper::cirilicToLatin($request->name);
-        $images = $request->images;
-        $content = [];
         $record_id = DbHelper::getLastProductId('base_product_templates') + 1;
+        $template_name =  DbHelper::cirilicToLatin($request->name);
+        $percents_images = explode("|", $request->percent_images);
+        $content = [];
 
-        for($i = 0; $i < count($images); $i++){
-            $content['images'][$i] = DbHelper::storeAndResizeImages(
-                $images[$i],
-                'base_templates/'.$record_id,
-                $template_name.''.$i,
-                $request->input('resize_percent')
-            );
+        if($request->hasFile('images') )
+        {
+            $images = $request->images;
+            for($i = 0; $i < count($images); $i++)
+            {
+                $content['images'][$i] = DbHelper::storeAndResizeImages(
+                    $images[$i],
+                    'base_templates/'.$record_id,
+                    $i.'_base',
+                    $percents_images[$i]
+                );
+            }
         }
 
         $content['name'] = $template_name;
+        $content['percents_images'] = $percents_images;
 
         $baseProduct = new BaseProductTemplate;
         $baseProduct->category_id = $request->input('category_id');
-        $baseProduct->content = json_encode($content, JSON_UNESCAPED_UNICODE );
         $baseProduct->active = $request->input('active');
+        $baseProduct->content = json_encode($content, JSON_UNESCAPED_UNICODE );
+
         $baseProduct->save();
 
-        return redirect('admin/base_product_template')
+        return redirect('/admin/base_product_templates')
             ->with('title', 'Нова категория')
             ->with('message', 'Категорията е създадена');
     }
@@ -70,20 +75,69 @@ class BaseProductTemplateController extends Controller
 
     public function edit($id)
     {
-        $baseProductTemplate = BaseProductTemplate::find($id);
-        $categories = Category::all();
-        $subCategories = SubCategory::all();
-
         return view('admin.base_product_template.edit')->
-        with('categories', $categories)->
-        with('subCategories', $subCategories)->
-        with('baseProductTemplate', $baseProductTemplate)->
+        with('categories', Category::all())->
+        with('subCategories', SubCategory::all())->
+        with('baseProductTemplate', BaseProductTemplate::find($id))->
+        with('record_id', $id)->
         with('title', 'Update Base Template');
     }
 
-    public function update(Request $request, BaseProductTemplate $baseProductTemplate)
+    public function update(Request $request, $id)
     {
+        $baseProduct = BaseProductTemplate::find($id);
+        $old_content = json_decode($baseProduct->content, true);
 
+        $content['name'] = $request->input('name');
+
+        $content['images'] = $old_content['images'];
+
+        $old_images = $request->input('old_images');
+
+
+        //dd($old_images);
+        dd($content['images']);
+        if (isset($old_images) && isset($content['images']))
+        {
+            $diff_images = array_diff($old_images, $content['images']);
+            if(!empty($diff_images))
+            {
+                dd($diff_images);
+            }
+        }
+
+
+        if($request->hasFile('images') )
+        {
+            $percents_images = explode("|", $request->percent_images);
+            $images = $request->images;
+
+            for($i = 0; $i < count($images); $i++)
+            {
+                $old_img = $content['images'][$i];
+                $idx = explode('_', $old_img[0]);
+                if($idx == $i)
+                {
+                    Storage::delete('public/images/base_templates/'.$id.'/'.$old_img);
+                    $content['images'][$i] = DbHelper::storeAndResizeImages(
+                        $images[$i],
+                        'base_templates/'.$id,
+                        $i.'_base',
+                        $percents_images[$i]
+                    );
+                }
+            }
+        }
+
+        $baseProduct->category_id = $request->input('category_id');
+        $baseProduct->active = $request->input('active');
+        $baseProduct->content = json_encode($content, JSON_UNESCAPED_UNICODE );
+
+        $baseProduct->save();
+
+        return redirect('admin/base_product_template/')
+            ->with('title', 'Нова категория')
+            ->with('message', 'Категорията е създадена');
     }
 
     public function destroy($id)
