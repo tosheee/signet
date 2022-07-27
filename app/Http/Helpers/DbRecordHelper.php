@@ -57,6 +57,10 @@ class DbRecordHelper
         Storage::deleteDirectory($path);
     }
 
+    public static function deleteFile($path){
+        Storage::delete($path);
+    }
+
     public static function cirilicToLatin($text){
 
         $cyr = [

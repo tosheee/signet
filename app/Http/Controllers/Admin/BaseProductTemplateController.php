@@ -41,6 +41,9 @@ class BaseProductTemplateController extends Controller
 
         if($request->hasFile('images') )
         {
+            $content['images'] = this.$this->recordImages($request->images, $record_id, $percents_images);
+
+            /*
             $images = $request->images;
             for($i = 0; $i < count($images); $i++)
             {
@@ -51,6 +54,7 @@ class BaseProductTemplateController extends Controller
                     $percents_images[$i]
                 );
             }
+            */
         }
 
         $content['name'] = $template_name;
@@ -68,10 +72,10 @@ class BaseProductTemplateController extends Controller
             ->with('message', 'Категорията е създадена');
     }
 
-    public function show(BaseProductTemplate $baseProductTemplate)
-    {
+    //public function show(BaseProductTemplate $baseProductTemplate)
+    //{
 
-    }
+    //}
 
     public function edit($id)
     {
@@ -88,51 +92,47 @@ class BaseProductTemplateController extends Controller
         $baseProduct = BaseProductTemplate::find($id);
         $old_content = json_decode($baseProduct->content, true);
 
-        $content['name'] = $request->input('name');
-
         $content['images'] = $old_content['images'];
+        $content['name']  = $request->input('name');
+        $input_old_images = $request->input('old_images');
+        $percents_images = explode("|", $request->percent_images);
 
-        $old_images = $request->input('old_images');
+        if (!isset($input_old_images)){ $input_old_images = []; }
+        if (!isset($content['images'])){ $content['images'] = []; }
 
 
-        //dd($old_images);
-        dd($content['images']);
-        if (isset($old_images) && isset($content['images']))
+        if ($input_old_images != $content['images'])
         {
-            $diff_images = array_diff($old_images, $content['images']);
-            if(!empty($diff_images))
-            {
-                dd($diff_images);
-            }
-        }
+            $diff_images = array_diff($content['images'], $input_old_images);
 
+            foreach ( $diff_images as $diff_img)
+            {
+                DbHelper::deleteFile('public/images/base_templates/'.$id.'/'.$diff_img);
+            }
+            $content['images'] = [];
+        }
 
         if($request->hasFile('images') )
         {
-            $percents_images = explode("|", $request->percent_images);
+            $content['images'] = this.$this->recordImages($request->images, $id, $percents_images);
+            /*
             $images = $request->images;
 
             for($i = 0; $i < count($images); $i++)
             {
-                $old_img = $content['images'][$i];
-                $idx = explode('_', $old_img[0]);
-                if($idx == $i)
-                {
-                    Storage::delete('public/images/base_templates/'.$id.'/'.$old_img);
-                    $content['images'][$i] = DbHelper::storeAndResizeImages(
-                        $images[$i],
-                        'base_templates/'.$id,
-                        $i.'_base',
-                        $percents_images[$i]
-                    );
-                }
+                $content['images'][$i] = DbHelper::storeAndResizeImages(
+                    $images[$i],
+                    'base_templates/'.$id,
+                    $i.'_base',
+                    $percents_images[$i]
+                );
             }
+            */
         }
 
         $baseProduct->category_id = $request->input('category_id');
         $baseProduct->active = $request->input('active');
         $baseProduct->content = json_encode($content, JSON_UNESCAPED_UNICODE );
-
         $baseProduct->save();
 
         return redirect('admin/base_product_template/')
@@ -148,5 +148,22 @@ class BaseProductTemplateController extends Controller
         session()->flash('notif', 'Продукта е изтрит');
 
         return redirect('/admin/base_product_template');
+    }
+
+
+    public function recordImages($images, $record_id, $percents_images)
+    {
+        $image_names = [];
+        for($i = 0; $i < count($images); $i++)
+        {
+            $image_names[$i] = DbHelper::storeAndResizeImages(
+                $images[$i],
+                'base_templates/'.$record_id,
+                $i.'_base',
+                $percents_images[$i]
+            );
+        }
+
+        return $image_names;
     }
 }

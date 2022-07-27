@@ -200,9 +200,6 @@ class ProductsController extends Controller
         }
 
 
-
-
-
         if($request->hasFile('upload_gallery_pictures') )
         {
             $files_gallery_pic = $request->file('upload_gallery_pictures');
@@ -223,13 +220,6 @@ class ProductsController extends Controller
                 $descriptionRequest['gallery'][$i + $old_pic_num]['upload_picture'] = $this->resizeImages($files_gallery_pic[$i], $id, $request->input('resize_percent'), 'gallery');
             }
         }
-
-
-
-
-
-
-
 
 
         if(isset($descriptionRequest['delivery_price'])) {
