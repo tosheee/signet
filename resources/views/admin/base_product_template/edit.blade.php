@@ -191,8 +191,8 @@
                                                 <img class="file-upload-image" src="/storage/images/base_templates/{{$record_id}}/{{$image}}">
 
                                                 <div class="image-title-wrap">
-                                                    <button type="button" onclick="removeUpload(this)" class="remove-image">
-                                                        Remove: <span class="image-title">{{$image}}</span>
+                                                    <button type="button" onclick="removeUpload(this)" class="" disabled>
+                                                        Title: <span class="image-title">{{$image}}</span>
                                                     </button>
                                                 </div>
 

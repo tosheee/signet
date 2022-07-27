@@ -41,20 +41,7 @@ class BaseProductTemplateController extends Controller
 
         if($request->hasFile('images') )
         {
-            $content['images'] = this.$this->recordImages($request->images, $record_id, $percents_images);
-
-            /*
-            $images = $request->images;
-            for($i = 0; $i < count($images); $i++)
-            {
-                $content['images'][$i] = DbHelper::storeAndResizeImages(
-                    $images[$i],
-                    'base_templates/'.$record_id,
-                    $i.'_base',
-                    $percents_images[$i]
-                );
-            }
-            */
+            $content['images'] = $this->recordImages($request->images, $record_id, $percents_images);
         }
 
         $content['name'] = $template_name;
@@ -114,22 +101,10 @@ class BaseProductTemplateController extends Controller
 
         if($request->hasFile('images') )
         {
-            $content['images'] = this.$this->recordImages($request->images, $id, $percents_images);
-            /*
-            $images = $request->images;
-
-            for($i = 0; $i < count($images); $i++)
-            {
-                $content['images'][$i] = DbHelper::storeAndResizeImages(
-                    $images[$i],
-                    'base_templates/'.$id,
-                    $i.'_base',
-                    $percents_images[$i]
-                );
-            }
-            */
+            $content['images'] = $this->recordImages($request->images, $id, $percents_images);
         }
 
+        $content['percents_images'] = $percents_images;
         $baseProduct->category_id = $request->input('category_id');
         $baseProduct->active = $request->input('active');
         $baseProduct->content = json_encode($content, JSON_UNESCAPED_UNICODE );
