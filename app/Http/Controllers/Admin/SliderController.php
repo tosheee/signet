@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use Image;
+
+use DbRecordHelper as DbHelper;
 use App\Admin\Slider;
 
 class SliderController extends Controller
@@ -24,28 +25,36 @@ class SliderController extends Controller
 
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'img_file' => 'required|image|mimes:jpeg,png,jpg',
-        ]);
+        $record_id = DbHelper::getLastProductId('sliders') + 1;
+        $content = [];
+        //$this->validate($request, [
+          //  'img_file' => 'required|image|mimes:jpeg,png,jpg',
+        //]);
 
-        if($request->hasFile('img_file'))
+        $percents_images = explode("|", $request->percent_images);
+
+        if($request->hasFile('images') )
         {
-            $file_pic = $request->file('img_file');
-            $extension = $file_pic->getClientOriginalExtension();
-            $fileNameToStore = 'slider_'.time().'.'.$extension;
-            Storage::makeDirectory('public/common_pictures/');
-            $image = Image::make($file_pic->getRealPath());
-            $path = storage_path('app/public/common_pictures/'. $fileNameToStore);
-            $image->resize(1000, 250)->save($path);
+            // ['small', 'original'] optional parameter for record original size img
+            $content['images'] = DbHelper::recordImages(
+                $request->images,
+                'slider',
+                $record_id,
+                $percents_images
+            );
         }
 
+        $content['percents_images'] = $percents_images;
+        $content['link'] = $request->input('link');
+
         $slider = new Slider;
-        $slider->slider_img  = $fileNameToStore;
+        $slider->slider_img  = json_encode($content, JSON_UNESCAPED_UNICODE );
         $slider->title       = $request->input('img_title');
         $slider->description = $request->input('img_description');
+
         $slider->save();
 
-        session()->flash('notif', 'Снимката за слайда е създадена');
+        session()->flash('notif', 'Created');
         return redirect('admin/slider/create');
 
     }

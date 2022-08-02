@@ -82,9 +82,28 @@
                 </div>
             </nav>
             <!-- Slider -->
-            @if(isset($show_slider))
+            @if(isset($show_slider) && isset($slider))
                 <div id="header-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
+                        @foreach($slider as $key => $item)
+                            <?php $item_img = json_decode($item->slider_img, true)?>
+
+                            <div class="{{$key = 0 ? 'carousel-item active' : 'carousel-item'}}" style="height: 410px;">
+
+                                <img class="img-fluid" src="/storage/images/slider/{{$item->id}}/{{$item_img['images'][0]}}" alt="Image">
+
+                                <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
+                                    <div class="p-3" style="max-width: 700px;">
+                                        <h4 class="text-light text-uppercase font-weight-medium mb-3">{{$item->description ?? ''}}</h4>
+                                        <h3 class="display-4 text-white font-weight-semi-bold mb-4">{{$item->title ?? ''}}</h3>
+                                        <a href="{{$item->link ?? ''}}" class="btn btn-light py-2 px-3">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+
+
                         <div class="carousel-item active" style="height: 410px;">
                             <img class="img-fluid" src="img/carousel-1.jpg" alt="Image">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">

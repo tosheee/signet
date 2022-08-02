@@ -22,8 +22,9 @@ class BaseProductTemplateController extends Controller
 
     public function index()
     {
+        //latest()->paginate(10)
         return view('admin.base_product_template.index')->
-        with('baseProductTemplates', BaseProductTemplate::all())->
+        with('baseProductTemplates', BaseProductTemplate::latest()->paginate(1))->
         with('title', 'Base Template');
     }
 
@@ -41,7 +42,13 @@ class BaseProductTemplateController extends Controller
 
         if($request->hasFile('images') )
         {
-            $content['images'] = $this->recordImages($request->images, $record_id, $percents_images);
+            $content['images'] = DbHelper::recordImages(
+                $request->images,
+                'base_templates',
+                $record_id,
+                $percents_images
+                //['small', 'original']
+            );
         }
 
         $content['name'] = $template_name;
@@ -54,15 +61,10 @@ class BaseProductTemplateController extends Controller
 
         $baseProduct->save();
 
-        return redirect('/admin/base_product_templates')
-            ->with('title', 'Нова категория')
-            ->with('message', 'Категорията е създадена');
+        return redirect('/admin/base_product_template')
+            ->with('title', 'Base templates')
+            ->with('message', 'Created');
     }
-
-    //public function show(BaseProductTemplate $baseProductTemplate)
-    //{
-
-    //}
 
     public function edit($id)
     {
@@ -101,18 +103,25 @@ class BaseProductTemplateController extends Controller
 
         if($request->hasFile('images') )
         {
-            $content['images'] = $this->recordImages($request->images, $id, $percents_images);
+            $content['images'] = DbHelper::recordImages(
+                $request->images,
+                'base_templates',
+                $id,
+                $percents_images
+            //['small', 'original']
+            );
         }
 
         $content['percents_images'] = $percents_images;
+
         $baseProduct->category_id = $request->input('category_id');
         $baseProduct->active = $request->input('active');
         $baseProduct->content = json_encode($content, JSON_UNESCAPED_UNICODE );
         $baseProduct->save();
 
         return redirect('admin/base_product_template/')
-            ->with('title', 'Нова категория')
-            ->with('message', 'Категорията е създадена');
+            ->with('title', 'Base templates')
+            ->with('message', 'Updated');
     }
 
     public function destroy($id)
@@ -120,25 +129,8 @@ class BaseProductTemplateController extends Controller
         $baseProductTemplate = BaseProductTemplate::find($id);
         $baseProductTemplate->delete();
         DbHelper::deleteDir('public/images/base_templates/'.$id);
-        session()->flash('notif', 'Продукта е изтрит');
+        session()->flash('notif', 'The template was deleted');
 
         return redirect('/admin/base_product_template');
-    }
-
-
-    public function recordImages($images, $record_id, $percents_images)
-    {
-        $image_names = [];
-        for($i = 0; $i < count($images); $i++)
-        {
-            $image_names[$i] = DbHelper::storeAndResizeImages(
-                $images[$i],
-                'base_templates/'.$record_id,
-                $i.'_base',
-                $percents_images[$i]
-            );
-        }
-
-        return $image_names;
     }
 }

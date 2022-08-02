@@ -3,20 +3,150 @@
 @section('content')
     @include('admin.admin_partials.admin_menu')
 
-        <a href="/admin/categories" class="btn btn-default">Обратно</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Update stamp</div>
+                    <div class="panel-body">
 
-        <form method="POST" action="/admin/categories/{{ $category->id }}" accept-charset="UTF-8" enctype="multipart/form-data">
+                        <form class="form-horizontal" method="POST" action="{{ route('print_templates.store') }}" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            @if(isset($categories))
+                                <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
+                                    <label>
+                                        <span>Категории:<sup style="color: red;">*</sup></span>
+                                        <select class="form-control" name="category_id" id="select-category" required="required"  oninvalid="this.setCustomValidity('Моля, въведете категория!')" oninput="setCustomValidity('')">
+                                            <option value="">Избери категория</option>
 
-            {{ csrf_field() }}
+                                            @foreach($categories as $category)
+                                                @if ($baseProductTemplate->category_id == $category->id )
+                                                    <option selected="selected" value="{{ $category->id }}">{{ isset($category->name) ?  $category->name : '' }}</option>
+                                                @else
+                                                    <option value="{{ $category->id }}">{{ isset($category->name) ?  $category->name : ''  }}</option>
+                                                @endif
+                                            @endforeach
 
-            <div class="form-group">
-                <label for="name">Име на категорията</label>
-                <input class="form-control" placeholder="Name" name="name" type="text" value="{{ $category->name }}" id="name">
+                                        </select>
+                                    </label>
+                                </div>
+                            @endif
+
+                            @if(isset($subCategories))
+                                <div class="form-group{{ $errors->has('sub_category_id') ? ' has-error' : '' }}">
+                                    <label>
+                                        <span>Подкатегория:<sup style="color: red;">*</sup></span>
+                                        <select class="form-control" name="sub_category_id" id="select-sub-category" required="required"  oninvalid="this.setCustomValidity('Моля, въведете подкатегория!')" oninput="setCustomValidity('')">
+                                            <option value="">Избери подкатегория</option>
+                                            @foreach($subCategories as $sub_category)
+                                                <option value="{{ $sub_category->id }}">{{ $sub_category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                </div>
+                            @endif
+
+                            @if(isset($typePrintTemplates))
+                                <div class="form-group{{ $errors->has('sub_category_id') ? ' has-error' : '' }}">
+                                    <label>
+                                        <span>Theme:<sup style="color: red;">*</sup></span>
+                                        <select class="form-control" name="type_print_template_id" id="type_print_template" required="required"  oninvalid="this.setCustomValidity('Please enter type!')" oninput="setCustomValidity('')">
+                                            <option value="">Chose Type Print Template</option>
+                                            @foreach($typePrintTemplates as $typePrintTemplate)
+                                                <option value="{{ $typePrintTemplate->id }}">{{ $typePrintTemplate->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </label>
+                                </div>
+                            @endif
+
+                            <label>
+                                <span style="margin: 0;">Activ stamps: </span>
+                                <input type="radio" name="active" value="1" checked> ДА
+                                <input type="radio" name="active" value="0"> НЕ
+                            </label>
+                            <br>
+
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <label for="name" class="col-md-4 control-label">Име</label>
+
+                                <div class="col-md-6">
+                                    <input id="name" type="text" class="form-control" name="name" value="{{$content['name'] ?? ''}}"required autofocus>
+
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <label>
+                                <span style="margin: 0;">Активен продукт в магазина: </span>
+                                <input type="radio" name="active" value="1" checked> ДА
+                                <input type="radio" name="active" value="0"> НЕ
+                            </label>
+                            <br>
+
+                            <div class="gallery-wrapper">
+                                <button type="button" id="upload-img" class="upload-img-butt btn btn-info btn-xs" style="visibility: hidden;">Add picture</button>
+                                <br>
+                                @if(isset($content['images']))
+                                    @foreach($content['images'] as $i => $image)
+
+                                        <div class="gallery-image-wrapper" id="g_wrapper{{$i}}">
+                                            <a class="remove-image-button"><i style="color: red;" aria-hidden="true" class="fa fa-times"></i></a>
+                                            <div class="file-upload">
+                                                <div class="image-upload-wrap" style="display: none;">
+                                                    <input class="file-upload-input" name="images[]" type="file" onchange="readURL(this);" accept="image/*">
+                                                    <input class="old-file-upload-input" name="old_images[]" type="hidden"  value="{{$image}}">
+
+                                                    <div class="drag-text">
+                                                        <h3>Drag and drop a file or select add Image</h3>
+                                                    </div>
+                                                </div>
+
+                                                <div class="file-upload-content" style="display: block;">
+                                                    <img class="file-upload-image" src="/storage/images/base_templates/{{$record_id}}/{{$image}}">
+
+                                                    <div class="image-title-wrap">
+                                                        <button type="button" onclick="removeUpload(this)" class="" disabled>
+                                                            Title: <span class="image-title">{{$image}}</span>
+                                                        </button>
+                                                    </div>
+
+                                                    <div class="range-content">
+                                                        <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
+                                                        <output id="range_weight_disp"></output>
+
+                                                        <p>Original dimensions: <span class="dimensions"></span></p>
+                                                        <p>New dimensions: <span class="new-dimensions"></span></p>
+                                                        <p>Recommended around: <span> 530 x 630 </span></p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                    @endforeach
+                                @endif
+
+                            </div>
+                            <input type="hidden" id="all-percent-images" name="percent_images">
+                            <div class="actions">
+                                <input name="_method" type="hidden" value="PUT">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
             </div>
+        </div>
+    </div>
 
-            <input name="_method" type="hidden" value="PUT">
-            <input class="btn btn-primary" type="submit" value="Промяна">
-        </form>
-
-@include('admin.admin_partials.admin_menu_bottom')
+    @include('admin.admin_partials.admin_menu_bottom')
+    @include('admin.admin_partials.images_script')
 @endsection

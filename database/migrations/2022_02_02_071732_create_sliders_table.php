@@ -18,6 +18,7 @@ class CreateSlidersTable extends Migration
             $table->text('slider_img');
             $table->text('title');
             $table->text('description');
+            $table->boolean('active')->default(1);
             $table->timestamps();
         });
     }

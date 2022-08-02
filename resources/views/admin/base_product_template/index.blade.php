@@ -1,9 +1,8 @@
 @extends('layouts.app_admin')
-
 @section('content')
     @include('admin.admin_partials.admin_menu')
 
-        <a class="btn btn-primary" href="/admin/base_product_template/create">Нова Щампа</a>
+        <a class="btn btn-primary" href="/admin/base_product_template/create">New Template</a>
         <br>
         <br>
 
@@ -52,22 +51,28 @@
                     </td>
 
                     <td>
-                        <a class="btn btn-default" href="/admin/base_product_template/{{ $template->id }}/edit">Промяна</a>
+                        <a class="btn btn-default" href="/admin/base_product_template/{{ $template->id }}/edit">Update</a>
                     </td>
 
                     <td>
                         <form method="POST" action="/admin/base_product_template/{{ $template->id }}" accept-charset="UTF-8" class="pull-right">
                             {{ csrf_field() }}
                             <input name="_method" type="hidden" value="DELETE">
-                            <input class="btn btn-danger" type="submit" value="Изтриване">
+                            <input class="btn btn-danger" type="submit" value="Delete">
                         </form>
                     </td>
 
                 </tr>
                 @endforeach
             </table>
+
+            <div style="text-align: center;">
+                @if( method_exists($baseProductTemplates,'links') )
+                    {{  $baseProductTemplates->links() }}
+                @endif
+            </div>
         @else
-            <p>Няма създадени категегории</p>
+            <h1>The table is empty</h1>
         @endif
 
     @include('admin.admin_partials.admin_menu_bottom')

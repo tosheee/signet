@@ -391,10 +391,7 @@ stamps with chose from select
 
 
         });
-
-
     </script>
-
 
     <script src="{{ URL::to('/') }}/vendor/unisharp/laravel-ckeditor/ckeditor.js"></script>
 

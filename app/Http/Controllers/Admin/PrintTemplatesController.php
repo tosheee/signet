@@ -43,36 +43,52 @@ class PrintTemplatesController extends Controller
     public function store(Request $request)
     {
 
-
-        dd($request);
-
-        // на база на броя на снимките може да се направи мулти запис
         $this->validate($request, [
             'name' => 'required',
-            'image' => 'mimes:jpeg,jpg,png,gif|required|max:100000'
+            'images' => 'mimes:jpeg,jpg,png,gif|required|max:100000'
         ]);
 
         $record_id = DbHelper::getLastProductId('print_templates') + 1;
+        $template_name =  DbHelper::cirilicToLatin($request->name);
+        $percents_images = explode("|", $request->percent_images);
+        $content = [];
 
-        foreach(['small', 'original'] as $new_name){
-            $imageName = DbHelper::storeAndResizeImages(
-                $request->image,
-                'print_templates/'.$record_id,
-                $new_name,
-                $request->input('resize_percent')
+        /*
+        if($request->hasFile('images') )
+        {
+            foreach(['small', 'original'] as $new_name)
+            {
+                $content['images'] = DbHelper::storeAndResizeImages(
+                    $request->images,
+                    'print_templates/'.$record_id,
+                    $new_name,
+                    $request->input('resize_percent')
+                );
+            }
+        }
+
+        */
+        if($request->hasFile('images') )
+        {
+            $content['images'] = DbHelper::recordImages(
+                $request->images,
+                'print_templates',
+                $record_id,
+                $percents_images,
+                ['small', 'original']
             );
         }
+
+        $content['name'] = $template_name;
+        $content['percents_images'] = $percents_images;
 
         $printTemplate = new PrintTemplate;
         $printTemplate->category_id = $request->input('category_id');
         $printTemplate->sub_category_id = $request->input('sub_category_id');
-
         $printTemplate->type_print_template_id = $request->input('type_print_template_id');
-        $printTemplate->name = $imageName;
-        $printTemplate->image_path = '';
-
-        $printTemplate->configuration = '';
         $printTemplate->active = $request->input('active');
+        $printTemplate->content = json_encode($content, JSON_UNESCAPED_UNICODE );
+
         $printTemplate->save();
 
         return redirect('admin/print_templates')->with('title', 'Нова категория')->with('message', '');
