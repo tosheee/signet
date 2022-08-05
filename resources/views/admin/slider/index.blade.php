@@ -4,7 +4,7 @@
     @include('admin.admin_partials.admin_menu')
 
     <h3>Слайдер</h3>
-    <a class="btn btn-primary" href="/admin/slider/create">Нова снимка</a>
+    <a class="btn btn-primary" href="/admin/slider/create">Add new</a>
     <br><br>
     @if(count($sliders) > 0)
         <table class="table table-striped">

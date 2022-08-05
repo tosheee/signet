@@ -2,7 +2,6 @@
 
 @section('content')
     @include('admin.admin_partials.admin_menu')
-
         <a href="/admin/product" class="btn btn-default">Обратно</a>
         <h1>{{ $category->name }}</h1>
 

@@ -23,51 +23,37 @@ class PrintTemplatesController extends Controller
 
     public function index()
     {
-        $print_templates = PrintTemplate::all();
+        $print_templates = PrintTemplate::latest()->paginate(5);
         $typePrintTemplates = TypePrintTemplate::all();
 
         return view('admin.print_templates.index')->
         with('print_templates', $print_templates)->
         with('typePrintTemplates', $typePrintTemplates)->
-        with('title', 'Щампи');
+        with('title', 'Staps');
     }
 
     public function create()
     {
-
         return view('admin.print_templates.create')->
         with('categories', Category::all())->
-        with('title', 'Нова Щампа');
+        with('recommended_dim', '150 x 146')->
+        with('title', 'New stamp');
     }
 
     public function store(Request $request)
     {
-
+        /*
         $this->validate($request, [
             'name' => 'required',
             'images' => 'mimes:jpeg,jpg,png,gif|required|max:100000'
         ]);
+        */
 
         $record_id = DbHelper::getLastProductId('print_templates') + 1;
         $template_name =  DbHelper::cirilicToLatin($request->name);
         $percents_images = explode("|", $request->percent_images);
         $content = [];
 
-        /*
-        if($request->hasFile('images') )
-        {
-            foreach(['small', 'original'] as $new_name)
-            {
-                $content['images'] = DbHelper::storeAndResizeImages(
-                    $request->images,
-                    'print_templates/'.$record_id,
-                    $new_name,
-                    $request->input('resize_percent')
-                );
-            }
-        }
-
-        */
         if($request->hasFile('images') )
         {
             $content['images'] = DbHelper::recordImages(
@@ -75,11 +61,11 @@ class PrintTemplatesController extends Controller
                 'print_templates',
                 $record_id,
                 $percents_images,
-                ['small', 'original']
+                [$template_name, 'origin-'.$template_name]
             );
         }
 
-        $content['name'] = $template_name;
+        $content['name'] = $request->name;
         $content['percents_images'] = $percents_images;
 
         $printTemplate = new PrintTemplate;
@@ -91,49 +77,27 @@ class PrintTemplatesController extends Controller
 
         $printTemplate->save();
 
-        return redirect('admin/print_templates')->with('title', 'Нова категория')->with('message', '');
-    }
-
-    public function resizeImages($picture, $pathToStore, $template_name, $i, $resize_percent)
-    {
-        $extension = $picture->getClientOriginalExtension();
-        $template_name = strtolower($template_name);
-
-        $fileNameToStore =$i.'_'.$template_name.'.'.$extension;
-
-
-
-        if(!is_dir($pathToStore))
-        {
-            Storage::makeDirectory($pathToStore, 0775, true);
-        }
-
-        list($width, $height) = getimagesize($picture->getRealPath());
-
-        $newWidth  = intval(($resize_percent / 100) * $width);
-        $newHeight = intval(($resize_percent / 100) * $height);
-
-        Image::make($picture->getRealPath())->resize($newWidth, $newHeight)->save($pathToStore.'/'.$fileNameToStore);
-
-        return $fileNameToStore;
+        return redirect('admin/print_templates')->with('title', 'New stamp')->with('message', '');
     }
 
     public function show($id)
     {
         $printTemplate = PrintTemplate::find($id);
 
-        return view('admin.print_templates.show')
-            ->with('category', $printTemplate)
-            ->with('title', 'Преглед на категория' );
+        return view('admin.print_templates.show')->
+        with('category', $printTemplate)->
+        with('recommended_dim', '150 x 146')->
+        with('title', 'Преглед на категория' );
     }
 
     public function edit($id)
     {
-        $printTemplate= PrintTemplate::find($id);
 
-        return view('admin.print_templates.edit')
-            ->with('category', $printTemplate)
-            ->with('title', 'Промяна на категория');
+        return view('admin.print_templates.edit')->
+        with('categories', Category::all())->
+        with('subcategories', SubCategory::all())->
+        with('printTemplate', PrintTemplate::find($id))->
+        with('title', 'Change stamp');
     }
 
     public function update(Request $request, $id)
@@ -152,8 +116,11 @@ class PrintTemplatesController extends Controller
     public function destroy($id)
     {
         $printTemplate = PrintTemplate::find($id);
-        $printTemplate->delete();
+        DbHelper::deleteDirFromRecord($printTemplate);
 
-        return redirect('/admin/printTemplate')->with('message', 'Категорията е изтрита');
+        $printTemplate->delete();
+        session()->flash('notif', 'The template was deleted');
+
+        return redirect('/admin/print_templates')->with('message', 'Deleted');
     }
 }

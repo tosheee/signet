@@ -128,6 +128,8 @@ class BaseProductTemplateController extends Controller
     {
         $baseProductTemplate = BaseProductTemplate::find($id);
         $baseProductTemplate->delete();
+
+
         DbHelper::deleteDir('public/images/base_templates/'.$id);
         session()->flash('notif', 'The template was deleted');
 

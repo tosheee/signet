@@ -2,9 +2,12 @@
 
 @section('content')
     @include('admin.admin_partials.admin_menu')
+
         <div class="basic-grey">
-            <form action="{{ route('slider.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('slider.store') }}" id="form-with-images" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
+
+                <a class="btn btn-primary btn-xs" href="/admin/slider">Back</a>
 
                 <label>
                     <span>Title:</span>

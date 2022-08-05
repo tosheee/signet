@@ -22,9 +22,8 @@
                     x++;
                     wrapper.append('' +
                             '<div class="gallery-image-wrapper" id="g_wrapper' + x +'"'+'>' +
-                            '<a class="remove-image-button">' +
-                            '<i style="color: red;" aria-hidden="true" class="fa fa-times"></i></a>' +
                             '<div class="file-upload">' +
+                            '<a class="remove-image-button"><i style="color: red;" class="fa fa-trash" aria-hidden="true"></i></a>'+
                             '<div class="image-upload-wrap">' +
                             '<input class="file-upload-input" name="images[]" type="file" onchange="readURL(this);" accept="image/*" />' +
                             '<div class="drag-text">' +
@@ -45,7 +44,6 @@
                 $('#upload-img').css('visibility', 'visible');
                 x--;
             });
-
         });
 
         function readURL(input) {
@@ -65,6 +63,7 @@
                     file_upload_content.show();
                     file_upload_content.find('.image-title').html(input.files[0].name);
                     file_upload.find('.range-content').children().remove();
+                    var recommended_dim = "{{$recommended_dim ?? 'not implement'}}"
 
                     var range_tag = '' +
                             '<input type="range" data-width="" data-height=""  name="resize_percent" ' +
@@ -73,7 +72,7 @@
                             '<output  id="range_weight_disp"></output>' +
                             '<p>Original dimensions: <span class="dimensions"></span>' +
                             '<p>New dimensions: <span class="new-dimensions"></span></p>' +
-                            '<p>Recommended around: <span> 530 x 630 </span></p>';
+                            '<p>Recommended around: <span>'+ recommended_dim +'</span></p>';
 
                     var range_content = file_upload_content.find('.range-content');
                     range_content.append(range_tag);
@@ -126,7 +125,7 @@
             $('.resize_percent').each(function(idx){
                 fruits.push($(this).val());
             });
-
+            console.log(fruits)
             $('#all-percent-images').val(fruits.join('|'))
 
         })
