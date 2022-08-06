@@ -40,7 +40,7 @@
                 <span>Theme:<sup style="color: red;">*</sup></span>
 
                 <select class="form-control" name="type_print_template_id" id="type_print_template" required="required"  oninvalid="this.setCustomValidity('Please enter type!')" oninput="setCustomValidity('')">
-                    <option value="">Chose Type Print Template</option>
+                    <option value="">Choose</option>
                     @foreach($typePrintTemplates as $typePrintTemplate)
                         @if (isset($printTemplate) && $printTemplate->type_print_template_id == $typePrintTemplate->id )
                             <option selected="selected" value="{{ $typePrintTemplate->id }}">{{ isset($typePrintTemplate->name) ?  $typePrintTemplate->name : '' }}</option>
@@ -58,7 +58,7 @@
     @endif
 
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-        <label for="name" class="col-md-4 control-label">Име</label>
+        <label for="name" class="col-md-4 control-label">Name</label>
 
         <div class="col-md-6">
             <input id="name" type="text" class="form-control" name="name" value="{{$content['name'] ?? ''}}" required autofocus>

@@ -29,7 +29,7 @@
                         <div class="middle">
                             @if (isset($content['images']))
                                 @foreach($content['images'] as $image )
-                                    <img src="/storage/images/base_templates/{{$template->id}}/{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                                    <img src="{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
                                     <p>{{$image}}</p>
                                 @endforeach
                             @endif
