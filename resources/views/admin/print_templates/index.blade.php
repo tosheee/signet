@@ -56,7 +56,7 @@
                         @endforeach
 
                             @foreach($typePrintTemplates as $typePrintTemplate)
-                                @if( $template->category_id == $typePrintTemplate->id)
+                                @if( $template->type_print_template_id == $typePrintTemplate->id)
                                     <p>
                                         <b>Type:</b> {{ $typePrintTemplate->name }}
                                     </p>

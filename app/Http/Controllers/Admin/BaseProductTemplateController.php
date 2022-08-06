@@ -119,9 +119,9 @@ class BaseProductTemplateController extends Controller
         $baseProduct->content = json_encode($content, JSON_UNESCAPED_UNICODE );
         $baseProduct->save();
 
-        return redirect('admin/base_product_template/')
-            ->with('title', 'Base templates')
-            ->with('message', 'Updated');
+        return redirect('admin/base_product_template/')->
+        with('title', 'Base templates')->
+        with('message', 'Updated');
     }
 
     public function destroy($id)

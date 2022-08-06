@@ -8,6 +8,7 @@
         @if(count($typePrintTemplates) > 0)
             <table class="table table-striped">
                 <tr>
+                    <th>Id</th>
                     <th>Category</th>
                     <th>Type</th>
                     <th>Identifier</th>
@@ -17,6 +18,7 @@
 
                 @foreach($typePrintTemplates as $typePrintTemplate)
                     <tr>
+                        <td>{{$typePrintTemplate->id}}</td>
                         @foreach($categories as $category)
                             @if($typePrintTemplate->category_id == $category->id)
                                 <td>{{ $category->name }} </td>

@@ -36,6 +36,7 @@ class PrintTemplatesController extends Controller
     {
         return view('admin.print_templates.create')->
         with('categories', Category::all())->
+        with('sub_categories', SubCategory::all())->
         with('recommended_dim', '150 x 146')->
         with('title', 'New stamp');
     }
@@ -92,10 +93,9 @@ class PrintTemplatesController extends Controller
 
     public function edit($id)
     {
-
         return view('admin.print_templates.edit')->
         with('categories', Category::all())->
-        with('subcategories', SubCategory::all())->
+        with('sub_categories', SubCategory::all())->
         with('printTemplate', PrintTemplate::find($id))->
         with('title', 'Change stamp');
     }
@@ -107,10 +107,49 @@ class PrintTemplatesController extends Controller
         ]);
 
         $printTemplate = PrintTemplate::find($id);
-        $printTemplate->name = $request->input('name');
+        $old_content = json_decode($printTemplate->content, true);
+
+        $content['images'] = $old_content['images'];
+        $content['name']  = $request->input('name');
+        $input_old_images = $request->input('old_images');
+        $percents_images = explode("|", $request->percent_images);
+
+        if (!isset($input_old_images)){ $input_old_images = []; }
+        if (!isset($content['images'])){ $content['images'] = []; }
+
+
+        if ($input_old_images != $content['images'])
+        {
+            $diff_images = array_diff($content['images'], $input_old_images);
+
+            foreach ( $diff_images as $diff_img)
+            {
+                DbHelper::deleteFile('public/images/base_templates/'.$id.'/'.$diff_img);
+            }
+            $content['images'] = [];
+        }
+        if($request->hasFile('images') )
+        {
+            $content['images'] = DbHelper::recordImages(
+                $request->images,
+                'base_templates',
+                $id,
+                $percents_images
+            //['small', 'original']
+            );
+        }
+
+        $content['percents_images'] = $percents_images;
+
+        $printTemplate->category_id = $request->input('category_id');
+        $printTemplate->sub_category_id = $request->input('sub_category_id');
+        $printTemplate->type_print_template_id = $request->input('type_print_template_id');
+        $printTemplate->active = $request->input('active');
+        $printTemplate->content = json_encode($content, JSON_UNESCAPED_UNICODE );
         $printTemplate->save();
 
-        return redirect('/admin/categories')->with('message', 'Категорията е променена');
+        return redirect('/admin/print_templates')->
+        with('message', 'Категорията е променена');
     }
 
     public function destroy($id)

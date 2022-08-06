@@ -10,7 +10,7 @@
                     <div class="panel-heading"><a class="btn btn-primary btn-xs" href="/admin/print_templates">Back</a>   Update stamp</div>
                     <div class="basic-grey">
 
-                        <form class="form-horizontal" id="form-with-images" method="POST" action="{{ route('print_templates.store') }}" enctype="multipart/form-data">
+                        <form action="/admin/print_templates/{{ $printTemplate->id }}" class="form-horizontal" id="form-with-images" method="POST" enctype="multipart/form-data">
                             {{ csrf_field() }}
 
                             @include('admin.print_templates.field_form')
@@ -18,7 +18,6 @@
                             <div class="actions">
                                 <input name="_method" type="hidden" value="PUT">
                                 <button type="submit" class="btn btn-primary">Update</button>
-
                             </div>
 
                         </form>
