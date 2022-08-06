@@ -160,6 +160,7 @@ class PrintTemplatesController extends Controller
         $printTemplate->delete();
         session()->flash('notif', 'The template was deleted');
 
-        return redirect('/admin/print_templates')->with('message', 'Deleted');
+        return redirect('/admin/print_templates')->
+        with('message', 'Deleted');
     }
 }

@@ -22,7 +22,6 @@ class BaseProductTemplateController extends Controller
 
     public function index()
     {
-        //latest()->paginate(10)
         return view('admin.base_product_template.index')->
         with('baseProductTemplates', BaseProductTemplate::latest()->paginate(10))->
         with('title', 'Base Template');
@@ -33,6 +32,7 @@ class BaseProductTemplateController extends Controller
         return view('admin.base_product_template.create')->
         with('categories', Category::all())->
         with('subCategories', SubCategory::all())->
+        with('maxImages', 5)->
         with('title', 'Update Base Template');
     }
 
@@ -76,6 +76,7 @@ class BaseProductTemplateController extends Controller
         with('subCategories', SubCategory::all())->
         with('baseProductTemplate', BaseProductTemplate::find($id))->
         with('record_id', $id)->
+        with('maxImages', 5)->
         with('title', 'Update Base Template');
     }
 
@@ -130,11 +131,12 @@ class BaseProductTemplateController extends Controller
     public function destroy($id)
     {
         $baseProductTemplate = BaseProductTemplate::find($id);
-        $baseProductTemplate->delete();
+        DbHelper::deleteDirFromRecord($baseProductTemplate);
 
-        DbHelper::deleteDir('public/images/base_templates/'.$id);
+        $baseProductTemplate->delete();
         session()->flash('notif', 'The template was deleted');
 
-        return redirect('/admin/base_product_template');
+        return redirect('/admin/base_product_template')->
+        with('message', 'Deleted');;
     }
 }

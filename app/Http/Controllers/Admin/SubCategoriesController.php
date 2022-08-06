@@ -20,14 +20,19 @@ class SubCategoriesController extends Controller
         $categories = Category::all();
         $subCategories = SubCategory::all();
 
-        return view('admin.sub_categories.index')->with('categories', $categories)->with('subCategories', $subCategories)->with('title', 'Всички подкатегории');
+        return view('admin.sub_categories.index')->
+        with('categories', $categories)->
+        with('subCategories', $subCategories)->
+        with('title', 'Всички подкатегории');
     }
 
     public function create()
     {
         $categories = Category::all();
 
-        return view('admin.sub_categories.create')->with('categories', $categories)->with('title', 'Създаване на подкатегория');
+        return view('admin.sub_categories.create')->
+        with('categories', $categories)->
+        with('title', 'Създаване на подкатегория');
     }
 
     public function store(Request $request)

@@ -62,7 +62,9 @@ class SliderController extends Controller
     public function edit($id)
     {
         $slider = Slider::find($id);
-        return view('admin.slider.edit')->with('slider', $slider)->with('title', 'Обновяване на снимката');
+        return view('admin.slider.edit')->
+        with('slider', $slider)->
+        with('title', 'Обновяване на снимката');
     }
 
     public function update(Request $request, $id)
