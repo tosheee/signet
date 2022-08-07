@@ -15,14 +15,24 @@
                     <th></th>
                     <th></th>
                     <th></th>
+                    <th></th>
                 </tr>
                 @foreach($categories as $category)
                     <tr>
                         <td><b>{{ $category->id }}</b></td>
                         <td><a href="/admin/categories/{{ $category->id }}">{{ $category->name }}</a></td>
                         <td><a href="/admin/categories/{{ $category->id }}">{{ $category->identifier }}</a></td>
-
-                        <td><b>Filters:</b> {{ $category->filters or 'There is not' }}</td>
+                        <td>
+                            <div class="middle">
+                                <?php $content = json_decode($category->content, true); ?>
+                                @if(isset($content['images']))
+                                    @foreach($content['images'] as $image)
+                                        <img src="{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                                    @endforeach
+                                @endif
+                            </div>
+                        </td>
+                        <td><b>Filters:</b> {{ isset($category->filters) ? 'Exist' : 'There is not' }}</td>
                         <td>
                             <form method="POST" action="/admin/categories/{{ $category->id }}" accept-charset="UTF-8" class="pull-right">
                                 {{ csrf_field() }}

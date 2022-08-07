@@ -61,7 +61,7 @@ class CategoriesController extends Controller
         $category = new Category;
         $category->name = $request->input('name');
         $category->identifier = $request->input('identifier');
-        $category->filters = $request->input('filter');
+        $category->filters = $request->input('filters');
         $category->content = json_encode($content, JSON_UNESCAPED_UNICODE );
         $category->save();
 

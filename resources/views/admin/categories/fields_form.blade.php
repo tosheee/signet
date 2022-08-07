@@ -1,3 +1,6 @@
+@if(isset($category))
+    <?php $content = json_decode($category->content, true); ?>
+@endif
     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
         <label for="name" class="col-md-4 control-label">Name</label>
 
@@ -26,4 +29,4 @@
     @include('admin.admin_partials.images_box')
 
     <div id="jsoneditor" style="height: 400px;"></div>
-    <input type="hidden" name="filter" id="json-data-filter">
+    <input type="hidden" name="filters" id="json-data-filter">

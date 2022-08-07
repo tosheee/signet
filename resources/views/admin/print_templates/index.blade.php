@@ -18,7 +18,7 @@
         </tr>
         @if(isset($print_templates))
                 @foreach($print_templates as $template)
-                <?php $content = json_decode($template->content, true); ?>
+
                 <tr>
                     <td>
                         <b>{{ $template->id }}</b>
@@ -26,6 +26,7 @@
 
                     <td>
                         <div class="middle">
+                            <?php $content = json_decode($template->content, true); ?>
                             @if(isset($content['images']))
                                 @foreach($content['images'] as $image)
                                     <img src="{{$image}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
