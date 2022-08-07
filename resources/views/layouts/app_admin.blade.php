@@ -51,8 +51,11 @@
         <link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Marck+Script" rel="stylesheet">
 
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.9.0/jsoneditor.min.css" rel="stylesheet">
+
         <script type="text/javascript" src="{{ asset('js/app.js') }}"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jsoneditor/9.9.0/jsoneditor.min.js"></script>
 
         <script>
             $(document).ready(function () {

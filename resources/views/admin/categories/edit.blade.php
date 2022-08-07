@@ -2,37 +2,32 @@
 
 @section('content')
     @include('admin.admin_partials.admin_menu')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Update category</div>
+                    <div class="panel-body">
+                        <form id="form-category" class="form-horizontal" method="POST" action="/admin/categories/{{ $category->id }}" enctype="multipart/form-data">
+                            {{ csrf_field() }}
 
-        <a href="/admin/categories" class="btn btn-default">Обратно</a>
+                            @include('admin.categories.fields_form')
+                            <br>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <input name="_method" type="hidden" value="PUT">
+                                    <input class="btn btn-primary" type="submit" value="Update">
+                                </div>
+                            </div>
 
-        <form method="POST" action="/admin/categories/{{ $category->id }}" accept-charset="UTF-8" enctype="multipart/form-data">
-
-            {{ csrf_field() }}
-
-            <div class="form-group">
-                <label for="name">Category</label>
-                <input class="form-control" placeholder="Name" name="name" type="text" value="{{ $category->name }}" id="name">
-            </div>
-
-            <div class="form-group">
-                <label for="name">Identifier</label>
-                <input class="form-control" placeholder="Identifier" name="identifier" type="text" value="{{ $category->identifier }}" id="identifier">
-            </div>
-
-            <div class="form-group{{ $errors->has('filters') ? ' has-error' : '' }}">
-                <label for="name" class="col-md-4 control-label">Filters</label>
-                <div class="col-md-6">
-                    <textarea  class="form-control" id="exampleFormControlTextarea1" name="filters" rows="4" cols="50">{{ $category->filters or '' }}</textarea>
-
-                    @if ($errors->has('filters'))
-                        <span class="help-block"><strong>{{ $errors->first('filters') }}</strong></span>
-                    @endif
+                        </form>
+                    </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <input name="_method" type="hidden" value="PUT">
-            <input class="btn btn-primary" type="submit" value="Промяна">
-        </form>
-
-@include('admin.admin_partials.admin_menu_bottom')
+    @include('admin.categories.json_editor_script')
+    @include('admin.admin_partials.admin_menu_bottom')
+    @include('admin.admin_partials.images_script')
 @endsection

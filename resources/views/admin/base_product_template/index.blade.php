@@ -51,14 +51,13 @@
                     </td>
 
                     <td>
-                        <a class="btn btn-default" href="/admin/base_product_template/{{ $template->id }}/edit">Update</a>
-                    </td>
-
-                    <td>
                         <form method="POST" action="/admin/base_product_template/{{ $template->id }}" accept-charset="UTF-8" class="pull-right">
                             {{ csrf_field() }}
+                            <a class="btn btn-default" href="/admin/base_product_template/{{ $template->id }}/edit">
+                                <i style="color: green;" class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                            </a>
                             <input name="_method" type="hidden" value="DELETE">
-                            <input class="btn btn-danger" type="submit" value="Delete">
+                            <button class="btn" type="submit"><i style="color: red;" class="fa fa-trash"></i></button>
                         </form>
                     </td>
 

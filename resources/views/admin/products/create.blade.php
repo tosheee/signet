@@ -128,30 +128,24 @@ stamps with chose from select
 
             <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
                 @if(isset($baseProductTemplates))
-
-
                     @foreach($baseProductTemplates as $baseProductTemplate)
                         <?php $content = json_decode($baseProductTemplate->content, true)?>
-
                             @foreach($content['images'] as $baseProductImage )
-                                <img class="img-base-polaroid tt" width="100" height="100"
-                                     src="{{ asset('storage/images/base_templates/') }}/{{$baseProductTemplate->id}}/{{$baseProductImage}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                                <img class="img-base-polaroid tt" width="100" height="100" src="{{$baseProductImage}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
                             @endforeach
-
                     @endforeach
-
-
-
                 @endif
             </div>
 
             <div id="avatarlist" style="max-height: 500px; overflow: scroll;">
                 @if(isset($printTemplates))
                     @foreach($printTemplates as $printTemplate)
+                        <?php $pt_content = json_decode($printTemplate->content, true)?>
+                        @foreach($pt_content['images'] as $pt_images)
+                                <img class="img-polaroid tt" width="100" height="100" src="{{$pt_images}}">
+                        @endforeach
 
 
-                        <img class="img-polaroid tt" width="100" height="100"
-                             src="{{ asset('storage/images/print_templates/') }}/{{$printTemplate->id}}/{{$printTemplate->name}}">
                     @endforeach
                 @endif
             </div>
@@ -182,6 +176,13 @@ stamps with chose from select
             <a class="finish_desing btn-primary btn-xs" href="#">Create Desing</a>
         </form>
     </div>
+
+
+
+
+
+
+
 
     <script>
             $( "#select-category" ).change(function(e) {

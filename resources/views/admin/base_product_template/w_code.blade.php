@@ -36,9 +36,6 @@
     });
 </script>
 
-
-
-
 <script>
 
     $(function() {
