@@ -72,18 +72,88 @@
         Route::resource('/base_product_template', 'BaseProductTemplateController');
     });
 
-    Route::post('admin/products/create/{id?}', function($id = null) {
-        $subCategoryAttributes = App\Admin\SubCategory::where('category_id', $id)->get();
-        $subCategoryOptions = array();
-        foreach($subCategoryAttributes as $key => $subCatAttribute)
+    Route::get('admin/products/get_base_product_templates/{id?}', function($id = null) {
+        $baseProductTemplates = App\Admin\BaseProductTemplate::where('category_id', $id)->get();
+        $typePrintTemplates = App\Admin\TypePrintTemplate::where('category_id', $id)->get();
+
+        $templates = '<div id="avatarlist" style="max-height: 500px; overflow: scroll; text-align: -webkit-center;">
+                        <input type="hidden" id="input-category-id" value="'.$id.'">';
+
+        if(isset($baseProductTemplates))
         {
-            $subCategoryOptions[$key] = [$subCatAttribute->id, $subCatAttribute->name, $subCatAttribute->identifier];
+            foreach($baseProductTemplates as $baseProductTemplate)
+            {
+                $content = json_decode($baseProductTemplate->content, true);
+                foreach($content['images'] as $baseProductImage )
+                {
+                    $templates .= '<img class="img-base-polaroid tt" width="100" height="100" src="'.
+                        $baseProductImage.'" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>';
+                }
+            }
         }
 
-        return $subCategoryOptions;
+        $selectTypePrint = '<div class="form-group{{ $errors->has(\'category_id\') ? \' has-error\' : \'\' }}">
+                                <label>
+                                    <span>Type:<sup style="color: red;">*</sup></span>
+                                    <select class="form-control" name="pp_id" id="select-print-templates" required="required"  oninvalid="this.setCustomValidity(\'Please enter!\')" oninput="setCustomValidity(\'\')">
+                                        <option value="">Choose type</option>';
+
+        foreach($typePrintTemplates as $type)
+        {
+            $selectTypePrint .= '<option value="'.$type->id.'" data-content="">'.$type->name.'</option>';
+        }
+
+        $selectTypePrint .= '</select></label></div>';
+        return $templates.'</div>'.$selectTypePrint;
+
     });
 
-    //tests
-    Route::get('/welcome_test', function(){
-        return view('emails.welcome_test');
+    Route::get('admin/products/get_print_templates/{id?}', function($id = null) {
+        $printTemplates = App\Admin\PrintTemplate::where('category_id', $id)->get();
+        $printTemplatesHtml = '<div id="avatarlist" style="max-height: 500px; overflow: scroll; text-align: -webkit-center;">
+                                <input type="hidden" id="input-category-id" value="'.$id.'">';
+
+        if(isset($printTemplates))
+        {
+            foreach($printTemplates as $printTemplate)
+            {
+                $printContent = json_decode($printTemplate->content, true);
+                foreach($printContent['images'] as $printImage )
+                {
+                    $printTemplatesHtml .= '<img class="img-polaroid tt" width="100" height="100" src="'.
+                        $printImage.'" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>';
+                }
+            }
+        }
+
+        return $printTemplatesHtml.'</div>';
     });
+
+
+
+
+
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+//tests
+//    Route::get('/welcome_test', function(){
+    //    return view('emails.welcome_test');
+  //  });
+
+
+//$subCategoryAttributes = App\Admin\SubCategory::where('category_id', $id)->get();
+//$subCategoryOptions = array();
+
+//dd($subCategoryAttributes);
+
+//foreach($subCategoryAttributes as $key => $subCatAttribute)
+//{
+//  $subCategoryOptions[$key] = [$subCatAttribute->id, $subCatAttribute->name, $subCatAttribute->identifier];
+//}
+
+//return $subCategoryOptions;

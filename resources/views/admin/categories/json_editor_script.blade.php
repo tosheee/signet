@@ -5,10 +5,6 @@
     const editor = new JSONEditor(container, options);
 
     // set json
-
-
-
-
     var json_data = "{{ $category->filters ?? '{}'}}";
     const initialJson = JSON.parse(json_data.replace(/&quot;/g,'"'));
     editor.set(initialJson);
