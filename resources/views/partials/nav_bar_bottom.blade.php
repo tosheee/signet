@@ -102,8 +102,6 @@
                             </div>
                         @endforeach
 
-
-
                         <div class="carousel-item active" style="height: 410px;">
                             <img class="img-fluid" src="img/carousel-1.jpg" alt="Image">
                             <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">

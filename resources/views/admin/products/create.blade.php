@@ -7,14 +7,16 @@
 
 <!--
 
-base template with chose from select
-stamps with chose from select
+
+add type technology into description
 
 -->
 
 <div class="basic-grey">
         <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" id="new_form">
             {{ csrf_field() }}
+
+            <h2>Create product:</h2>
 
             <br>
             <div class="form-group{{ $errors->has('category_id') ? ' has-error' : '' }}">
@@ -54,7 +56,7 @@ stamps with chose from select
                     <canvas id="canvas"></canvas>
                 </div>
             </div>
-
+            <br><br><br>
             <label>
                 <span style="margin: 0;">Активен продукт в магазина: </span>
                 <input type="radio" name="active" value="1" checked> ДА

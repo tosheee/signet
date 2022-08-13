@@ -29,13 +29,10 @@ class DesignerController extends Controller
         $colors = Color::all();
 
 
-        $show_search = false;
-
-
         return view('designer.index')->
         with('printTemplates', $printTemplates)->
         with('productsDesing', $productsDesing)->
-        with('show_search', $show_search)->
+        with('show_search', false)->
         with('pathLing', 'designer')->
         with('colors', $colors);
     }
