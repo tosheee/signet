@@ -2,23 +2,23 @@
 
 @section('content')
 
-        <!-- Page Header Start -->
-<div class="container-fluid bg-secondary mb-5">
-    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 30px">
-        <h3 class="font-weight-semi-bold text-uppercase mb-3">{{ $categoryName }}</h3>
-        <div class="d-inline-flex">
-            <p class="m-0"><a href="">Home</a></p>
-            <p class="m-0 px-2">-</p>
-            <p class="m-0">Shop</p>
+    <!-- Page Header Start -->
+    <div class="container-fluid bg-secondary mb-5">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 30px">
+            <h3 class="font-weight-semi-bold text-uppercase mb-3">{{ $categoryName }}</h3>
+            <div class="d-inline-flex">
+                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0 px-2">-</p>
+                <p class="m-0">Shop</p>
+            </div>
         </div>
     </div>
-</div>
-<!-- Page Header End -->
+    <!-- Page Header End -->
 
     <!-- Shop Start -->
     <div class="container-fluid pt-5">
         <div class="row px-xl-5">
-            <!-- Shop Sidebar Start -->
+            <!--Sidebar Start -->
             <div class="col-lg-3 col-md-12">
                 <div class="border-bottom mb-4 pb-4">
                     <?php $paramOfUrl = explode('=', Request::fullUrl()) ?>
@@ -46,10 +46,10 @@
                         @endforeach
                     @endif
                 </div>
-                </div>
-
-        <!-- Shop Product Start -->
-        <div class="col-lg-9 col-md-12">
+            </div>
+            <!--Sidebar Start -->
+            <!-- Shop Product Start -->
+            <div class="col-lg-9 col-md-12">
             <div class="row pb-3">
                 <div class="col-12 pb-1">
                     <div class="d-flex align-items-center justify-content-between mb-4">
@@ -181,9 +181,9 @@
                 </div>
             </div>
         </div>
-        <!-- Shop Product End -->
+            <!-- Shop Product End -->
+        </div>
     </div>
-</div>
     <!-- Shop End -->
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/521/fabric.min.js" integrity="sha512-nPzvcIhv7AtvjpNcnbr86eT6zGtiudLiLyVssCWLmvQHgR95VvkLX8mMpqNKWs1TG3Hnf+tvHpnGmpPS3yJIgw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

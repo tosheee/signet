@@ -47,15 +47,11 @@ add type technology into description
 
             <div id="desing-wrappers" style="text-align: -webkit-center;">
                 <div class="desing-wrapper">
-                    <div class="custom-file">
-                        <input type="file" class="form-control-file" id="add-base-img">
-                        <input type="hidden" id="id-canvas-content-json" name="canvas_content_json">
-                        <input type="hidden" id="id-canvas-content-svg" name="canvas_content_svg">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
                     <canvas id="canvas"></canvas>
                 </div>
             </div>
+
+
             <br><br><br>
             <label>
                 <span style="margin: 0;">Активен продукт в магазина: </span>
@@ -153,9 +149,6 @@ add type technology into description
                 </button>
                 <hr>
             </div>
-
-
-
 
         </form>
     </div>

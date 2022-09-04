@@ -2,175 +2,134 @@
 
 @section('content')
 
-<!-- Navbar -->
+        <!-- Page Header Start -->
+<div class="container-fluid bg-secondary mb-5">
+    <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 30px">
 
-<div class="container-fluid py-5">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLong">
+{{ $categoryName ?? '' }}
+            </button>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#stamps">
+                Щампи
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{ $categoryName ?? '' }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="avatarlist" >
+                            @if(isset($baseProductTemplates))
+                                @foreach($baseProductTemplates as $image)
+                                    <?php $content = json_decode($image->content, true)?>
+                                    @foreach($content['images'] as $img )
+                                            <div class="col-md-3 col-sm-4 col-6 py-2">
+                                        <img class="add-base-img tt" width="50" height="50" src="{{$img}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                                    </div>
+                                    @endforeach
+
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
+        <!-- Button trigger modal -->
 
+
+        <!-- Modal -->
+        <div class="modal fade" id="stamps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="stamps">Щампи</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="avatarlist">
+                            @if(isset($printTemplates))
+                                @foreach($printTemplates as $printImg)
+                                    <?php $printImgContent = json_decode($printImg->content, true)?>
+                                    @foreach($printImgContent['images'] as $imgPrint )
+                                        <div class="col-md-3 col-sm-4 col-6 py-2">
+                                            <img class="img-polaroid tt" width="80" height="80" src="{{$imgPrint}}" alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                                        </div>
+                                    @endforeach
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
 </div>
 
-<!-- Le javascript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="{{ asset('js/designer_js/bootstrap.min.js')}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/0.9.0rc1/jspdf.min.js"></script>
 
-<script type="text/javascript">
+<!-- Page Header End -->
 
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-35639689-1']);
-    _gaq.push(['_trackPageview']);
+<!-- Shop Start -->
+<div class="container-fluid pt-5">
+    <div class="row px-xl-5">
+        <!--Sidebar Start -->
+        <div class="col-lg-3 col-md-12">
 
-    (function () {
-        var ga = document.createElement('script');
-        ga.type = 'text/javascript';
-        ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0];
-        s.parentNode.insertBefore(ga, s);
-    })();
 
-    $(document).ready(function () {
+        </div>
 
-        /*******************************************************************************/
-        function getContentImage() {
-            html2canvas(document.querySelector("#shirtDiv")).then(canvas => {
-                // document.body.appendChild(canvas)
-                $(canvas).get(0).toBlob(function (blob) {
-                var urlCreator = window.URL || window.webkitURL;
-                var imageUrl = urlCreator.createObjectURL(blob);
-                $('#test').append('<img src="' + imageUrl + '"><br>');
+        <!--Sidebar Start -->
+        <!-- Shop Product Start -->
+        <div class="col-lg-9 col-md-12" style="">
+            <div class="row pb-3">
 
-            });
-        })
-            ;
-        }
+                <div class="pull-right" align="" id="imageeditor" style="">
+                    <div class="btn-group">
+                        <button class="btn" id="bring-to-front" title="Bring to Front"><i class="icon-fast-backward rotate" style="height:19px;"></i></button>
+                        <button class="btn" id="send-to-back" title="Send to Back"><i class="icon-fast-forward rotate" style="height:19px;"></i></button>
+                        <button id="flip" type="button" class="btn" title="Show Back View"><i class="icon-retweet" style="height:19px;"></i></button>
+                        <button id="remove-selected" class="btn" title="Delete selected item"><i class="icon-trash" style="height:19px;"></i></button>
+                    </div>
+                </div>
+                <br><br>
 
-        function LoadeShirts() {
-            $('.loading-blink').loading();
-            $('.loading-blink').show();
-            getContentImage();
-
-            setTimeout(function () {
-                rotate();
-            }, 500);
-            setTimeout(function () {
-                getContentImage();
-            }, 1200);
-        }
-
-        /*******************************************************************************/
+                <div id="desing-wrappers" style="text-align: -webkit-center;">
+                    <div class="desing-wrapper">
+                        <canvas id="canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        <!-- Shop Product End -->
+        </div>
+    </div>
+</div>
 
 
 
-        $('.loading-blink').hide();
-
-        $('#imgsavejpg').on('click', function () {
-            function save() {
-                html2canvas(document.querySelector("#test")).then(canvas => {
-                    // document.body.appendChild(canvas)
-                    $(canvas).get(0).toBlob(function (blob) {
-                    var filesaver = saveAs(blob, "TShirt.png");
-                    filesaver.onwriteend = function () {
-                        $('.loading-blink').hide();
-                        $('#test').empty();
-                    }
 
 
-                });
-            })
-                ;
-            }
-
-            LoadeShirts();
-            setTimeout(function () {
-                save();
-            }, 1700);
-
-        });
-
-        $('#rotate').click(function (e) {
-            e.preventDefault();
-            rotate();
-        });
-
-        function rotate() {
-            $('#flip').click();
-        }
-
-        $("#addimg").on('click', function () {
-            $('#imgInp').click();
-        });
-
-        function readURL(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-
-                reader.onload = function (e) {
-                    $('#avatarlist').append('<img class="img-polaroid tt" src="' + e.target.result + '">');
-                }
-
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        $("#imgInp").change(function () {
-            readURL(this);
-        });
-
-        $('#shirtstyle').on('change', function () {
-            $('#tshirtFacing').attr("src", "img/t-shirts/" + $(this).val() + "_front.png");
-            IMAGE_NAME = $(this).val();
-        });
-
-        $('#imgsavepdf').on('click', function () {
-            $('.loading-blink').loading();
-            $('.loading-blink').show();
-            var doc = new jsPDF();
-            doc.setFontSize(20);
-
-            setTimeout(function () {
-                html2canvas(document.querySelector("#shirtDiv")).then(canvas => {
-                    function convertCanvasToImage(c)
-                {
-                    var image = new Image();
-                    image.src = c.toDataURL("image/jpeg");
-                    doc.addImage(image.src, 'JPEG', 30, 5, 145, 145);
-                    return image;
-                }
-                convertCanvasToImage(canvas);
-
-            })
-                ;
-            }, 100);
-            setTimeout(function () {
-                rotate();
-
-            }, 700);
-            setTimeout(function () {
-                html2canvas(document.querySelector("#shirtDiv")).then(canvas => {
-                    function convertCanvasToImage(c)
-                {
-                    var image = new Image();
-                    image.src = c.toDataURL("image/jpeg");
-                    doc.addImage(image.src, 'JPEG', 30, 150, 145, 145);
-                    return image;
-                }
-                convertCanvasToImage(canvas);
-            })
-                ;
-            }, 1100);
-            setTimeout(function () {
-                doc.save("T-Shirt.pdf");
-                $('.loading-blink').hide();
-                $('#test').empty();
-            }, 1700);
-
-        });
-
-    });
-
-</script>
-
+<!-- Shop End -->
+@include('designer.designer_scripts')
 @endsection

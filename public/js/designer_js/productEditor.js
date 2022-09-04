@@ -17,7 +17,10 @@ $(document).ready(function() {
         backgroundColor: 'white'
     });
 
-    document.getElementById('add-base-img').addEventListener("change", function (e) {
+    var add_base_img = document.getElementById('add-base-img');
+
+    if (add_base_img){
+        document.getElementById('add-base-img').addEventListener("change", function (e) {
 
         var file = e.target.files[0];
         var reader = new FileReader();
@@ -37,13 +40,11 @@ $(document).ready(function() {
         reader.readAsDataURL(file);
     });
 
+    }
 
-    $('body').on('click', '.img-base-polaroid', function (e){
+    $('body').on('click', '.add-base-img', function (e){
 
         var el = e.target;
-
-
-
             fabric.Image.fromURL(el.src, function (img) {
                 canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas), {
                     scaleX: canvas.width / img.width,
@@ -54,9 +55,6 @@ $(document).ready(function() {
 
 
     });
-
-
-
     $('body').on('click', '.img-polaroid', function (e){
         var el = e.target;
         /*temp code*/

@@ -32,7 +32,11 @@ class ProductsController extends Controller
         $subCategories = SubCategory::all();
         $products = Product::orderBy('created_at', 'desc')->paginate(10);
 
-        return view('admin.products.index')->with('categories', $categories)->with('subCategories', $subCategories)->with('products', $products)->with('title', 'Всички продукти');
+        return view('admin.products.index')->
+        with('categories', $categories)->
+        with('subCategories', $subCategories)->
+        with('products', $products)->
+        with('title', 'Всички продукти');
     }
 
     public function show($id)
