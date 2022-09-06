@@ -413,3 +413,79 @@
 
 </script>
 
+
+
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal"
+        data-target="#exampleModalLong">{{ $categoryName ?? '' }}</button>
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#stamps">Щампи</button>
+ <!-- Modal -->
+        <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog"
+             aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">{{ $categoryName ?? '' }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="avatarlist">
+                            @if(isset($baseProductTemplates))
+                                @foreach($baseProductTemplates as $image)
+                                    <?php $content = json_decode($image->content, true)?>
+                                    @foreach($content['images'] as $img )
+                                        <div class="col-md-3 col-sm-4 col-6 py-2">
+                                            <img class="add-base-img tt" width="50" height="50" src="{{$img}}" alt="pic"
+                                                 style="margin: 0 auto; width: 80px;height: 100px;"/>
+                                        </div>
+                                    @endforeach
+
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Button trigger modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="stamps" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="stamps">Щампи</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="avatarlist">
+                            @if(isset($printTemplates))
+                                @foreach($printTemplates as $printImg)
+                                    <?php $printImgContent = json_decode($printImg->content, true)?>
+                                    @foreach($printImgContent['images'] as $imgPrint )
+                                        <div class="col-md-3 col-sm-4 col-6 py-2">
+                                            <img class="img-polaroid tt" width="80" height="80" src="{{$imgPrint}}"
+                                                 alt="pic" style="margin: 0 auto; width: 80px;height: 100px;"/>
+                                        </div>
+                                    @endforeach
+                                @endforeach
+                            @endif
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>

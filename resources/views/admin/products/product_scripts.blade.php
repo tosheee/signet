@@ -1,5 +1,4 @@
 <script>
-
     $( "#select-category" ).change(function(e) {
         e.preventDefault();
         var category_val =  $( "#select-category option:selected" ).val();
@@ -50,7 +49,6 @@
         });
     });
 
-
     $("#select-category").change(function() {
         var category_val =  $( "#select-category option:selected" ).val();
         $("#base-templates-box").children().remove();
@@ -64,10 +62,6 @@
             }
         });
     });
-
-
-
-
 
     // gallery images
     $(document).ready(function() {

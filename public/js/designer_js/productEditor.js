@@ -9,8 +9,8 @@ var canvas;
 $(document).ready(function() {
     // setup front side canvas
     canvas = new fabric.Canvas('canvas', {
-        width:320,
-        height: 320,
+        width:420,
+        height: 420,
         hoverCursor: 'pointer',
         selection: true,
         selectionBorderColor: 'blue',
