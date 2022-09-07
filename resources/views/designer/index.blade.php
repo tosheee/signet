@@ -97,7 +97,7 @@
 
                                     @foreach($content['images'] as $img )
                                         <div class="col-md-3 col-sm-4 col-6">
-                                            <img class="add-base-img tt" width="50" height="50" src="{{$img}}" alt="pic" style="margin: 0 auto; width: 80px; height: 100px;"/>
+                                            <img class="img-base-polaroid tt" width="50" height="50" src="{{$img}}" alt="pic" style="margin: 0 auto; width: 80px; height: 100px;"/>
                                         </div>
                                     @endforeach
 

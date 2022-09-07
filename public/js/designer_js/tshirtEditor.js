@@ -60,8 +60,6 @@ var line4;
 
 
 		document.getElementById('add-base-img').addEventListener("change", function(e) {
-
-
 			var file = e.target.files[0];
 			var reader = new FileReader();
 			reader.onload = function(f) {
@@ -98,6 +96,7 @@ var line4;
             $("#texteditor").css('display', 'block');
             $("#imageeditor").css('display', 'block');
 	  	};
+
 	  	$("#text-string").keyup(function(){	  		
 	  		var activeObject = canvas.getActiveObject();
 		      if (activeObject && activeObject.type === 'text') {
@@ -378,19 +377,22 @@ var line4;
 	    	$("#imageeditor").css('display', 'block');
 	    }
 	  }
-	 function onSelectedCleared(e){
+
+	function onSelectedCleared(e){
 		 $("#texteditor").css('display', 'none');
 		 $("#text-string").val("");
 		 $("#imageeditor").css('display', 'none');
 	 }
-	 function setFont(font){
+
+	function setFont(font){
 		  var activeObject = canvas.getActiveObject();
 	      if (activeObject && activeObject.type === 'text') {
 	        activeObject.fontFamily = font;
 	        canvas.renderAll();
 	      }
 	  }
-	 function removeWhite(){
+
+	function removeWhite(){
 		  var activeObject = canvas.getActiveObject();
 		  if (activeObject && activeObject.type === 'image') {			  
 			  activeObject.filters[2] =  new fabric.Image.filters.RemoveWhite({hreshold: 100, distance: 10});//0-255, 0-255
