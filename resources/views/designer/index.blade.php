@@ -221,7 +221,7 @@
                 <div class="tab-pane fade" id="img-stamps" role="tabpanel" aria-labelledby="img-stamps-tab">
                     <div class="well text-center">
                         <br>
-                        <h6>Добавяне на щампа
+                        <h6>
 
                             <div class="file-upload">
                                 <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
@@ -344,12 +344,29 @@
                                     <path d="M11.434 4H4.566L4.5 5.994h.386c.21-1.252.612-1.446 2.173-1.495l.343-.011v6.343c0 .537-.116.665-1.049.748V12h3.294v-.421c-.938-.083-1.054-.21-1.054-.748V4.488l.348.01c1.56.05 1.963.244 2.173 1.496h.386L11.434 4z"/>
                                 </svg>
                             </button>
+
+
                             <hr>
-                            ddddd <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
+                            Font <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
                             <output id="range_weight_disp"></output>
                             <hr>
-                            ddddd <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
+
+                            Color <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
                             <output id="range_weight_disp"></output>
+
+                            <hr>
+                            Size <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
+                            <output id="range_weight_disp"></output>
+                            <hr>
+                            Arc <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
+                            <output id="range_weight_disp"></output>
+                            <hr>
+                            Rotate <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
+                            <output id="range_weight_disp"></output>
+                            <hr>
+                            Spacing <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
+                            <output id="range_weight_disp"></output>
+
 
                         </div>
                     </div>
