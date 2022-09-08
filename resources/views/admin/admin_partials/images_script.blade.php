@@ -101,7 +101,7 @@
         }
 
         $('.image-upload-wrap').bind('dragover', function () {
-            console.log('alabala');
+
             $('.image-upload-wrap').addClass('image-dropping');
         });
 
@@ -125,7 +125,7 @@
             $('.resize_percent').each(function(idx){
                 fruits.push($(this).val());
             });
-            console.log(fruits)
+
             $('#all-percent-images').val(fruits.join('|'))
 
         })

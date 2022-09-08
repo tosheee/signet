@@ -43,7 +43,8 @@ add type technology into description
                     <button id="remove-selected" class="btn" title="Delete selected item"><i class="icon-trash" style="height:19px;"></i></button>
                 </div>
             </div>
-            <br><br>
+            <br>
+            <br>
 
             <div id="desing-wrappers" style="text-align: -webkit-center;">
                 <div class="desing-wrapper">

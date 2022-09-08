@@ -23,6 +23,119 @@
 <!-- Shop Start -->
 
 <style>
+    .file-upload {
+        background-color: #ffffff;
+
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .file-upload-btn {
+        width: 100%;
+        margin: 0;
+        color: #fff;
+        background: rgba(172, 178, 177, 0.59);
+        border: none;
+        padding: 10px;
+        border-radius: 1px;
+        border-bottom: 1px solid #bdd5dc;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+        font-weight: 700;
+    }
+
+    .file-upload-btn:hover {
+        background: #acb2b1;
+        color: #ffffff;
+        transition: all .2s ease;
+        cursor: pointer;
+    }
+
+    .file-upload-btn:active {
+        border: 0;
+        transition: all .2s ease;
+    }
+
+    .file-upload-content {
+        display: none;
+        text-align: center;
+    }
+
+    .file-upload-input {
+        position: absolute;
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        outline: none;
+        opacity: 0;
+        cursor: pointer;
+    }
+
+    .image-upload-wrap {
+        margin-top: 20px;
+        border: 1px dashed #bdd5dc;
+        position: relative;
+    }
+
+    .image-dropping,
+    .image-upload-wrap:hover {
+        background-color: #acb2b1;
+        border: 1px dashed #ffffff;
+    }
+
+    .image-title-wrap {
+        padding: 0 15px 15px 15px;
+        color: #222;
+    }
+
+    .drag-text {
+        text-align: center;
+    }
+
+    .drag-text h3 {
+        font-weight: 100;
+        text-transform: uppercase;
+        color: #bdd5dc;
+        padding: 60px 0;
+    }
+
+    .file-upload-image {
+        max-height: 200px;
+        max-width: 200px;
+        margin: auto;
+        padding: 20px;
+    }
+
+    .remove-image {
+
+        margin: 0;
+        color: #fff;
+        background: #cd4535;
+        border: none;
+        padding: 10px;
+        border-radius: 1px;
+        border-bottom: 1px solid #b02818;
+        transition: all .2s ease;
+        outline: none;
+        text-transform: uppercase;
+    }
+
+    .remove-image:hover {
+        background: #c13b2a;
+        color: #ffffff;
+        transition: all .2s ease;
+        cursor: pointer;
+    }
+
+    .remove-image:active {
+        border: 0;
+        transition: all .2s ease;
+    }
+</style>
+
+<style>
 
     .img-container {
         display: flex;
@@ -94,13 +207,11 @@
                             @if(isset($baseProductTemplates))
                                 @foreach($baseProductTemplates as $image)
                                     <?php $content = json_decode($image->content, true)?>
-
                                     @foreach($content['images'] as $img )
                                         <div class="col-md-3 col-sm-4 col-6">
                                             <img class="img-base-polaroid tt" width="50" height="50" src="{{$img}}" alt="pic" style="margin: 0 auto; width: 80px; height: 100px;"/>
                                         </div>
                                     @endforeach
-
                                 @endforeach
                             @endif
                         </div>
@@ -111,14 +222,41 @@
                     <div class="well text-center">
                         <br>
                         <h6>Добавяне на щампа
-                            <form hidden id="form1" runat="server">
-                                <input hidden type='file' id="imgInp"/>
-                            </form>
 
-                            <button id="addimg" class="btn btn-primary">
-                                <i style="font-size: 15px;" class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
+                            <div class="file-upload">
+                                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+
+                                <div class="image-upload-wrap">
+                                    <input class="file-upload-input" type='file' id="imgInp" onchange="readURL(this);" accept="image/*" />
+                                    <div class="drag-text">
+                                        <h3>Drag and drop a file or select add Image</h3>
+                                    </div>
+                                </div>
+                                <div class="file-upload-content">
+                                    <img class="img-polaroid file-upload-image" src="#" alt="your image" />
+                                    <div class="image-title-wrap">
+                                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--
+                                                        <br><br><br>
+
+                                                        <form hidden id="form1" runat="server">
+                                                            <input hidden type='file' id=""/>
+                                                        </form>
+
+
+
+
+                                                        <button id="addimg" class="btn btn-primary">
+                                                            <i style="font-size: 15px;" class="fa fa-plus" aria-hidden="true"></i>
+                                                        </button>
+                                                         -->
                         </h6>
+
+
                         <hr>
                         <div id="avatarlist" class="img-container style-scroll">
                             @if(isset($printTemplates))
@@ -198,19 +336,27 @@
                         </div>
 
                         <div class="input-append">
-                            <input class="span2" id="text-string" type="text" placeholder="">
-                            <button id="add-text" class="btn btn-primary" title="Добави">
+                            <textarea name="" id="text-string" class="form-control" cols="2" rows="3"></textarea>
+
+                            <button id="add-text" class="btn btn-primary" title="Добави" style="width: 10em; margin: 8px;">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea-t" viewBox="0 0 16 16">
                                     <path d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874V2.5zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5v3.563zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
                                     <path d="M11.434 4H4.566L4.5 5.994h.386c.21-1.252.612-1.446 2.173-1.495l.343-.011v6.343c0 .537-.116.665-1.049.748V12h3.294v-.421c-.938-.083-1.054-.21-1.054-.748V4.488l.348.01c1.56.05 1.963.244 2.173 1.496h.386L11.434 4z"/>
                                 </svg>
                             </button>
+                            <hr>
+                            ddddd <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
+                            <output id="range_weight_disp"></output>
+                            <hr>
+                            ddddd <input type="range" data-width="530" data-height="630" name="resize_percent" id="range_weight" value="100" min="1" max="100" oninput="range_weight_disp.value = range_weight.value">
+                            <output id="range_weight_disp"></output>
+
                         </div>
                     </div>
                 </div>
             </div>
 
-            <hr>
+
 
             <div class="text-center">
                 <p style="font-family: 'Telex',sans-serif;font-weight: bold;line-height: 1;color: #317eac;text-rendering: optimizelegibility;"></p>
@@ -303,4 +449,44 @@
 
 <!-- Shop End -->
 @include('designer.designer_scripts')
+
+
+
+<script>
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                $('.image-upload-wrap').hide();
+
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
+
+                $('.image-title').html(input.files[0].name);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            removeUpload();
+        }
+    }
+
+    function removeUpload() {
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+</script>
+
+
+
 @endsection
